@@ -6,7 +6,7 @@ import './globals.css';
 const baskinRobbinsBold = localFont({
   src: './fonts/BaskinRobbins-Bold.woff',
   weight: '400',
-  variable: '--font-baskin-robbins-bold',
+  variable: '--font-baskin-robbins',
 });
 
 const notoSansKr = Noto_Sans_KR({
