@@ -1,0 +1,40 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100;300;400;500;700;900&display=swap');
+
+@font-face {
+    font-family: 'BaskinRobbins-Bold';
+    src: url('../src/app/fonts/BaskinRobbins-Bold.woff') format('woff');
+    font-display:swap;
+  }
+
+:root {
+  /* Fonts */
+  --font-baskin-robbins: 'BaskinRobbins-Bold', sans-serif;
+  --font-noto-sans-kr: 'Noto Sans KR', sans-serif;
+
+  /* Core colors */
+  --color-black: #0f0f0f;
+  --color-white: #ffffff;
+
+  /* Grays */
+  --color-gray-100: #eeeeee;
+  --color-gray-200: #dddddd;
+  --color-gray-300: #a4a4a4;
+  --color-gray-400: #5a5a5a;
+  --color-gray-500: #161616;
+
+  /* Brand colors */
+  --color-main: #efff04;
+  --color-red: #ff483d;
+  --color-blue: #29c9f9;
+  --color-purple: #a77eff;
+  --color-pink: #ff2a6a;
+}
+
+/* 기본 폰트 설정 */
+body {
+  font-family: var(--font-noto-sans-kr);
+}
