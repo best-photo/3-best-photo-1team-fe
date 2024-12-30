@@ -16,8 +16,8 @@ const notoSansKr = Noto_Sans_KR({
 });
 
 export const metadata: Metadata = {
-  title: '최애의 아이',
-  description: '최애의 아이에 오신 것을 환영합니다.',
+  title: '최애의 포토',
+  description: '최애의 포토에 오신 것을 환영합니다.',
 };
 
 export default function RootLayout({
