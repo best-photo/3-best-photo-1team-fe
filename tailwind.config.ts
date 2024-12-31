@@ -12,7 +12,7 @@ const config: Config = {
         // Core colors
         black: 'var(--color-black)',
         white: 'var(--color-white)',
-        
+
         // Grays
         gray: {
           100: 'var(--color-gray-100)',
@@ -21,7 +21,7 @@ const config: Config = {
           400: 'var(--color-gray-400)',
           500: 'var(--color-gray-500)',
         },
-        
+
         // Brand colors
         main: 'var(--color-main)',
         red: 'var(--color-red)',
@@ -32,8 +32,12 @@ const config: Config = {
       fontFamily: {
         noto: ['var(--font-noto-sans-kr)'],
         baskin: ['var(--font-baskin-robbins)'],
-
       },
+      screens: {
+        lg: 'var(--screen-lg)',
+        md: 'var(--screen-md)',
+        sm: 'var(--screen-sm)',
+      }
     },
   },
   plugins: [],
