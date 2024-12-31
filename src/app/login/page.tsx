@@ -95,7 +95,7 @@ const Login: React.FC = () => {
 
     try {
       // const response = await authAPI.signIn({ email, password });
-      const response = { status: 200 }; //
+      const response = { status: 200 }; // 임시 코드
       if (response.status === 200) {
         setModalMessage(loginSuccessMessage); // 성공 메시지 설정
         setIsModalOpen(true); // 모달 열기
@@ -129,7 +129,7 @@ const Login: React.FC = () => {
   }, [isModalOpen, modalMessage, router]);
 
   return (
-    <div className='bg-black text-white h-screen pt-[100px]'>
+    <div className='bg-black text-white min-h-screen pt-[100px] pb-[50px]'>
       <header className='loginHeader mb-[40px]'>
         <div className='headerInner w-[396px] mx-auto text-center'>
           <Link href='/'>
