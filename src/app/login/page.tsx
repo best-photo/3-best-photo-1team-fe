@@ -159,10 +159,8 @@ const Login: React.FC = () => {
                 <button
                   type='button'
                   onClick={() => setEmail('')}
-                  className='clearBtn absolute bottom-[17px] right-[18px] w-[22px] h-[22px] rounded-full text-white bg-black border-none font-semibold'
-                >
-                  X
-                </button>
+                  className='clearBtn absolute bottom-[17px] right-[18px] w-[22px] h-[22px] rounded-full text-white bg-black border-none font-semibold bg-[url(/icons/close.svg)] bg-no-repeat bg-[center_top_1px]'
+                ></button>
               )}
               {emailAlert && (
                 <span className='labelAlert text-main text-[15px] leading-[17.9px] font-semibold absolute bottom-[-27px] left-[16px]'>
@@ -198,10 +196,8 @@ const Login: React.FC = () => {
                   <button
                     type='button'
                     onClick={() => setPassword('')}
-                    className='clearBtn absolute bottom-[17px] right-[18px] w-[22px] h-[22px] rounded-full text-white bg-gary-100 border-none font-semibold'
-                  >
-                    X
-                  </button>
+                    className='clearBtn absolute bottom-[17px] right-[18px] w-[22px] h-[22px] rounded-full text-white bg-gary-100 border-none font-semibold bg-[url(/icons/close.svg)] bg-no-repeat bg-[center_top_1px]'
+                  ></button>
                 </>
               )}
               {passwordAlert && (
