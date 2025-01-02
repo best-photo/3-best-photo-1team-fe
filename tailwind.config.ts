@@ -34,9 +34,9 @@ const config: Config = {
         baskin: ['var(--font-baskin-robbins)'],
       },
       screens: {
-        lg: 'var(--screen-lg)',
-        md: 'var(--screen-md)',
-        sm: 'var(--screen-sm)',
+        sm: '375px',
+        md: '744px',
+        lg: '1200px',
       }
     },
   },
