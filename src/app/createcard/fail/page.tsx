@@ -36,7 +36,7 @@ export default function CreatePhotoSuccess() {
           onClick={handleNavigation}
           className="mt-[150px] lg:w-[440px] md:w-[226px] sm:w-[226px] lg:text-[18px] md:text-[16px]"
         >
-          마이갤러리에서 확인하기
+          마이갤러리로 돌아가기
         </CommonBtn>
       </div>
     </div>
