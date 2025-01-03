@@ -2,6 +2,7 @@
 
 import React, { useState, ChangeEvent, useEffect, useRef } from "react";
 import { useRouter } from "next/navigation";
+import { CommonBtn } from "@/src/components/common/CommonBtn/CommonBtn";
 import Image from "next/image";
 
 export default function CreatePhotoCard() {
@@ -302,12 +303,15 @@ export default function CreatePhotoCard() {
             <span className="text-red text-[16px]">{errors.description}</span>
           )}
         </div>
-        <button
+        <CommonBtn
+          variant="primary"
+          width="custom"
+          heightPreset={2}
           type="submit"
-          className="w-[520px] h-[60px] rounded-[2px] bg-main text-[1.125rem] font-bold text-black border-0 mt-[20px] mb-[50px]"
+          className="my-[30px] lg:w-[520px] md:w-[440px] sm:w-[345px]"
         >
           생성하기
-        </button>
+        </CommonBtn>
       </form>
 
       {/* 모달 */}
