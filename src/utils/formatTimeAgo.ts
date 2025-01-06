@@ -6,11 +6,17 @@ export function formatTimeAgo(updatedAt: string) {
   const WEEKS_IN_MONTH = 4; // 1개월의 주 수 (대략적인 값)
   const DAYS_IN_MONTH = 30; // 1개월의 일수 (대략적인 값)
   const MONTHS_IN_YEAR = 12; // 1년의 개월 수
+  const ONE_MINUTE = 1; // 1분
 
   const now = new Date();
   const updatedDate = new Date(updatedAt);
   const diffInMs = Math.abs(now.getTime() - updatedDate.getTime());
   const diffInMinutes = Math.floor(diffInMs / MS_IN_MINUTE);
+
+  // 1분 미만일 경우 '방금 전'으로 처리
+  if (diffInMinutes < ONE_MINUTE) {
+    return '방금 전';
+  }
 
   if (diffInMinutes < MINUTES_IN_HOUR) {
     return `${diffInMinutes}분 전`;
