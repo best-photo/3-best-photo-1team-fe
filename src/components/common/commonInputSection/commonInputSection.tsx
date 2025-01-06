@@ -1,6 +1,6 @@
 import { FieldValues } from 'react-hook-form';
 import { CommonInputSectionProps } from './commonInputSection.types';
-import cn from '@/src/lib/cn';
+import cn from '@/src/utils/cn';
 import { useState } from 'react';
 import Visible from '@/public/icons/visibility/visible.svg';
 import Invisible from '@/public/icons/visibility/invisible.svg';
