@@ -57,7 +57,7 @@ export default function MarketplaceHeader({
   };
 
   return (
-    <div className='w-[1480px] h-[63px] flex justify-between items-center mx-auto'>
+    <div className='w-[1480px] h-[63px] flex justify-between items-center mx-auto '>
       <div
         className='w-[320px] h-[63px] text-[62px] font-normal leading-[63.49px] tracking-[-0.03em] text-left'
         style={{ fontFamily: 'var(--font-baskin-robbins)' }}
