@@ -15,7 +15,7 @@ export default function Home() {
   return (
     <>
       <GNB />
-      <div className='bg-black text-white min-h-screen'>
+      <div className='bg-black text-white min-h-screen pt-[60px]'>
         <MarketplaceHeader
           isAlertVisible={isAlertVisible}
           setAlertVisible={setAlertVisible}
