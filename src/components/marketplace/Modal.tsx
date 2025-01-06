@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import Image from 'next/image';
-import Dropdown from './DropDown';
-import SearchInput from './SearchInput';
+import Dropdown from '../common/CommonDropDown/DropDown';
+import SearchInput from '../common/CommonSearchBox/SearchInput';
 
 export function Modal({
   onClose,

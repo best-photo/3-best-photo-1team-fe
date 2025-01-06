@@ -1,5 +1,5 @@
 import Image from 'next/image';
-import Dropdown from './DropDown';
+import Dropdown from '../common/CommonDropDown/DropDown';
 import { useState } from 'react';
 
 export default function PhotoCardDetailModal({
