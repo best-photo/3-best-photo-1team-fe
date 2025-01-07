@@ -6,7 +6,7 @@ import ResultLayout from "@/src/components/SuccessOrFail/ResultsLayout";
 import { ResultsProps } from "@/src/components/SuccessOrFail/result";
 import { CommonBtn } from "@/src/components/common/CommonBtn/CommonBtn";
 
-export default function CreatePhotoSuccess() {
+export default function CreatePhotoFail() {
   const router = useRouter();
   const searchParams = useSearchParams();
   const name = searchParams.get("name");
@@ -19,7 +19,7 @@ export default function CreatePhotoSuccess() {
   const result: ResultsProps = {
     variant: "포토카드 생성",
     isSuccess: false,
-    text: `[${grade?.toUpperCase()} | ${name}] 포토카드 생성에 실패했습니다.`,
+    text: `[${grade?.toUpperCase() || '-'} | ${name || '-'}] 포토카드 생성에 실패했습니다.`,
     backPathUrl: "/mygallery",
   };
 

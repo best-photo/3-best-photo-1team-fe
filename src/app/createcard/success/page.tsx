@@ -19,7 +19,7 @@ export default function CreatePhotoSuccess() {
   const result: ResultsProps = {
     variant: "포토카드 생성",
     isSuccess: true,
-    text: `[${grade?.toUpperCase()} | ${name}] 포토카드 생성에 성공했습니다!`,
+    text: `[${grade?.toUpperCase() || '-'} | ${name || '-'}] 포토카드 생성에 성공했습니다!`,
     backPathUrl: "/mygallery",
   };
 
