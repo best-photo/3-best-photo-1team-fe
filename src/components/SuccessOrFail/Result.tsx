@@ -1,6 +1,7 @@
 "use client";
 
 import React from "react";
+import Image from "next/image";
 import { useRouter } from "next/navigation";
 
 // 타입 정의
@@ -28,16 +29,18 @@ export default function ResultSection({ result }: ResultsLayoutProps) {
     <div className="flex justify-center items-center fixed inset-0 bg-black">
       <div className="mb-44 relative">
         {/* Close Icon for Desktop and Tablet */}
-        <img
+        <Image
           src="/icons/close.svg"
           alt="닫기"
+          width={36} height={36}
           className="absolute right-[-120px] hover:cursor-pointer hidden md:block"
           onClick={handleNavigation}
         />
         {/* Back Icon for Mobile */}
-        <img
+        <Image
           src="/icons/direction/back.svg"
           alt="뒤로 가기"
+          width={36} height={36}
           className="absolute left-[20px] md:hidden cursor-pointer"
           onClick={handleNavigation}
         />
