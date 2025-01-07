@@ -1,6 +1,6 @@
 export type ResultsProps = {
   variant: "판매" | "구매" | "교환 제시" | "포토카드 생성";
-  isSuccess: Boolean;
+  isSuccess: boolean;
   text: string;
   backPathUrl: string;
 }
