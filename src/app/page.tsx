@@ -3,7 +3,6 @@
 import React, { useState } from 'react';
 import MarketplaceHeader from '../components/marketplace/MarketplaceHeader';
 import MarketplaceSearchBox from '../components/marketplace/MarketplaceSearchBox';
-import GNB from '../components/layout/GNB/GNB';
 
 export default function Home() {
   const [isAlertVisible, setAlertVisible] = useState(false);
@@ -14,7 +13,6 @@ export default function Home() {
 
   return (
     <>
-      <GNB />
       <div className='bg-black text-white min-h-screen pt-[60px]'>
         <MarketplaceHeader
           isAlertVisible={isAlertVisible}
