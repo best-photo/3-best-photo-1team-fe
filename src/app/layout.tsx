@@ -2,8 +2,6 @@ import type { Metadata } from 'next';
 import { Noto_Sans_KR } from 'next/font/google';
 import localFont from 'next/font/local';
 import './globals.css';
-import GNB from '@/src/components/layout/GNB/GNB';
-import PaddingHandler from './PaddingHandler';
 
 const baskinRobbinsBold = localFont({
   src: './fonts/BaskinRobbins-Bold.woff',
@@ -32,11 +30,7 @@ export default function RootLayout({
       <body
         className={`${notoSansKr.variable} ${baskinRobbinsBold.variable} antialiased flex flex-col min-h-screen `}
       >
-        <GNB />
-
-        <PaddingHandler>
-          <main className='flex-grow'>{children}</main>
-        </PaddingHandler>
+        {children}
       </body>
     </html>
   );
