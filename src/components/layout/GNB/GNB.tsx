@@ -8,17 +8,11 @@ import MobileNavDefault from './MobileNavDefault';
 import { useNotificationStore } from '@/src/store/useNotificationStore';
 import MobileNavWithBack from './MobileNavWithBack';
 import MobileNotificationMessages from './MobileNotificationMessages';
-import { hiddenRoutes } from '@/src/app/PaddingHandler';
 
 const GNB = () => {
   const pathname = usePathname();
   const isMyGallery = pathname.split('/')[1] === 'my-gallery';
   const { isNotificationOpen, closeNotification } = useNotificationStore();
-
-  // hiddenRoutes에 해당하는 페이지에서는 Nav를 숨김
-  if (Object.values(hiddenRoutes).includes(pathname)) {
-    return null; // Nav를 렌더링하지 않음
-  }
 
   // 알림 목록이 열려있을 때, GNB를 클릭하면 알림 목록을 닫음
   const handleCloseNotifications = () => {
