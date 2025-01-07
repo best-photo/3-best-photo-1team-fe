@@ -13,7 +13,7 @@ function ResultLayout({ result }: ResultsLayoutProps) {
   };
 
   return (
-    <div className="flex justify-center items-center fixed inset-0 bg-black bg-opacity-50">
+    <div className="flex justify-center items-center fixed inset-0 bg-black">
       <div className="mb-44 relative">
         {/* Close Icon for Desktop and Tablet */}
         <img
