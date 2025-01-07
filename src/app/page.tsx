@@ -13,7 +13,7 @@ export default function Home() {
 
   return (
     <>
-      <div className='bg-black text-white min-h-screen pt-[60px]'>
+      <div className='min-h-screen pt-[60px]'>
         <MarketplaceHeader
           isAlertVisible={isAlertVisible}
           setAlertVisible={setAlertVisible}

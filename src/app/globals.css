@@ -31,4 +31,6 @@
 /* 기본 폰트 설정 */
 body {
   font-family: var(--font-noto-sans-kr);
+  background-color: var(--color-black);
+  color: var(--color-white);
 }
