@@ -4,8 +4,8 @@ import CommonInputSection from '@/src/components/common/commonInputSection/commo
 import { useForm } from 'react-hook-form';
 import Link from 'next/link';
 import { useState, useEffect } from 'react';
-// import { authAPI } from '../../services/경로는나중에';
 import { useRouter } from 'next/navigation';
+// import { authAPI } from '../../services/경로는나중에';
 
 interface SignUpData {
   email: string;
