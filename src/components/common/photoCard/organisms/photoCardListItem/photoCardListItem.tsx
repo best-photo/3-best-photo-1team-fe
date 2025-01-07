@@ -42,16 +42,16 @@ export default function PhotoCardListItem(props: PhotoCardListItemProps) {
       <h1 className='text-[14px] md:text-[22px] lg:text-[22px] font-bold mb-[5px] md:mb-[10px] lg:mb-[10px]'>
         {props.cardName}
       </h1>
-      <div className={isSecondary ? 'mb-10' : ''}>
+      <div className={isSecondary ? 'mb-5 md:mb-10' : ''}>
         <CardInformationHeader
-          textSize={props.textSize}
+          textSize='small'
           fontWeight={props.fontWeight}
           grade={props.grade}
           genre={props.genre}
           nickname={props.nickname}
           price={isSecondary ? props.price : undefined}
         />
-        <HorizontalDivider className='mb-[20px] mt-[20px]' />
+        <HorizontalDivider className='mb-[10px] md:mb-5 mt-[10px] md:mt-[20px]' />
         {isSecondary && (
           <Description variant='primary'>{props.description}</Description>
         )}

@@ -1,9 +1,8 @@
 import { StaticImport } from 'next/dist/shared/lib/get-img-props';
-import { FontWeight, Genres, Grades, TextSize } from '../../types';
+import { FontWeight, Genres, Grades } from '../../types';
 import { CardState } from '../../atoms/stateBadge/stateBadge.types';
 
 interface BaseProps {
-  textSize: TextSize;
   fontWeight: FontWeight;
   cardName: string;
   grade: Grades;
