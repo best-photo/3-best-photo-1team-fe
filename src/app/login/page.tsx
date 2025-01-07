@@ -1,121 +1,62 @@
 'use client';
 
-import React, { useState, useEffect, ChangeEvent, FormEvent } from 'react';
+import CommonInputSection from '@/src/components/common/commonInputSection/commonInputSection';
+import { useForm } from 'react-hook-form';
+import { useState, useEffect } from 'react';
 import Link from 'next/link';
 // import { authAPI } from '../../services/경로는나중에';
 import { useRouter } from 'next/navigation';
 
-const Login: React.FC = () => {
-  const [email, setEmail] = useState<string>('');
-  const [password, setPassword] = useState<string>('');
-  const [showPassword, setShowPassword] = useState<boolean>(false);
-  const [emailAlert, setEmailAlert] = useState<string>('');
-  const [passwordAlert, setPasswordAlert] = useState<string>('');
-  const [isLoginActive, setIsLoginActive] = useState<boolean>(false);
+interface LoginData {
+  email: string;
+  password: string;
+}
+
+export default function Login() {
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
   const [modalMessage, setModalMessage] = useState<string>('');
   const router = useRouter();
 
-  // 페이지 접근 시 유저 조건 확인
-  // useEffect(() => {
-  //   const 조건 = 유저 정보 조건
-  //   if (조건) {
-  //     router.push('/'); // 유저가 있으면 특정 페이지로 이동
-  //   }
-  // }, [router]);
+  const {
+    register,
+    handleSubmit,
+    watch,
+    // errors : 폼의 에러 상태를 담고 있는 객체
+    // isValid : 폼의 유효성 여부
+    formState: { errors, isValid },
+    // <> 안에 form data의 타입을 입력해주세요.
+  } = useForm<LoginData>({
+    // validation이 일어나는 조건을 설정합니다. onChange:값이 바뀔 때, onBlur:입력창을 벗어날 때,onSubmit:submit할 때
+    mode: 'onChange',
+  });
 
-  const validateEmail = (email: string): boolean => {
-    return /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/.test(email);
-  };
+  // form에서 name이 email인 필드의 값을 감시합니다.
+  const email = watch('email');
+  const password = watch('password');
+  // email과 password의 입력 여부와 모두 유효한 값인지 확인합니다.
+  const buttonActive = email && password && isValid;
 
-  const validatePassword = (password: string): boolean => {
-    return password.length >= 8;
-  };
-
-  useEffect(() => {
-    setIsLoginActive(validateEmail(email) && validatePassword(password));
-  }, [email, password]);
-
-  const handleEmailChange = (e: ChangeEvent<HTMLInputElement>) => {
-    const newEmail = e.target.value;
-    setEmail(newEmail);
-
-    if (emailAlert === '이메일을 입력해주세요.' && newEmail !== '') {
-      setEmailAlert('');
-    }
-    if (emailAlert === '잘못된 이메일 형식입니다.' && validateEmail(newEmail)) {
-      setEmailAlert('');
-    }
-  };
-
-  const handleEmailBlur = () => {
-    if (email === '') {
-      setEmailAlert('이메일을 입력해주세요.');
-    } else if (!validateEmail(email)) {
-      setEmailAlert('잘못된 이메일 형식입니다.');
-    } else {
-      setEmailAlert('');
-    }
-  };
-
-  const handlePasswordChange = (e: ChangeEvent<HTMLInputElement>) => {
-    const newPassword = e.target.value;
-    setPassword(newPassword);
-
-    if (passwordAlert === '비밀번호를 입력해주세요.' && newPassword !== '') {
-      setPasswordAlert('');
-    }
-    if (
-      passwordAlert === '비밀번호를 8자 이상 입력해주세요.' &&
-      validatePassword(newPassword)
-    ) {
-      setPasswordAlert('');
-    }
-  };
-
-  const handlePasswordBlur = () => {
-    if (password === '') {
-      setPasswordAlert('비밀번호를 입력해주세요.');
-    } else if (!validatePassword(password)) {
-      setPasswordAlert('비밀번호를 8자 이상 입력해주세요.');
-    } else {
-      setPasswordAlert('');
-    }
-  };
-
-  const toggleShowPassword = () => {
-    setShowPassword((prev) => !prev);
-  };
-
-  const loginSuccessMessage = '로그인 성공!\n마켓 플레이스로 이동합니다.';
-
-  const handleLoginSubmit = async (e: FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-    if (!isLoginActive) return;
-
+  // form을 submit할 때 실행할 함수입니다. react-hook-form의 handleSubmit함수 안에 입력해주세요. 파라미터로는 form data를 받습니다.
+  // 만약 form data를 그대로 받아서 실행하는 함수가 있다면 onSubmit함수는 생략하고 바로 handleSubmit에 입력해도 됩니다.
+  const onSubmit = async (data: LoginData) => {
+    // console.log(data);
     try {
-      // const response = await authAPI.signIn({ email, password });
-      const response = { status: 200 }; // 임시 코드
+      // const response = await authAPI.signin(data);
+      const response = { status: 200 }; // 임시
       if (response.status === 200) {
-        setModalMessage(loginSuccessMessage); // 성공 메시지 설정
-        setIsModalOpen(true); // 모달 열기
+        setModalMessage(loginSuccessMessage);
+        setIsModalOpen(true);
+        // localStorage.setItem('token', response.data.token);
       }
     } catch (error: any) {
-      if (error.response) {
-        const { status, data } = error.response;
-
-        // 서버 메시지 활용
-        const errorMessage = data?.message || '알 수 없는 오류가 발생했습니다.';
-        setModalMessage(errorMessage);
-
-        // 상태 코드 로깅 (디버깅 용도)
-        console.log(`Error ${status}: ${errorMessage}`);
-      } else {
-        setModalMessage('네트워크 오류가 발생했습니다.\n다시 시도해주세요.');
-      }
+      const errorMessage =
+        error.response?.data?.message || '알 수 없는 오류가 발생했습니다.';
+      setModalMessage(errorMessage);
       setIsModalOpen(true);
     }
   };
+
+  const loginSuccessMessage = '로그인 성공!\n마켓 플레이스로 이동합니다.';
 
   const closeModal = () => {
     setIsModalOpen(false); // 모달 닫기
@@ -140,88 +81,54 @@ const Login: React.FC = () => {
         </div>
       </header>
       <div className='loginWrap max-w-[520px] min-w-[350px] mx-auto mb-[50px] w-[60%]'>
-        <form onSubmit={handleLoginSubmit}>
-          <div className='loginBox h-[342px] flex flex-col justify-between'>
-            <div className='inputItem h-[98px] relative'>
-              <label className='textLabel font-bold text-[18px] text-white'>
-                이메일
-              </label>
-              <input
-                type='text'
-                value={email}
-                onChange={handleEmailChange}
-                onBlur={handleEmailBlur}
-                placeholder='이메일을 입력해주세요'
-                className='inputId px-[16px] py-[16px] w-full text-[16px] my-[16px] mb-[24px] bg-black h-[60px] border border-gray-200 focus:outline-none focus:border-2 focus:border-white'
-                tabIndex={1}
-              />
-              {email && (
-                <button
-                  type='button'
-                  onClick={() => setEmail('')}
-                  className='clearBtn absolute bottom-[17px] right-[18px] w-[22px] h-[22px] rounded-full text-white bg-black border-none font-semibold bg-[url(/icons/close.svg)] bg-no-repeat bg-[center_top_1px]'
-                ></button>
-              )}
-              {emailAlert && (
-                <span className='labelAlert text-main text-[15px] leading-[17.9px] font-semibold absolute bottom-[-27px] left-[16px]'>
-                  {emailAlert}
-                </span>
-              )}
-            </div>
-
-            <div className='inputItem h-[98px] relative'>
-              <label className='textLabel font-bold text-[18px] text-white'>
-                비밀번호
-              </label>
-              <input
-                type={showPassword ? 'text' : 'password'}
-                value={password}
-                onChange={handlePasswordChange}
-                onBlur={handlePasswordBlur}
-                placeholder='비밀번호를 입력해주세요'
-                className='inputPw px-[16px] py-[16px] w-full text-[16px] mt-[16px] bg-black h-[60px] border border-gray-200 focus:outline-none focus:border-2 focus:border-white'
-                tabIndex={2}
-              />
-              {password && (
-                <>
-                  <button
-                    type='button'
-                    onClick={toggleShowPassword}
-                    className={`showPw absolute bottom-[15px] right-[53px] w-[22px] h-[22px] bg-no-repeat bg-center ${
-                      showPassword
-                        ? "bg-[url('/icons/visibility/visible.svg')]"
-                        : "bg-[url('/icons/visibility/invisible.svg')]"
-                    }`}
-                  ></button>
-                  <button
-                    type='button'
-                    onClick={() => setPassword('')}
-                    className='clearBtn absolute bottom-[17px] right-[18px] w-[22px] h-[22px] rounded-full text-white bg-gary-100 border-none font-semibold bg-[url(/icons/close.svg)] bg-no-repeat bg-[center_top_1px]'
-                  ></button>
-                </>
-              )}
-              {passwordAlert && (
-                <span className='labelAlert text-main text-[15px] leading-[17.9px] font-semibold absolute bottom-[-27px] left-[16px]'>
-                  {passwordAlert}
-                </span>
-              )}
-            </div>
-
-            <button
-              type='submit'
-              className={`btnLogin w-full h-[60px] font-semibold text-[20px] border-none ${
-                isLoginActive
-                  ? 'cursor-pointer bg-main text-black'
-                  : 'cursor-default bg-gray-300 text-white'
-              }`}
-              disabled={!isLoginActive}
-              tabIndex={3}
-            >
-              로그인
-            </button>
-          </div>
+        <form
+          className='max-w-[500px] flex flex-col items-center'
+          onSubmit={handleSubmit(onSubmit)}
+        >
+          <CommonInputSection<LoginData>
+            register={register}
+            errors={errors}
+            // 인풋창 위에 있는 label에 표시될 텍스트를 입력합니다.
+            label='이메일'
+            // input type을 입력합니다. (text,number,password 등)
+            type='email'
+            // input name을 입력합니다. react-hook-form에서 필드를 구분할 때 사용됩니다.
+            name='email'
+            // 인풋의 placeholder를 입력합니다.
+            placeholder='이메일을 입력해주세요'
+            // 입력된 값에 대한 유효성 검사를 입력합니다.
+            // required의 경우 해당 필드를 필수 값으로 설정하고 입력되지 않으면 보여줄 에러메시지를 설정합니다.
+            // 그 외 validation에 대해선 공식문서를 통해 확인할 수 있습니다. https://react-hook-form.com/docs/useform/register
+            validation={{
+              required: '이메일을 입력해주세요',
+              pattern: {
+                value: /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/,
+                message: '잘못된 이메일입니다',
+              },
+            }}
+          />
+          <CommonInputSection<LoginData>
+            register={register}
+            errors={errors}
+            label='비밀번호'
+            type='password'
+            name='password'
+            placeholder='비밀번호를 입력해주세요'
+            validation={{
+              required: '비밀번호를 입력해주세요',
+              minLength: {
+                value: 8,
+                message: '비밀번호를 8자 이상 입력해주세요',
+              },
+            }}
+          />
+          <button
+            disabled={!buttonActive}
+            className='w-full h-[60px] cursor-pointer bg-main text-black font-semibold text-[16px] lg:text-[18px] disabled:bg-gray-300 disabled:text-white'
+          >
+            로그인
+          </button>
         </form>
-
         <div className='signup text-center font-medium text-[16px] mt-[24px]'>
           최애의포토가 처음이신가요?{' '}
           <Link
@@ -232,7 +139,6 @@ const Login: React.FC = () => {
           </Link>
         </div>
       </div>
-
       {isModalOpen && (
         <div
           className='modalBackdrop fixed top-0 left-0 w-full h-full backdrop-blur z-10'
@@ -261,6 +167,4 @@ const Login: React.FC = () => {
       )}
     </div>
   );
-};
-
-export default Login;
+}
