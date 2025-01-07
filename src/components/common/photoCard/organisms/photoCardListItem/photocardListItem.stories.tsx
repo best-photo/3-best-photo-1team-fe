@@ -2,6 +2,8 @@ import { Meta, StoryFn } from '@storybook/react';
 import PhotoCardListItem from './photoCardListItem';
 import defaultPhoto from '@/public/images/sample-image-1.webp';
 import { GENRES } from '@/src/constants/photoCardInformation';
+import { PhotoCardListItemProps } from './photoCardListItem.types';
+import { PhotoCardListItemCodeSnippet } from './codeExample';
 
 export default {
   title: 'common/organisms/PhotoCard',
@@ -41,12 +43,6 @@ export default {
         type: 'number',
       },
     },
-    textSize: {
-      control: 'select',
-      options: ['small', 'big'],
-      description: '텍스트 사이즈',
-      defaultValue: 'small',
-    },
   },
 } satisfies Meta<typeof PhotoCardListItem>;
 
@@ -56,7 +52,7 @@ const Template: StoryFn<typeof PhotoCardListItem> = (args) => (
 
 export const ReceivedTradeCard = Template.bind({});
 
-ReceivedTradeCard.args = {
+const ReceivedTradeCardProps = {
   cardName: '카드카드',
   grade: 'legendary',
   genre: 'stillLife',
@@ -64,16 +60,20 @@ ReceivedTradeCard.args = {
   price: 5,
   image: defaultPhoto,
   variant: 'trade',
-  textSize: 'small',
   description:
     '카드 설명서 카드 설명서 카드 설명서 카드 설명서 카드 설명서 카드 설명서 카드 설명서 카드 설명서 카드 설명서 카드 설명서 카드 설명서 카드 설명서 ',
   onDecline: () => console.log(''),
   onConfirm: () => console.log(''),
+} as PhotoCardListItemProps;
+
+ReceivedTradeCard.args = ReceivedTradeCardProps;
+ReceivedTradeCard.parameters = {
+  codeExample: PhotoCardListItemCodeSnippet(ReceivedTradeCardProps),
 };
 
 export const SubmittedTradeCard = Template.bind({});
 
-SubmittedTradeCard.args = {
+const SubmittedTradeCardProps = {
   cardName: '카드카드',
   grade: 'legendary',
   genre: 'stillLife',
@@ -81,10 +81,14 @@ SubmittedTradeCard.args = {
   price: 5,
   image: defaultPhoto,
   variant: 'trade',
-  textSize: 'small',
   description:
     '카드 설명서 카드 설명서 카드 설명서 카드 설명서 카드 설명서 카드 설명서 카드 설명서 카드 설명서 카드 설명서 카드 설명서 카드 설명서 카드 설명서 ',
   onCancel: () => console.log(''),
+} as PhotoCardListItemProps;
+
+SubmittedTradeCard.args = SubmittedTradeCardProps;
+SubmittedTradeCard.parameters = {
+  codeExample: PhotoCardListItemCodeSnippet(SubmittedTradeCardProps),
 };
 
 SubmittedTradeCard.argTypes = {
@@ -97,7 +101,7 @@ SubmittedTradeCard.argTypes = {
 
 export const MyCardList = Template.bind({});
 
-MyCardList.args = {
+const MyCardListProps = {
   cardName: '우리집 앞마당',
   grade: 'legendary',
   genre: 'landscape',
@@ -106,14 +110,17 @@ MyCardList.args = {
   image: defaultPhoto,
   variant: 'amount',
   totalAmount: 5,
-  textSize: 'small',
   state: 'trading',
   soldAmount: 1,
+} as PhotoCardListItemProps;
+
+MyCardList.args = MyCardListProps;
+MyCardList.parameters = {
+  codeExample: PhotoCardListItemCodeSnippet(MyCardListProps),
 };
 
 export const MarketPlaceCard = Template.bind({});
-
-MarketPlaceCard.args = {
+const MarketPlaceCardProps = {
   cardName: '우리집 앞마당',
   grade: 'legendary',
   genre: 'landscape',
@@ -123,5 +130,9 @@ MarketPlaceCard.args = {
   variant: 'amount',
   totalAmount: 5,
   soldAmount: 5,
-  textSize: 'small',
+} as PhotoCardListItemProps;
+
+MarketPlaceCard.args = MarketPlaceCardProps;
+MarketPlaceCard.parameters = {
+  codeExample: PhotoCardListItemCodeSnippet(MarketPlaceCardProps),
 };
