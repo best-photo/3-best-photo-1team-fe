@@ -24,7 +24,7 @@ export default function CreatePhotoFail() {
   };
 
   return (
-    <div className="flex justify-center items-center fixed inset-0 bg-black bg-opacity-50">
+    <div className="flex justify-center items-center fixed inset-0 bg-black">
       <div className="z-10">
         <ResultLayout result={result} />
       </div>
