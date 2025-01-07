@@ -15,6 +15,11 @@ const FONT_WEIGHT = {
   bold: 'font-bold',
 };
 
+const GAP = {
+  big: 'gap-[10px] md:gap-[10px] lg:gap-[15px]',
+  small: 'gap-[5px] md:gap-[10px]',
+};
+
 export default function CardInformationHeader({
   textSize,
   fontWeight,
@@ -31,8 +36,13 @@ export default function CardInformationHeader({
         FONT_WEIGHT[fontWeight],
       )}
     >
-      <div className='text-gray-300 gap-[10px] flex flex-col md:flex-col lg:flex-row'>
-        <div className='flex gap-[10px]'>
+      <div
+        className={cn(
+          'text-gray-300 flex flex-col md:flex-col lg:flex-row',
+          GAP[textSize],
+        )}
+      >
+        <div className={cn('flex', GAP[textSize])}>
           <Grade grade={grade} />
           <VerticalDivider />
           <Genre genre={genre} />
