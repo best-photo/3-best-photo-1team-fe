@@ -12,7 +12,7 @@ const CardSummary = ({ variant, totalCards }: CardSummaryProps) => {
         variant === 'legendary' && 'border-pink text-pink',
       )}
     >
-      <div className='flex items-center text-xs sm:text-sm md:text-base '>
+      <div className='flex items-center text-xs sm:text-sm md:text-base role="status" aria-label={`${variant} 등급 카드`}>'>
         <span className='font-light mr-[5px] md:mr-2.5'>
           {variant.toUpperCase()}
         </span>
