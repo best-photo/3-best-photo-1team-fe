@@ -12,7 +12,7 @@ interface BaseProps {
   image: string | StaticImport;
 }
 
-export interface amountSectionProps {
+export interface AmountSectionProps {
   price: number;
   totalAmount: number;
   soldAmount?: number;
@@ -27,7 +27,7 @@ export interface TradeSectionProps {
 }
 
 export type AmountListItem = BaseProps &
-  amountSectionProps & { variant: 'amount' };
+  AmountSectionProps & { variant: 'amount' };
 
 export type TradeListItem = BaseProps &
   TradeSectionProps & { variant: 'trade'; description: string };

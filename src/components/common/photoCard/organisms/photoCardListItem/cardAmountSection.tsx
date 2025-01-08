@@ -1,6 +1,6 @@
 import Image from 'next/image';
 import CustomLabel from '../../molecules/customLabel/customLabel';
-import { amountSectionProps } from './photoCardListItem.types';
+import { AmountSectionProps } from './photoCardListItem.types';
 import Logo from '@/public/icons/logo.svg';
 
 export const CardAmountSection = ({
@@ -9,7 +9,7 @@ export const CardAmountSection = ({
   headerWeight = 'normal',
   soldAmount,
   state,
-}: amountSectionProps) => {
+}: AmountSectionProps) => {
   return (
     <div className='flex flex-col gap-2.5'>
       <CustomLabel

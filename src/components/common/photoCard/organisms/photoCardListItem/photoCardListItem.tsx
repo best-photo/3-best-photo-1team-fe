@@ -36,6 +36,10 @@ export default function PhotoCardListItem(props: PhotoCardListItemProps) {
         <Image
           src={props.image}
           alt={props.cardName}
+          width={360}
+          height={270}
+          priority={true}
+          quality={90}
           className='w-[150px] md:w-[302px] lg:w-[360px] h-[110px] md:h-[226px] lg:h-[270px]'
         />
       </div>
