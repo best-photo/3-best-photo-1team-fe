@@ -2,6 +2,8 @@ import { useState } from 'react';
 import Image from 'next/image';
 import Dropdown from '../common/CommonDropDown/DropDown';
 import SearchInput from '../common/CommonSearchBox/SearchInput';
+import PhotoCardListItem from '../common/photoCard/organisms/photoCardListItem/photoCardListItem';
+import { mockPhotoCards } from './mockData';
 
 export function Modal({
   onClose,
@@ -81,12 +83,17 @@ export function Modal({
               />
             </div>
 
-            <div className='w-[960px] mx-auto mt-[40px] flex flex-row flex-wrap h-[600px] gap-[40px] overflow-y-auto'>
+            <div className='w-[930px] mx-auto flex flex-wrap h-[600px] overflow-y-auto'>
               <div
-                className='w-[440px] h-[600px] rounded-[2px] border border-[#FFFFFF1A] bg-[#161616] cursor-[pointer]'
                 onClick={onPhotoCardClick}
+                className='flex gap-[20px] flex-wrap w-[1480px] mx-auto pt-[60px] mb-[100px]'
               >
-                포토카드
+                {mockPhotoCards.map((card, index) => (
+                  <PhotoCardListItem
+                    key={index}
+                    {...card}
+                  />
+                ))}
               </div>
             </div>
           </div>

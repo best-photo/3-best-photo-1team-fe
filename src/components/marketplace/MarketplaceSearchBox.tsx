@@ -39,21 +39,18 @@ export default function MarketplaceSearchBox() {
           selectedValue={selectedGrade}
           placeholder='등급'
           onValueChange={setSelectedGrade}
-          className='border border-[#dddddd] '
         />
         <Dropdown
           options={['여행', '풍경', '인물', '사물']}
           selectedValue={selectedGenre}
           placeholder='장르'
           onValueChange={setSelectedGenre}
-          className='border border-[#dddddd]'
         />
         <Dropdown
           options={['판매 중', '판매 완료']}
           selectedValue={selectedStatus}
           placeholder='매진여부'
           onValueChange={setSelectedStatus}
-          className='border border-[#dddddd]'
         />
       </div>
       <Dropdown
