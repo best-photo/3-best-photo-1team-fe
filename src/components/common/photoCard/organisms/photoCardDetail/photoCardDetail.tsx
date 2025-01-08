@@ -37,8 +37,10 @@ export default function PhotoCardDetail(props: PhotoCardDetailProps) {
     soldAmount,
   } = props;
 
-  if (totalAmount < soldAmount)
-    throw new Error('판매된 수량은 총 수량보다 클 수 없습니다.');
+  if (totalAmount < soldAmount) {
+    console.error('판매된 수량은 총 수량보다 클 수 없습니다.');
+    return <div>판매된 수량이 총 수량보다 크게 입력되었습니다.</div>;
+  }
 
   return (
     <>
@@ -52,6 +54,10 @@ export default function PhotoCardDetail(props: PhotoCardDetailProps) {
         <Image
           src={image}
           alt={cardName}
+          width={960}
+          height={720}
+          priority={true}
+          quality={90}
           className='w-[358px] md:w-[342px] lg:w-[960px] h-[258px] md:h-[256.5px] lg:h-[720px]'
         />
         <div className='flex flex-col w-full md:w-[342px] lg:w-[440px]'>
