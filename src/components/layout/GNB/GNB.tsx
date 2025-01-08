@@ -21,16 +21,16 @@ const GNB = () => {
 
   return (
     <nav
-      className='fixed box-border left-0 right-0 top-0 z-10 h-[60px] sm:h-[70px] md:h-[80px] min-w-[375px] bg-black text-white'
+      className='fixed box-border left-0 right-0 top-0 z-20 h-[60px] md:h-[70px] lg:h-[80px] min-w-[375px] bg-black text-white'
       onClick={handleCloseNotifications}
     >
       {/* 375px 이상 Desktop Layout */}
-      <div className='hidden h-full mx-auto sm:flex max-w-[1480px] items-center justify-between px-5 md:px-10 '>
+      <div className='hidden h-full mx-auto md:flex max-w-[1480px] items-center justify-between px-5 lg:px-10 '>
         <GNBLeftSection />
         <GNBRightSection />
       </div>
       {/* 375px 이하  Mobile Layout */}
-      <div className='sm:hidden box-border h-full'>
+      <div className='md:hidden box-border h-full'>
         {isMyGallery ? (
           <MobileNavWithBack
             title='마이갤러리'
