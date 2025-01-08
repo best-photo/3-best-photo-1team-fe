@@ -46,6 +46,7 @@ export default function CommonInputSection<T extends FieldValues>({
         )}
         {isPassword && (
           <button
+            type='button'
             onClick={() => setShowPassword(!showPassword)}
             className='absolute right-[25px] top-[20px] cursor-pointer'
           >

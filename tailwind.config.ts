@@ -12,7 +12,8 @@ const config: Config = {
         // Core colors
         black: 'var(--color-black)',
         white: 'var(--color-white)',
-
+        'white-10' : 'var(--color-white-10)',
+        'black-50' : 'var(--color-black-50)',
         // Grays
         gray: {
           100: 'var(--color-gray-100)',

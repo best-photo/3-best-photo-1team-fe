@@ -17,7 +17,9 @@
 
   /* Core colors */
   --color-black: #0f0f0f;
+  --color-black-50 : rgba(15,15,15,0.5);
   --color-white: #ffffff;
+  --color-white-10: rgba(255, 255, 255, 0.1);
 
   /* Grays */
   --color-gray-100: #eeeeee;
@@ -37,4 +39,18 @@
 /* 기본 폰트 설정 */
 body {
   font-family: var(--font-noto-sans-kr);
+  background-color: var(--color-black);
+  color : var(--color-white);
 }
+
+/* 스토리북 문서 전체 배경 */
+.docs-story {
+  background-color: #0f0f0f !important;
+}
+
+/* 스토리북 컴포넌트가 렌더링되는 영역의 배경 */
+.sb-story {
+  background-color: #0f0f0f !important;
+}
+
+
