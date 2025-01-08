@@ -14,8 +14,10 @@ export default function PhotoCardListItem(props: PhotoCardListItemProps) {
   const isSoldOut =
     isPrimary && props.totalAmount && props.soldAmount === props.totalAmount;
 
-  if (isPrimary && props.soldAmount && props.totalAmount < props.soldAmount)
-    throw new Error('전체 수량은 판매 수량보다 많거나 같아야 합니다.');
+  if (isPrimary && props.soldAmount && props.totalAmount < props.soldAmount) {
+    console.error('판매된 수량은 총 수량보다 클 수 없습니다.');
+    return <div>판매된 수량이 총 수량보다 크게 입력되었습니다.</div>;
+  }
 
   return (
     <article className='w-[170px] md:w-[342px] lg:w-[440px] border border-white-10 bg-gray-500 flex flex-col p-[10px] md:p-[20px] lg:p-[40px] justify-center'>
