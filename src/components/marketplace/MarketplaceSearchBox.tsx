@@ -26,13 +26,6 @@ export default function MarketplaceSearchBox() {
             placeholder='검색'
             className='w-[320px]'
           />
-          <Image
-            src='/icons/search.svg'
-            alt='Search Icon'
-            className='absolute right-[10px] top-1/2 transform -translate-y-1/2 z-10'
-            width={20}
-            height={20}
-          />
         </div>
         <Dropdown
           options={['COMMON', 'RARE', 'SUPER RARE', 'LEGENDARY']}
