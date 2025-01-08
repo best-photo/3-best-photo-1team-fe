@@ -14,7 +14,10 @@ const MobileNotificationMessages = () => {
   };
 
   return (
-    <ul>
+    <ul
+      className='fixed top-[60px] left-0 right-0 bottom-0 overflow-y-scroll bg-black'
+      onClick={(e) => e.stopPropagation()}
+    >
       {notifications.map((notification) => (
         <li
           key={notification.id}
