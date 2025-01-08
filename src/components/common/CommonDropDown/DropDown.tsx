@@ -55,12 +55,10 @@ export default function Dropdown({
     <div
       ref={dropdownRef}
       onClick={toggleDropdown}
-      className={`relative cursor-pointer ${className} ${
-        selectedValue ? 'text-center' : ''
-      }`}
+      className={`relative cursor-pointer text-left ${className} `}
     >
       <button
-        className={`w-[180px] h-[50px] text-gray-300 rounded-[2px] text-center font-semibold ${buttonClassName}`}
+        className={`w-[180px] h-[50px] pl-5 text-left text-gray-300 rounded-[2px] font-semibold ${buttonClassName}`}
       >
         {selectedValue || placeholder}
         <Image
@@ -73,12 +71,12 @@ export default function Dropdown({
       </button>
       {isOpen && (
         <ul
-          className={`absolute w-full bg-black text-gray-300 border border-gray-300 rounded-[2px] mt-1 ${listClassName}`}
+          className={`absolute w-full bg-black text-gray-300 border border-gray-300 rounded-[2px] mt-1 pl-3 ${listClassName}`}
         >
           {options.map((option) => (
             <li
               key={option}
-              className={`p-2 hover:bg-gray-500 cursor-pointer text-center ${itemClassName} text-[16px] font-normal leading-[23.17px] text-left`}
+              className={`p-2 hover:bg-gray-500 cursor-pointer ${itemClassName} text-[16px] font-normal leading-[23.17px] text-left`}
               style={{ fontFamily: 'var(--font-noto-sans-kr)' }}
               onClick={() => handleOptionClick(option)}
             >
