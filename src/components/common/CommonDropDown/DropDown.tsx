@@ -71,7 +71,7 @@ export default function Dropdown({
       </button>
       {isOpen && (
         <ul
-          className={`absolute w-full bg-black text-gray-300 border border-gray-300 rounded-[2px] mt-1 pl-3 ${listClassName}`}
+          className={`absolute w-full bg-black text-gray-300 border border-gray-300 rounded-[2px] mt-1 pl-3 z-50 ${listClassName}`}
         >
           {options.map((option) => (
             <li
