@@ -2,11 +2,18 @@ import { useEffect, useState } from 'react';
 import { MEDIA_QUERY } from '@/src/constants/mediaQuery';
 
 const useMediaQuery = (query: string) => {
-  const [matches, setMatches] = useState(false);
+  const isClient = typeof window !== 'undefined';
+
+  if (!isClient) return MEDIA_QUERY.value.large;
+
+  const [matches, setMatches] = useState(() => {
+    if (typeof window === 'undefined') return false;
+    return window.matchMedia(query).matches;
+  });
 
   useEffect(() => {
+    if (typeof window === 'undefined') return;
     const mediaQuery = window.matchMedia(query);
-    setMatches(mediaQuery.matches);
 
     const handleMediaQuery = (e: MediaQueryListEvent) => {
       setMatches(e.matches);
@@ -28,6 +35,7 @@ const useScreenWidth = () => {
   if (smallMediaQuery) return MEDIA_QUERY.value.small;
   if (mediumMediaQuery) return MEDIA_QUERY.value.medium;
   if (largeMediaQuery) return MEDIA_QUERY.value.large;
+  return MEDIA_QUERY.value.large;
 };
 
 export default useScreenWidth;
