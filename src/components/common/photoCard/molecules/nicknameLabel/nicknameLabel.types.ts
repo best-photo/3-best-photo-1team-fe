@@ -1,5 +1,4 @@
-export interface NicknameLabelProps {
-  variant: 'gallery' | 'sale';
-  nickname: string;
-  cardCount: number;
-}
+import { OwnerCardCountProps } from '../../atoms/ownerCardCount/ownerCardCount.types';
+import { OwnerNicknameProps } from '../../atoms/ownerNickname/ownerNickname.types';
+
+export type NicknameLabelProps = OwnerCardCountProps & OwnerNicknameProps;

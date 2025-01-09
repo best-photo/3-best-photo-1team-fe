@@ -8,7 +8,7 @@ export const PhotoCardPageHeaderCodeSnippet = (
 \`\`\`tsx
 import PhotoCardPageHeader from '@/src/components/common/photoCard/organisms/PhotoCardPageHeader/PhotoCardPageHeader';
 
-<PhotoCardDetail
+<PhotoCardPageHeader
         variant="${props.variant}"
         nickname="${props.nickname}"
         common=${props.common}

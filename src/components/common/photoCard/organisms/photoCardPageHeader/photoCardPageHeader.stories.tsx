@@ -22,14 +22,18 @@ const Template: StoryFn<typeof PhotoCardPageHeader> = (args) => (
 
 export const SalePage = Template.bind({});
 
-const SalePageProps = {
-  variant: 'sale',
+const CommonProps = {
   nickname: '유디',
   common: 10,
   rare: 10,
   superRare: 10,
   legendary: 10,
-} as PhotoCardPageHeaderProps;
+} as const;
+
+const SalePageProps: PhotoCardPageHeaderProps = {
+  variant: 'sale',
+  ...CommonProps,
+};
 
 SalePage.args = SalePageProps;
 SalePage.parameters = {
@@ -38,14 +42,10 @@ SalePage.parameters = {
 
 export const GalleryPage = Template.bind({});
 
-const GalleryPageProps = {
+const GalleryPageProps: PhotoCardPageHeaderProps = {
   variant: 'gallery',
-  nickname: '유디',
-  common: 10,
-  rare: 10,
-  superRare: 10,
-  legendary: 10,
-} as PhotoCardPageHeaderProps;
+  ...CommonProps,
+};
 
 GalleryPage.args = GalleryPageProps;
 GalleryPage.parameters = {
