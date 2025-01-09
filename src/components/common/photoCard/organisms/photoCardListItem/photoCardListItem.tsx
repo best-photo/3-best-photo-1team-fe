@@ -7,6 +7,12 @@ import Description from '../../atoms/description/description';
 import soldOut from '@/public/icons/sold-out.svg';
 import StateBadge from '../../atoms/stateBadge/stateBadge';
 import { CardAmountSection } from './cardAmountSection';
+import cn from '@/src/utils/cn';
+
+const CURSOR_STYLE = {
+  amount: 'cursor-pointer',
+  trade: '',
+};
 
 export default function PhotoCardListItem(props: PhotoCardListItemProps) {
   const isPrimary = props.variant === 'amount';
@@ -20,7 +26,13 @@ export default function PhotoCardListItem(props: PhotoCardListItemProps) {
   }
 
   return (
-    <article className='w-[170px] md:w-[342px] lg:w-[440px] border border-white-10 bg-gray-500 flex flex-col p-[10px] md:p-[20px] lg:p-[40px] justify-center'>
+    <article
+      onClick={props.variant === 'amount' ? props.onClick : undefined}
+      className={cn(
+        'w-[170px] md:w-[342px] lg:w-[440px] border border-white-10 bg-gray-500 flex flex-col p-[10px] md:p-[20px] lg:p-[40px] justify-center',
+        CURSOR_STYLE[props.variant],
+      )}
+    >
       <div className='relative flex items-center justify-center bg-black w-full h-full mb-[10px] md:mb-[25px] lg:mb-[25px]'>
         {isPrimary && props.state && !isSoldOut && (
           <StateBadge state={props.state} />
@@ -73,6 +85,7 @@ export default function PhotoCardListItem(props: PhotoCardListItemProps) {
       )}
       {isSecondary && (
         <TradeCardSection
+          tradeId={props.tradeId}
           onCancel={props.onCancel}
           onDecline={props.onDecline}
           onConfirm={props.onConfirm}

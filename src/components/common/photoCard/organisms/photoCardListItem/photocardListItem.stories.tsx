@@ -50,9 +50,10 @@ const Template: StoryFn<typeof PhotoCardListItem> = (args) => (
   <PhotoCardListItem {...args} />
 );
 
-export const ReceivedTradeCard = Template.bind({});
+export const IncomingTradeCard = Template.bind({});
 
-const ReceivedTradeCardProps = {
+const IncomingTradeCardProps = {
+  tradeId: 1,
   cardName: '카드카드',
   grade: 'legendary',
   genre: 'stillLife',
@@ -62,18 +63,19 @@ const ReceivedTradeCardProps = {
   variant: 'trade',
   description:
     '카드 설명서 카드 설명서 카드 설명서 카드 설명서 카드 설명서 카드 설명서 카드 설명서 카드 설명서 카드 설명서 카드 설명서 카드 설명서 카드 설명서 ',
-  onDecline: () => console.log(''),
-  onConfirm: () => console.log(''),
+  onDecline: (id) => console.log(id),
+  onConfirm: (id) => console.log(id),
 } as PhotoCardListItemProps;
 
-ReceivedTradeCard.args = ReceivedTradeCardProps;
-ReceivedTradeCard.parameters = {
-  codeExample: PhotoCardListItemCodeSnippet(ReceivedTradeCardProps),
+IncomingTradeCard.args = IncomingTradeCardProps;
+IncomingTradeCard.parameters = {
+  codeExample: PhotoCardListItemCodeSnippet(IncomingTradeCardProps),
 };
 
-export const SubmittedTradeCard = Template.bind({});
+export const OutgoingTradeCard = Template.bind({});
 
 const SubmittedTradeCardProps = {
+  tradeId: 1,
   cardName: '카드카드',
   grade: 'legendary',
   genre: 'stillLife',
@@ -83,15 +85,15 @@ const SubmittedTradeCardProps = {
   variant: 'trade',
   description:
     '카드 설명서 카드 설명서 카드 설명서 카드 설명서 카드 설명서 카드 설명서 카드 설명서 카드 설명서 카드 설명서 카드 설명서 카드 설명서 카드 설명서 ',
-  onCancel: () => console.log(''),
+  onCancel: (id) => console.log(id),
 } as PhotoCardListItemProps;
 
-SubmittedTradeCard.args = SubmittedTradeCardProps;
-SubmittedTradeCard.parameters = {
+OutgoingTradeCard.args = SubmittedTradeCardProps;
+OutgoingTradeCard.parameters = {
   codeExample: PhotoCardListItemCodeSnippet(SubmittedTradeCardProps),
 };
 
-SubmittedTradeCard.argTypes = {
+OutgoingTradeCard.argTypes = {
   variant: {
     table: {
       disabled: true,
@@ -102,6 +104,7 @@ SubmittedTradeCard.argTypes = {
 export const MyCardList = Template.bind({});
 
 const MyCardListProps = {
+  cardId: 1,
   cardName: '우리집 앞마당',
   grade: 'legendary',
   genre: 'landscape',
@@ -121,6 +124,7 @@ MyCardList.parameters = {
 
 export const MarketPlaceCard = Template.bind({});
 const MarketPlaceCardProps = {
+  cardId: 1,
   cardName: '우리집 앞마당',
   grade: 'legendary',
   genre: 'landscape',
