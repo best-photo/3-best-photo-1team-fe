@@ -6,7 +6,7 @@ import Link from 'next/link';
 import { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 // import { authAPI } from '../../services/경로는나중에';
-import AuthHeaderLogo from '@/src/components/auth/AuthHeaderLogo'
+import AuthHeaderLogo from '@/src/components/Auth/AuthHeaderLogo';
 
 interface SignUpData {
   email: string;
@@ -45,7 +45,7 @@ export default function Signup() {
   // form을 submit할 때 실행할 함수입니다. react-hook-form의 handleSubmit함수 안에 입력해주세요. 파라미터로는 form data를 받습니다.
   // 만약 form data를 그대로 받아서 실행하는 함수가 있다면 onSubmit함수는 생략하고 바로 handleSubmit에 입력해도 됩니다.
   const onSubmit = async (data: SignUpData) => {
-    // console.log(data);
+    console.log(data);
     try {
       // const response = await authAPI.signup(data);
       const response = { status: 201 }; // 임시
@@ -74,7 +74,10 @@ export default function Signup() {
 
   return (
     <div className='bg-black text-white min-h-screen pt-[100px] pb-[50px]'>
-      <AuthHeaderLogo title="최애의포토" highlight="의" />
+      <AuthHeaderLogo
+        title='최애의포토'
+        highlight='의'
+      />
       <div className='loginWrap max-w-[520px] min-w-[350px] mx-auto mb-[50px] w-[60%]'>
         <form
           className='max-w-[500px] flex flex-col items-center'
