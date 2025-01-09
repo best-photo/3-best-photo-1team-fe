@@ -4,7 +4,7 @@ import Link from 'next/link';
 export default function RoutesNotFound() {
   return (
     <MainLayout>
-      <div className='flex flex-col items-center justify-center min-h-screen -mt-[60px] sm:-mt-[70px] md:-mt-[80px]'>
+      <div className='flex flex-col items-center justify-center min-h-screen -mt-[60px] md:-mt-[70px] lg:-mt-[80px]'>
         <div className='font-black text-white leading-tight -mt-[30px] sm:-mt-[35px] md:-mt-[40px] text-[135px] md:text-[200px] lg:text-[250px]'>
           4<span className='text-main'>0</span>4
         </div>
