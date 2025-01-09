@@ -22,7 +22,7 @@ export default function MainLayout({
           isNotificationOpen ? 'hidden overflow-hidden' : 'block',
         )}
       >
-        <main className='pt-[60px] sm:pt-[70px] md:pt-[80px]'>{children}</main>
+        <main className='pt-[60px] md:pt-[70px] lg:pt-[80px]'>{children}</main>
       </div>
     </>
   );
