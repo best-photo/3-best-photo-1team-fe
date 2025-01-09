@@ -1,5 +1,6 @@
 import Link from 'next/link';
 import NotificationBell from './NotificationBell';
+import ProfileModal from './ProfileModal';
 import { useAuthStore } from '@/src/store/useAuthStore';
 
 const GNBRightSection = () => {
@@ -13,9 +14,13 @@ const GNBRightSection = () => {
         <div className='flex items-center gap-4'>
           <div>{user.points.toLocaleString()}P</div>
           <NotificationBell />
-          <button>
+          {/* <button>
             <div className='font-baskin'> {user.nickName}</div>
-          </button>
+          </button> */}
+          <ProfileModal
+            userName={user.nickName}
+            points={user.points}
+          />
           <div className='text-gray-400'>|</div>
 
           <button
