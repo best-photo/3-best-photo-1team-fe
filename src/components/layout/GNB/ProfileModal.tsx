@@ -1,4 +1,4 @@
-import Link from 'next/link';
+// import Link from 'next/link'; // Link 컴포넌트 사용 시 주석제거
 import { useProfileModalStore } from '@/src/store/useProfileModalStore';
 
 const ProfileModal = ({
@@ -36,14 +36,14 @@ const ProfileModal = ({
               <p className='text-[18px] font-bold'>안녕하세요, {userName}님!</p>
               <p className='text-[12px] flex justify-between'>
                 <span className='text-gray-300'>보유 포인트</span>
-                <span className='text-main'>{points} P</span>
+                <span className='text-main'>{points.toLocaleString()} P</span>
               </p>
             </div>
             <div className='p-[20px] h-[103px] text-[14px] font-bold flex flex-col justify-between'>
+              {/* TODO: 추후 마이갤러리 Link로 교체 예정 */}
               <div>마이갤러리</div>
+              {/* TODO: 추후 나의 판매 포토카드 Link로 교체 예정 */}
               <div>나의 판매 포토카드</div>
-              {/* <Link href='/my-gallery'>마이갤러리</Link>
-              <Link href='/my-sell-cards'>나의 판매 포토카드</Link> */}
             </div>
           </div>
         </>

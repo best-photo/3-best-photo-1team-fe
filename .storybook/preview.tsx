@@ -16,7 +16,14 @@ const preview: Preview = {
     },
   },
   decorators: [(Story)=> (
-    <AppRouterContext.Provider value={{} as AppRouterInstance}>
+    <AppRouterContext.Provider value={{
+      back: () => {},
+      forward: () => {},
+      push: () => {},
+      replace: () => {},
+      refresh: () => {},
+      prefetch: () => Promise.resolve(),
+    } as AppRouterInstance}>
       <Story/>
     </AppRouterContext.Provider>
   )]
