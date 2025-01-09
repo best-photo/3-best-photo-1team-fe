@@ -46,7 +46,11 @@ export default function CreatePhotoCard() {
         setFormData({ ...formData, photo: null, photoName: "사진 업로드" });
         return;
       }
-
+      if (file.size > 5 * 1024 * 1024) {
+        setPhotoError('파일 크기는 5MB를 초과할 수 없습니다.');
+        setFormData({ ...formData, photo: null, photoName: "사진 업로드" });
+        return;
+      }
       setPhotoError(null); // 오류 메시지 초기화
       setFormData({ ...formData, photo: file, photoName: file.name });
     }
