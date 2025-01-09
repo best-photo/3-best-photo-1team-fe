@@ -15,7 +15,7 @@ export default function Home() {
 
   return (
     <>
-      <div className='pt-[60px]'>
+      <div>
         <MarketplaceHeader
           isAlertVisible={isAlertVisible}
           setAlertVisible={setAlertVisible}
