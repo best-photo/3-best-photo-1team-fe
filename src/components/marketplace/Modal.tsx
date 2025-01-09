@@ -30,7 +30,7 @@ export function Modal({
           <div className='fixed top-0 left-0 w-full h-full bg-[#000000CC] bg-opacity-[80] z-[50]' />
 
           {/* 모달 */}
-          <div className='fixed top-[40px] left-1/2 transform -translate-x-1/2 w-[1160px] h-[1000px] bg-[#161616] rounded-[2px] z-[60]'>
+          <div className='fixed top-[40px] left-1/2 transform -translate-x-1/2 w-[1160px] h-[1000px] bg-[#161616] rounded-[2px] z-[60] '>
             <div
               className='absolute top-[60px] left-[120px] h-[25px] text-[24px] font-normal leading-[24.58px] tracking-[-0.03em] text-[#A4A4A4]'
               style={{ fontFamily: 'var(--font-baskin-robbins)' }}
@@ -53,7 +53,7 @@ export function Modal({
             </div>
             <div className='border-b border-white w-[920px] mx-auto mt-[192px]'></div>
 
-            <div className=' flex flex-row gap-[10px] h-[50px] mt-[30px] ml-[120px]'>
+            <div className=' flex flex-row gap-[10px] h-[50px] mt-[30px] ml-[120px] mb-[30px]'>
               <div className='w-[320px] relative'>
                 <SearchInput
                   value={query}
@@ -83,7 +83,7 @@ export function Modal({
               />
             </div>
 
-            <div className='w-[930px] mx-auto flex flex-wrap h-[600px] overflow-y-auto'>
+            <div className='w-[930px] mx-auto flex flex-wrap h-[600px] overflow-y-auto custom-scroll'>
               <div
                 onClick={onPhotoCardClick}
                 className='flex gap-[20px] flex-wrap w-[1480px] mx-auto pt-[60px] mb-[100px]'

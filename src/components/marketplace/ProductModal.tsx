@@ -30,7 +30,7 @@ export default function PhotoCardDetailModal({
       <div className='fixed top-0 left-0 w-full h-full bg-[#000000CC] bg-opacity-[80] z-[50]' />
 
       {/* 모달 */}
-      <div className='fixed top-[40px] left-1/2 transform -translate-x-1/2 w-[1160px] h-[1000px] bg-[#161616] rounded-[2px] z-[60] overflow-auto'>
+      <div className='fixed top-[40px] left-1/2 transform -translate-x-1/2 w-[1160px] h-[1000px] bg-[#161616] rounded-[2px] z-[60] overflow-auto custom-scroll'>
         <Image
           src='/icons/close.svg'
           alt='Search Icon'
