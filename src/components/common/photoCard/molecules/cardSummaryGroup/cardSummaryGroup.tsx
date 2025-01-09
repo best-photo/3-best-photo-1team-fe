@@ -8,7 +8,7 @@ export default function CardSummaryGroup({
   legendary,
 }: CardSummaryGroupProps) {
   return (
-    <div className='flex gap-[10px] md:gap-[10px] lg:gap-5'>
+    <div className='flex gap-[10px] md:gap-[10px] lg:gap-5 overflow-x-scroll'>
       <CardSummary
         variant='common'
         totalCards={common}

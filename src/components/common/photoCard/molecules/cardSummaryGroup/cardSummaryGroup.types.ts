@@ -1,3 +1,3 @@
-import { CARD_RARITY } from '@/src/constants/cardRarity';
+import { CARD_GRADES } from '@/src/constants/cardGrades';
 
-export type CardSummaryGroupProps = Record<keyof typeof CARD_RARITY, number>;
+export type CardSummaryGroupProps = Record<keyof typeof CARD_GRADES, number>;
