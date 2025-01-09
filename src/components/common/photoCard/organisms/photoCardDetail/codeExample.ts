@@ -40,8 +40,8 @@ import PhotoCardDetail from '@/src/components/common/photoCard/organisms/photoCa
 `;
   else
     code += `onSale=${props.onSale} // 판매버튼 클릭 시 실행할 함수 
-  />
-  \`\`\`
+    />
+\`\`\`
 `;
   return code;
 };
