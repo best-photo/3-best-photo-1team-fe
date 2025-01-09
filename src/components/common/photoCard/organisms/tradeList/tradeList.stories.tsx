@@ -9,7 +9,7 @@ export default {
   tags: ['autodocs'],
   decorators: [
     (Story) => (
-      <div className='w-[1480px]'>
+      <div className='w-screen'>
         <Story />
       </div>
     ),
@@ -43,6 +43,36 @@ const mockTradeData = [
   },
   {
     id: 3,
+    image: DefaultImage,
+    cardName: '카드이름',
+    price: 5,
+    nickname: '코드잇',
+    grade: 'legendary',
+    genre: 'landscape',
+    description: '풍경 사진을 원해요',
+  },
+  {
+    id: 4,
+    image: DefaultImage,
+    cardName: '카드이름',
+    price: 5,
+    nickname: '코드잇',
+    grade: 'legendary',
+    genre: 'landscape',
+    description: '풍경 사진을 원해요',
+  },
+  {
+    id: 5,
+    image: DefaultImage,
+    cardName: '카드이름',
+    price: 5,
+    nickname: '코드잇',
+    grade: 'legendary',
+    genre: 'landscape',
+    description: '풍경 사진을 원해요',
+  },
+  {
+    id: 6,
     image: DefaultImage,
     cardName: '카드이름',
     price: 5,

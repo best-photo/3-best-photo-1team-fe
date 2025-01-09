@@ -5,7 +5,7 @@ import { TradeListProps } from './tradeList.types';
 
 export default function TradeList(props: TradeListProps) {
   return (
-    <div>
+    <div className='w-full'>
       <Title
         variant='tertiary'
         font='noto'
@@ -14,7 +14,7 @@ export default function TradeList(props: TradeListProps) {
           ? '교환 제시 목록'
           : '내가 제시한 교환 목록'}
       </Title>
-      <div className='flex items-start gap-[5px] md:gap-4 lg:gap-[80px]'>
+      <div className='grid gap-[5px] md:gap-4 lg:gap-[80px] grid-cols-2 md:grid-cols-2 lg:grid-cols-3 w-fit auto-rows-auto'>
         {props.trades.map((trade) => {
           const cardProps = {
             variant: 'trade',
