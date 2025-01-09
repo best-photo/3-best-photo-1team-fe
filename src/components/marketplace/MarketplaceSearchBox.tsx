@@ -1,6 +1,5 @@
 'use client';
 
-import Image from 'next/image';
 import { useState } from 'react';
 import Dropdown from '../common/CommonDropDown/DropDown';
 import SearchInput from '../common/CommonSearchBox/SearchInput';
@@ -25,13 +24,6 @@ export default function MarketplaceSearchBox() {
             onChange={handleInputChange}
             placeholder='검색'
             className='w-[320px]'
-          />
-          <Image
-            src='/icons/search.svg'
-            alt='Search Icon'
-            className='absolute right-[10px] top-1/2 transform -translate-y-1/2 z-10'
-            width={20}
-            height={20}
           />
         </div>
         <Dropdown

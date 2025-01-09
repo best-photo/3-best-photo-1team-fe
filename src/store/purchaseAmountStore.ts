@@ -17,5 +17,5 @@ export const usePurchaseAmountStore = create<PurchaseAmountStore>((set) => ({
     set((state) => ({
       amount: Math.max(state.amount - 1, 1),
     })),
-  reset: () => set((state) => ({ amount: 1 })),
+  reset: () => set({ amount: 1 }),
 }));

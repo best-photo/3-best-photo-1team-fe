@@ -39,7 +39,7 @@ export default function Login() {
   // form을 submit할 때 실행할 함수입니다. react-hook-form의 handleSubmit함수 안에 입력해주세요. 파라미터로는 form data를 받습니다.
   // 만약 form data를 그대로 받아서 실행하는 함수가 있다면 onSubmit함수는 생략하고 바로 handleSubmit에 입력해도 됩니다.
   const onSubmit = async (data: LoginData) => {
-    // console.log(data);
+    console.log(data);
     try {
       // const response = await authAPI.signin(data);
       const response = { status: 200 }; // 임시
