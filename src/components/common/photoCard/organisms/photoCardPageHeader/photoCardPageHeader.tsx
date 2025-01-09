@@ -1,3 +1,4 @@
+import cn from '@/src/utils/cn';
 import CardSummaryGroup from '../../molecules/cardSummaryGroup/cardSummaryGroup';
 import NicknameLabel from '../../molecules/nicknameLabel/nicknameLabel';
 import { PhotoCardPageHeaderProps } from './photoCardPageHeader.types';
@@ -9,9 +10,15 @@ export default function PhotoCardPageHeader({
   rare,
   superRare,
   legendary,
+  className,
 }: PhotoCardPageHeaderProps) {
   return (
-    <div className='flex flex-col gap-[10px] md:gap-[10px] lg:gap-5'>
+    <div
+      className={cn(
+        'flex flex-col gap-[10px] md:gap-[10px] lg:gap-5',
+        className,
+      )}
+    >
       <NicknameLabel
         variant={variant}
         nickname={nickname}

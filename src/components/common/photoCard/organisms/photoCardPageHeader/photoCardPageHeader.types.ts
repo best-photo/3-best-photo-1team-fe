@@ -2,4 +2,4 @@ import { CardSummaryGroupProps } from '../../molecules/cardSummaryGroup/cardSumm
 import { NicknameLabelProps } from '../../molecules/nicknameLabel/nicknameLabel.types';
 
 export type PhotoCardPageHeaderProps = Omit<NicknameLabelProps, 'cardCount'> &
-  CardSummaryGroupProps;
+  CardSummaryGroupProps & { className?: string };
