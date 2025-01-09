@@ -63,7 +63,7 @@ const NotificationBell = () => {
             document.body,
           )}
           <div className='box-border absolute top-6 right-0 bg-black border border-gray-400 shadow-lg z-10'>
-            <div className=' max-h-[240px] overflow-y-auto'>
+            <div className=' max-h-[535px] overflow-y-auto'>
               {notifications.length === 0 ? (
                 <div className='p-5'>알림이 없습니다.</div>
               ) : (
