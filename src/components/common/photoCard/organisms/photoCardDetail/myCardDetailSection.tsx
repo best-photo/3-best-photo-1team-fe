@@ -4,15 +4,15 @@ import exchange from '@/public/icons/exchange.svg';
 import CardInformationHeader from '../../molecules/cardInformationHeader/cardInformationHeader';
 import HorizontalDivider from '../../atoms/divider/horizontalDivider';
 import { CommonBtn } from '../../../CommonBtn/CommonBtn';
-import { MyCardDetailSectionProps } from './photoCardDetail.types';
+import { MySellingCardDetailSectionProps } from './photoCardDetail.types';
 
-export default function MyCardDetailSection({
+export default function MySellingCardDetailSection({
   tradeGrade,
   tradeGenre,
   tradeDescription,
   onEdit,
   onDelete,
-}: MyCardDetailSectionProps) {
+}: MySellingCardDetailSectionProps) {
   return (
     <div>
       <Title

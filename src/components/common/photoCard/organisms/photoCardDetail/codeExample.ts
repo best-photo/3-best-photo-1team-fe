@@ -17,11 +17,11 @@ import PhotoCardDetail from '@/src/components/common/photoCard/organisms/photoCa
         price="${props.price}"
   `;
 
-  if (props.variant === 'myCard')
+  if (props.variant === 'mySellingCard')
     code += `
         totalAmount=${props.totalAmount}
         soldAmount=${props.soldAmount}
-        tradeGenre="${props.variant === 'myCard' && props.tradeGenre}"
+        tradeGenre="${props.variant === 'mySellingCard' && props.tradeGenre}"
         tradeGrade="${props.tradeGrade}"
         tradeDescription="${props.tradeDescription}"
         onEdit=${props.onEdit} // 편집 버튼 클릭 시 실행할 함수
@@ -29,7 +29,7 @@ import PhotoCardDetail from '@/src/components/common/photoCard/organisms/photoCa
     />
 \`\`\`
 `;
-  else
+  else if (props.variant === 'othersCard')
     code += `
         totalAmount=${props.totalAmount}
         soldAmount=${props.soldAmount}
@@ -37,6 +37,11 @@ import PhotoCardDetail from '@/src/components/common/photoCard/organisms/photoCa
         maxAmount=${props.totalAmount - props.soldAmount} // totalAmount - soldAmount
     />
 \`\`\`
+`;
+  else
+    code += `onSale=${props.onSale} // 판매버튼 클릭 시 실행할 함수 
+  />
+  \`\`\`
 `;
   return code;
 };

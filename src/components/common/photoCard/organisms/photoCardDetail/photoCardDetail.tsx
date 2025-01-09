@@ -6,7 +6,8 @@ import CustomLabel from '../../molecules/customLabel/customLabel';
 import { PhotoCardDetailProps } from './photoCardDetail.types';
 import Title from '../../../title/title';
 import OthersCardDetail from './othersCardDetailSection';
-import MyCardDetailSection from './myCardDetailSection';
+import MySellingCardDetailSection from './myCardDetailSection';
+import { CommonBtn } from '../../../CommonBtn/CommonBtn';
 
 const RemainingAmount = ({
   soldAmount,
@@ -71,7 +72,7 @@ export default function PhotoCardDetail(props: PhotoCardDetailProps) {
           <HorizontalDivider />
           <Description variant='secondary'>{description}</Description>
           <HorizontalDivider />
-          <div className='flex flex-col gap-[10px] mb-[60px]'>
+          <div className='flex flex-col gap-[10px] mb-[30px]'>
             <CustomLabel
               title='가격'
               titleWeight='normal'
@@ -82,16 +83,20 @@ export default function PhotoCardDetail(props: PhotoCardDetailProps) {
               <span>{price}P</span>
             </CustomLabel>
             <CustomLabel
-              title='잔여'
+              title={variant === 'myHoldingCard' ? '보유량' : '잔여'}
               titleWeight='normal'
               contentWeight='bold'
               size='big'
               className='text-gray-300'
             >
-              <RemainingAmount
-                totalAmount={totalAmount}
-                soldAmount={soldAmount}
-              />
+              {variant === 'myHoldingCard' ? (
+                <span>{totalAmount}</span>
+              ) : (
+                <RemainingAmount
+                  totalAmount={totalAmount}
+                  soldAmount={soldAmount}
+                />
+              )}
             </CustomLabel>
           </div>
           {variant === 'othersCard' && (
@@ -101,14 +106,24 @@ export default function PhotoCardDetail(props: PhotoCardDetailProps) {
               price={price}
             />
           )}
-          {variant === 'myCard' && (
-            <MyCardDetailSection
+          {variant === 'mySellingCard' && (
+            <MySellingCardDetailSection
               tradeGrade={props.tradeGrade}
               tradeGenre={props.tradeGenre}
               tradeDescription={props.tradeDescription}
               onEdit={props.onEdit}
               onDelete={props.onDelete}
             />
+          )}
+          {variant === 'myHoldingCard' && (
+            <CommonBtn
+              width='full'
+              heightPreset={3}
+              variant='primary'
+              onClick={props.onSale}
+            >
+              판매하기
+            </CommonBtn>
           )}
         </div>
       </div>
