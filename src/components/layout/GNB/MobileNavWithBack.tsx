@@ -14,7 +14,10 @@ const MobileNavWithBack = ({
   onClick,
 }: MobileNavWithBackProps) => {
   return (
-    <div className='flex items-center h-full px-5'>
+    <div
+      className='flex items-center h-full px-5'
+      onClick={(e) => e.stopPropagation()}
+    >
       <Link href={backPath || '/'}>
         <Image
           src={BackIcon}
