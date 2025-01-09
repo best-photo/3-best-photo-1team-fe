@@ -4,27 +4,29 @@ import exchange from '@/public/icons/exchange.svg';
 import CardInformationHeader from '../../molecules/cardInformationHeader/cardInformationHeader';
 import HorizontalDivider from '../../atoms/divider/horizontalDivider';
 import { CommonBtn } from '../../../CommonBtn/CommonBtn';
-import { MyCardDetailSectionProps } from './photoCardDetail.types';
+import { MySellingCardDetailSectionProps } from './photoCardDetail.types';
 
-export default function MyCardDetailSection({
+export default function MySellingCardDetailSection({
   tradeGrade,
   tradeGenre,
   tradeDescription,
   onEdit,
   onDelete,
-}: MyCardDetailSectionProps) {
+}: MySellingCardDetailSectionProps) {
   return (
     <div>
       <Title
         variant='tertiary'
         font='noto'
-        className='gap-[6px] md:gap-[6px] lg:gap-[8px] mb-[30px] md:mb-[30px] lg:mb-[30px]'
+        className='mb-[30px] md:mb-[30px] lg:mb-[30px]'
       >
-        <Image
-          src={exchange}
-          alt='교환 아이콘'
-        />
-        <span>교환 희망 정보</span>
+        <div className='flex items-center gap-[11px]'>
+          <Image
+            src={exchange}
+            alt='교환 아이콘'
+          />
+          <span>교환 희망 정보</span>
+        </div>
       </Title>
       <CardInformationHeader
         textSize='big'

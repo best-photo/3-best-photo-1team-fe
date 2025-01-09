@@ -1,5 +1,6 @@
 import cn from '@/src/utils/cn';
 import { TitleProps } from './title.types';
+import { CommonBtn } from '../CommonBtn/CommonBtn';
 
 const VARIANT_STYLE = {
   primary: 'pb-5 md:text-[48px] lg:text-[62px]',
@@ -8,8 +9,8 @@ const VARIANT_STYLE = {
 };
 
 const FONT = {
-  noto: 'font-noto',
-  baskin: 'font-baskin',
+  noto: 'font-noto font-bold',
+  baskin: 'font-baskin font-normal',
 };
 
 export default function Title({
@@ -17,6 +18,8 @@ export default function Title({
   font,
   children,
   className,
+  onButtonClick,
+  buttonText,
 }: TitleProps) {
   return (
     <div
@@ -24,12 +27,24 @@ export default function Title({
         'border-b-2 border-gray-100',
         VARIANT_STYLE[variant],
         FONT[font],
-        'font-bold',
         'mb-5 md:mb-10 lg:mb-[60px] flex',
         className,
       )}
     >
-      {children}
+      <div className='flex w-full justify-between items-center'>
+        <span>{children}</span>
+        {buttonText && onButtonClick && (
+          <CommonBtn
+            variant='primary'
+            width='custom'
+            heightPreset={2}
+            onClick={onButtonClick}
+            className='w-[345px] md:w-[342px] lg:w-[440px] font-noto'
+          >
+            {buttonText}
+          </CommonBtn>
+        )}
+      </div>
     </div>
   );
 }

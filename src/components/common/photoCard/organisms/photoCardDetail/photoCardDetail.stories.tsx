@@ -57,7 +57,7 @@ const MyPhotoCardDetailProps = {
   price: 4,
   totalAmount: 5,
   soldAmount: 2,
-  variant: 'myCard',
+  variant: 'mySellingCard',
   onDelete: () => console.log(''),
   onEdit: () => console.log(''),
   tradeGrade: 'legendary',
@@ -68,4 +68,26 @@ const MyPhotoCardDetailProps = {
 MyPhotoCardDetail.args = MyPhotoCardDetailProps;
 MyPhotoCardDetail.parameters = {
   codeExample: PhotoCardDetailCodeSnippet(MyPhotoCardDetailProps),
+};
+
+export const MyHoldingPhotoCardDetail = Template.bind({});
+
+const MyHoldingPhotoCardDetailProps = {
+  image: ExampleImage,
+  cardName: '우리집 앞마당',
+  grade: 'legendary',
+  genre: 'landscape',
+  nickname: '미쓰손',
+  description:
+    '우리집 앞마당 사진이에요 멋지죠? 우리집 앞마당 사진이에요 멋지죠? 우리집 앞마당 사진이에요 ',
+  price: 4,
+  totalAmount: 5,
+  soldAmount: 2,
+  variant: 'myHoldingCard',
+  onSale: () => alert('판매버튼 클릭'),
+} as PhotoCardDetailProps;
+
+MyHoldingPhotoCardDetail.args = MyHoldingPhotoCardDetailProps;
+MyHoldingPhotoCardDetail.parameters = {
+  codeExample: PhotoCardDetailCodeSnippet(MyHoldingPhotoCardDetailProps),
 };

@@ -25,6 +25,7 @@ import PhotoCardListItem from '@/src/components/common/photoCard/organisms/photo
 `;
   } else
     code += `
+        tradeId="${props.tradeId}" // 교환 건의 아이디
         description="${props.description}"
         ${(props.onCancel && `onCancel=${props.onCancel} // 취소 버튼을 눌렀을 때 실행할 함수`) ?? ''}
         ${(props.onDecline && `onDecline=${props.onDecline} // 거절 버튼을 눌렀을 때 실행할 함수`) ?? ''}

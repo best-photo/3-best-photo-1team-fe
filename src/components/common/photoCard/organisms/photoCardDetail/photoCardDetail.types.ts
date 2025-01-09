@@ -13,7 +13,7 @@ interface BaseProps {
   soldAmount: number;
 }
 
-export interface MyCardDetailSectionProps {
+export interface MySellingCardDetailSectionProps {
   tradeGenre: Genres;
   tradeGrade: Grades;
   tradeDescription: string;
@@ -27,10 +27,20 @@ export interface OthersCardDetailSectionProps {
   price: number;
 }
 
-export type MyCardDetailProps = MyCardDetailSectionProps &
+export interface MyHoldingCardDetailSectionProps {
+  onSale: () => void;
+}
+
+export type MySellingCardDetailProps = MySellingCardDetailSectionProps &
   BaseProps & { variant: 'myCard' };
 
 export type OthersCardDetailProps = OthersCardDetailSectionProps &
   BaseProps & { variant: 'othersCard' };
 
-export type PhotoCardDetailProps = MyCardDetailProps | OthersCardDetailProps;
+export type MyHoldingCardDetailProps = MyHoldingCardDetailSectionProps &
+  BaseProps & { variant: 'myHoldingCard' };
+
+export type PhotoCardDetailProps =
+  | MySellingCardDetailProps
+  | OthersCardDetailProps
+  | MyHoldingCardDetailProps;

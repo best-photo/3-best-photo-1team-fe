@@ -2,7 +2,7 @@ import { Meta, StoryFn } from '@storybook/react';
 import AmountControl from './amountControl';
 
 export default {
-  title: 'common/atom/AmountControl',
+  title: 'common/atoms/AmountControl',
   component: AmountControl,
   tags: ['autodocs'],
 } satisfies Meta<typeof AmountControl>;

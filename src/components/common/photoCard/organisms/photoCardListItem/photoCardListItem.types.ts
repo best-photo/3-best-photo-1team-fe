@@ -21,13 +21,18 @@ export interface AmountSectionProps {
 }
 
 export interface TradeSectionProps {
-  onCancel?: () => void;
-  onDecline?: () => void;
-  onConfirm?: () => void;
+  tradeId: number;
+  onCancel?: (id: number) => void;
+  onDecline?: (id: number) => void;
+  onConfirm?: (id: number) => void;
 }
 
 export type AmountListItem = BaseProps &
-  AmountSectionProps & { variant: 'amount' };
+  AmountSectionProps & {
+    variant: 'amount';
+    cardId: number;
+    onClick?: () => void;
+  };
 
 export type TradeListItem = BaseProps &
   TradeSectionProps & { variant: 'trade'; description: string };
