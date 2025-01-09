@@ -6,7 +6,7 @@ import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 // import { authAPI } from '../../services/경로는나중에';
-import AuthHeaderLogo from '@/src/components/auth/AuthHeaderLogo'
+import AuthHeaderLogo from '@/src/components/Auth/AuthHeaderLogo';
 interface LoginData {
   email: string;
   password: string;
@@ -71,7 +71,10 @@ export default function Login() {
 
   return (
     <div className='bg-black text-white min-h-screen pt-[100px] pb-[50px]'>
-      <AuthHeaderLogo title="최애의포토" highlight="의" />
+      <AuthHeaderLogo
+        title='최애의포토'
+        highlight='의'
+      />
       <div className='loginWrap max-w-[520px] min-w-[350px] mx-auto mb-[50px] w-[60%]'>
         <form
           className='max-w-[500px] flex flex-col items-center'
