@@ -23,7 +23,7 @@ export default function CreatePhotoCard() {
     handleSubmit,
     setValue,
     watch,
-    formState: { errors},
+    formState: { errors },
   } = useForm<CardData>({
     mode: "onChange",
   });
@@ -36,10 +36,18 @@ export default function CreatePhotoCard() {
   });
 
   const [isLoading, setIsLoading] = useState(false);
+  const [photoError, setPhotoError] = useState<string | null>(null); // 사진 업로드 오류 메시지 상태 추가
 
   const handleFileChange = (e: ChangeEvent<HTMLInputElement>) => {
     if (e.target.files && e.target.files[0]) {
       const file = e.target.files[0];
+      if (!file.type.startsWith("image/")) {
+        setPhotoError("이미지 파일만 업로드 가능합니다.");
+        setFormData({ ...formData, photo: null, photoName: "사진 업로드" });
+        return;
+      }
+
+      setPhotoError(null); // 오류 메시지 초기화
       setFormData({ ...formData, photo: file, photoName: file.name });
     }
   };
@@ -58,6 +66,10 @@ export default function CreatePhotoCard() {
 
     if (formData.photo) {
       body.append("photo", formData.photo);
+    } else {
+      setPhotoError("사진을 업로드해주세요."); // 사진이 없을 경우 오류 메시지 설정
+      setIsLoading(false);
+      return;
     }
 
     try {
@@ -119,8 +131,7 @@ export default function CreatePhotoCard() {
             />
           </div>
 
-          {/* 등급 선택 */}
-          <div className='flex flex-col gap-[10px] mb-5 w-full'>
+          <div className="flex flex-col gap-[10px] mb-5 w-full">
             <label className="text-left text-base md:text-base lg:text-lg font-normal">등급</label>
             <Dropdown
               options={["COMMON", "RARE", "SUPER RARE", "LEGENDARY"]}
@@ -133,8 +144,7 @@ export default function CreatePhotoCard() {
             />
           </div>
 
-          {/* 장르 선택 */}
-          <div className='flex flex-col gap-[10px] mb-5 w-full'>
+          <div className="flex flex-col gap-[10px] mb-5 w-full">
             <label className="text-base md:text-base lg:text-lg font-normal">장르</label>
             <Dropdown
               options={["여행", "풍경", "인물", "사물"]}
@@ -203,6 +213,9 @@ export default function CreatePhotoCard() {
                 className="hidden"
               />
             </div>
+            {photoError && (
+              <p className="text-red text-sm mt-2">{photoError}</p>
+            )}
           </div>
 
           <div className="w-full">
