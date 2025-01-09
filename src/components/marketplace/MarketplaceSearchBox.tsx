@@ -1,6 +1,5 @@
 'use client';
 
-import Image from 'next/image';
 import { useState } from 'react';
 import Dropdown from '../common/CommonDropDown/DropDown';
 import SearchInput from '../common/CommonSearchBox/SearchInput';

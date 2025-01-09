@@ -1,4 +1,3 @@
-import Link from 'next/link';
 import { useProfileModalStore } from '@/src/store/useProfileModalStore';
 
 const ProfileModal = ({
