@@ -1,7 +1,13 @@
-export default function PurchasePointLabel({ point }: { point: number }) {
+import cn from '@/src/utils/cn';
+import { PurchasePointLabelProps } from './purchasePointLabel.types';
+
+export default function PurchasePointLabel({
+  point,
+  className,
+}: PurchasePointLabelProps) {
   return (
     <span>
-      <span className='text-white'>{point}P</span> 에 구매
+      <span className={cn('text-white', className)}>{point}P</span> 에 구매
     </span>
   );
 }
