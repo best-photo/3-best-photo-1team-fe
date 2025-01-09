@@ -30,7 +30,7 @@ export default function RootLayout({
       <body
         className={`${notoSansKr.variable} ${baskinRobbinsBold.variable} antialiased flex flex-col min-h-screen `}
       >
-        {children}
+        <div className='custom-scroll'>{children}</div>
       </body>
     </html>
   );
