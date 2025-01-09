@@ -3,4 +3,6 @@ export interface TitleProps {
   font: 'noto' | 'baskin';
   children: React.ReactNode;
   className?: string;
+  buttonText?: string;
+  onButtonClick?: () => void;
 }

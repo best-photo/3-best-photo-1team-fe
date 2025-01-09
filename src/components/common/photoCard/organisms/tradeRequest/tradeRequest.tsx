@@ -35,10 +35,10 @@ export default function TradeRequest({
         <Title
           font='noto'
           variant='secondary'
-          className='flex justify-between items-center'
+          buttonText={screenWidth !== 'small' ? '포토카드 교환하기' : ''}
+          onButtonClick={screenWidth !== 'small' ? handleTrade : undefined}
         >
-          <span>교환 희망 정보</span>
-          {screenWidth !== 'small' && <TradeButton handleTrade={handleTrade} />}
+          교환 희망 정보
         </Title>
         <Description variant='tertiary'>{tradeDescription}</Description>
         <CardInformationHeader
