@@ -41,7 +41,7 @@ export default function Title({
             onClick={onButtonClick}
             className='w-[345px] md:w-[342px] lg:w-[440px] font-noto'
           >
-            포토카드 교환하기
+            {buttonText}
           </CommonBtn>
         )}
       </div>
