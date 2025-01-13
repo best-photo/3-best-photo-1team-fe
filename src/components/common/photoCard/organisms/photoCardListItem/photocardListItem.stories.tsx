@@ -1,7 +1,7 @@
 import { Meta, StoryFn } from '@storybook/react';
 import PhotoCardListItem from './photoCardListItem';
 import defaultPhoto from '@/public/images/sample-image-1.webp';
-import { GENRES } from '@/src/constants/photoCardInformation';
+import { CARD_GENRES } from '@/src/constants/photoCardInformation';
 import { PhotoCardListItemProps } from './photoCardListItem.types';
 import { PhotoCardListItemCodeSnippet } from './codeExample';
 
@@ -28,9 +28,9 @@ export default {
     },
     genre: {
       control: 'select',
-      options: Object.values(GENRES),
+      options: Object.values(CARD_GENRES),
       description: '카드 종류',
-      defaultValue: Object.values(GENRES)[0],
+      defaultValue: Object.values(CARD_GENRES)[0],
     },
     variant: {
       control: 'select',

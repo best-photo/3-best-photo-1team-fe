@@ -1,6 +1,6 @@
 import { Meta, StoryFn } from '@storybook/react';
 import CardInformationHeader from './cardInformationHeader';
-import { GENRES, GRADES } from '@/src/constants/photoCardInformation';
+import { CARD_GENRES, CARD_GRADES } from '@/src/constants/photoCardInformation';
 
 export default {
   title: 'common/molecules/CardInformationHeader',
@@ -18,11 +18,11 @@ export default {
   argTypes: {
     grade: {
       control: 'select',
-      options: Object.keys(GRADES),
+      options: Object.keys(CARD_GRADES),
     },
     genre: {
       control: 'select',
-      options: Object.keys(GENRES),
+      options: Object.keys(CARD_GENRES),
     },
   },
 } satisfies Meta<typeof CardInformationHeader>;

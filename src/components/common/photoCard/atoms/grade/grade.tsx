@@ -1,6 +1,6 @@
 import cn from '@/src/utils/cn';
 import { Grades } from '../../types';
-import { GRADES } from '@/src/constants/photoCardInformation';
+import { CARD_GRADES } from '@/src/constants/photoCardInformation';
 
 const TEXT_COLOR = {
   common: 'text-main',
@@ -10,5 +10,5 @@ const TEXT_COLOR = {
 };
 
 export default function Grade({ grade }: { grade: Grades }) {
-  return <span className={cn(TEXT_COLOR[grade])}>{GRADES[grade]}</span>;
+  return <span className={cn(TEXT_COLOR[grade])}>{CARD_GRADES[grade]}</span>;
 }
