@@ -5,7 +5,7 @@ const CardSummary = ({ variant, totalCards }: CardSummaryProps) => {
   return (
     <div
       className={cn(
-        'flex items-center justify-between h-[30px] sm:h-8 md:h-10 px-2.5 md:px-5 border w-fit',
+        'flex items-center justify-between h-[30px] sm:h-8 md:h-10 px-2.5 md:px-5 border w-fit flex-shrink-0',
         variant === 'common' && 'border-main text-main',
         variant === 'rare' && 'border-blue text-blue',
         variant === 'superRare' && 'border-purple text-purple',

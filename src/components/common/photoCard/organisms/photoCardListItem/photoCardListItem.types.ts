@@ -31,7 +31,7 @@ export type AmountListItem = BaseProps &
   AmountSectionProps & {
     variant: 'amount';
     cardId: number;
-    onClick?: () => void;
+    onClick: (id: number) => void;
   };
 
 export type TradeListItem = BaseProps &

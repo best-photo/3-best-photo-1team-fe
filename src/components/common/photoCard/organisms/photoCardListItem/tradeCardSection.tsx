@@ -15,22 +15,18 @@ export const TradeCardSection = ({
   const onConfirmValid = onConfirm !== undefined;
   const screenWidth = useScreenWidth();
 
-  if (onCancelValid && (onDeclineValid || onConfirmValid))
-    throw new Error('onCancel과 onDecline/onConfirm 중 하나만 입력해주세요.');
-
-  if (!onCancelValid && (!onDeclineValid || !onConfirmValid))
-    throw new Error('onCancel이나 onDecline과 onConfirm을 입력해주세요.');
-
   if (onCancelValid)
     return (
-      <CommonBtn
-        variant='secondary'
-        width='full'
-        heightPreset={1}
-        onClick={() => onCancel(tradeId)}
-      >
-        취소하기
-      </CommonBtn>
+      <div className='flex'>
+        <CommonBtn
+          variant='secondary'
+          width='full'
+          heightPreset={1}
+          onClick={() => onCancel(tradeId)}
+        >
+          취소하기
+        </CommonBtn>
+      </div>
     );
 
   if (onDeclineValid && onConfirmValid)

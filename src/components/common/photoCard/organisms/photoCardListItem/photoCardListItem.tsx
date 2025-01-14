@@ -27,7 +27,11 @@ export default function PhotoCardListItem(props: PhotoCardListItemProps) {
 
   return (
     <article
-      onClick={props.variant === 'amount' ? props.onClick : undefined}
+      onClick={
+        props.variant === 'amount' && props.onClick
+          ? () => props.onClick(props.cardId)
+          : undefined
+      }
       className={cn(
         'flex-shrink-0 w-[170px] md:w-[342px] lg:w-[440px] border border-white-10 bg-gray-500 flex flex-col p-[10px] md:p-[20px] lg:p-[40px] justify-center',
         CURSOR_STYLE[props.variant],
