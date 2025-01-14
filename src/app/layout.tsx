@@ -2,6 +2,7 @@ import type { Metadata } from 'next';
 import { Noto_Sans_KR } from 'next/font/google';
 import localFont from 'next/font/local';
 import './globals.css';
+import ClientProvider from '@/src/components/client/ClientProvider';
 
 const baskinRobbinsBold = localFont({
   src: './fonts/BaskinRobbins-Bold.woff',
@@ -30,7 +31,9 @@ export default function RootLayout({
       <body
         className={`${notoSansKr.variable} ${baskinRobbinsBold.variable} antialiased flex flex-col min-h-screen `}
       >
-        <div className='custom-scroll'>{children}</div>
+        <ClientProvider>
+          <div className='custom-scroll'>{children}</div>
+        </ClientProvider>
       </body>
     </html>
   );
