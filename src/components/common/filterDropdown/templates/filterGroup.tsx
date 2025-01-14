@@ -1,4 +1,3 @@
-import { useEffect } from 'react';
 import Dropdown from '../organisms/DropDown';
 import { useFilterStore } from '@/src/store/useFilterStore';
 
