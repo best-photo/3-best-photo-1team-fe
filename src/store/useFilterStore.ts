@@ -79,7 +79,9 @@ export const useFilterStore = create<FilterStoreState>((set, get) => ({
   onSubmitFilter: () => {
     const state = get();
     const query = state.updateQueryParams();
-    state.onSubmitCallback(query);
+    if (typeof state.onSubmitCallback === 'function') {
+      state.onSubmitCallback(query);
+    }
   },
   onSubmitCallback: () => {},
   setOnSubmitCallback: (callback) =>
