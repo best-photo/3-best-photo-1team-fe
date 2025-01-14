@@ -1,11 +1,11 @@
 'use client';
 
+import useAuthStore from '@/src/store/useAuthStore';
 import CommonInputSection from '@/src/components/common/commonInputSection/commonInputSection';
 import { useForm } from 'react-hook-form';
 import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
-// import { authAPI } from '../../services/경로는나중에';
 import AuthHeaderLogo from '@/src/components/Auth/AuthHeaderLogo';
 interface LoginData {
   email: string;
@@ -16,6 +16,18 @@ export default function Login() {
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
   const [modalMessage, setModalMessage] = useState<string>('');
   const router = useRouter();
+
+  const { user, isAuthenticated } = useAuthStore();
+  const { login } = useAuthStore(); // 전역 상태의 login 함수 사용
+
+  useEffect(() => {
+    // 유저 값 또는 인증 상태에 따라 리디렉션
+    if (isAuthenticated && user) {
+      // router.push('/'); // 마켓플레이스 페이지로 이동
+      setModalMessage(loginSuccessMessage);
+      setIsModalOpen(true);
+    }
+  }, [isAuthenticated, user, router]);
 
   const {
     register,
@@ -39,15 +51,11 @@ export default function Login() {
   // form을 submit할 때 실행할 함수입니다. react-hook-form의 handleSubmit함수 안에 입력해주세요. 파라미터로는 form data를 받습니다.
   // 만약 form data를 그대로 받아서 실행하는 함수가 있다면 onSubmit함수는 생략하고 바로 handleSubmit에 입력해도 됩니다.
   const onSubmit = async (data: LoginData) => {
-    console.log(data);
     try {
-      // const response = await authAPI.signin(data);
-      const response = { status: 200 }; // 임시
-      if (response.status === 200) {
-        setModalMessage(loginSuccessMessage);
-        setIsModalOpen(true);
-        // localStorage.setItem('token', response.data.token);
-      }
+      await login(data); // 응답 데이터만 반환
+
+      setModalMessage(loginSuccessMessage);
+      setIsModalOpen(true);
     } catch (error: any) {
       const errorMessage =
         error.response?.data?.message || '알 수 없는 오류가 발생했습니다.';
