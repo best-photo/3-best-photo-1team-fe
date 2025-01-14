@@ -52,17 +52,22 @@ export default function FilterModal({
   useEffect(() => {
     setOptions(OPTIONS[variant]);
     setCategories(CATEGORIES[variant]);
-  }, []);
+
+    return () => {
+      setOptions({});
+      setCategories([]);
+    };
+  }, [variant, setOptions, setCategories]);
 
   if (modalOpen)
     return createPortal(
       <>
         <div className='absolute w-full h-full bg-black-50 block md:hidden z-30' />
-        <article className='w-full rounded-t-[16px] bg-[#1b1b1b] block md:block absolute bottom-0 z-40'>
+        <div className='w-full rounded-t-[16px] bg-[#1b1b1b] block md:block absolute bottom-0 z-40'>
           <FilterModalHeader />
           <FilterSection />
           <FilterActions />
-        </article>
+        </div>
       </>,
       document.body,
     );
