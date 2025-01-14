@@ -29,7 +29,15 @@ export default function CardContainer({
           key={card.cardId}
           variant='amount'
           fontWeight='normal'
-          {...card}
+          cardId={card.cardId}
+          nickname={card.nickname}
+          price={card.price}
+          image={card.image}
+          cardName={card.cardName}
+          state={card.state}
+          grade={card.grade}
+          genre={card.genre}
+          totalAmount={card.totalAmount}
           onClick={onClick}
         />
       ))}

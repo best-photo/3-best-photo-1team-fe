@@ -15,12 +15,6 @@ export const TradeCardSection = ({
   const onConfirmValid = onConfirm !== undefined;
   const screenWidth = useScreenWidth();
 
-  if (onCancelValid && (onDeclineValid || onConfirmValid))
-    console.error('onCancel과 onDecline/onConfirm 중 하나만 입력해주세요.');
-
-  if (!onCancelValid && (!onDeclineValid || !onConfirmValid))
-    console.error('onCancel이나 onDecline과 onConfirm을 입력해주세요.');
-
   if (onCancelValid)
     return (
       <div className='flex'>
