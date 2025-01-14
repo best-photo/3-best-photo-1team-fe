@@ -48,3 +48,13 @@ export const refresh = async (): Promise<void> => {
 export const logout = async (): Promise<void> => {
   await axiosInstance.post('/auth/logout');
 };
+
+// 유저 정보 가져오기
+export const getProfile = async (): Promise<{
+  email: string;
+  nickname: string;
+  points: number;
+}> => {
+  const response = await axiosInstance.get('/users/profile');
+  return response.data; // 서버에서 반환된 유저 정보
+};
