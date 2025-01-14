@@ -63,8 +63,8 @@ const IncomingTradeCardProps = {
   variant: 'trade',
   description:
     '카드 설명서 카드 설명서 카드 설명서 카드 설명서 카드 설명서 카드 설명서 카드 설명서 카드 설명서 카드 설명서 카드 설명서 카드 설명서 카드 설명서 ',
-  onDecline: (id) => console.log(id),
-  onConfirm: (id) => console.log(id),
+  onDecline: (id) => alert(id),
+  onConfirm: (id) => alert(id),
 } as PhotoCardListItemProps;
 
 IncomingTradeCard.args = IncomingTradeCardProps;
@@ -85,7 +85,7 @@ const SubmittedTradeCardProps = {
   variant: 'trade',
   description:
     '카드 설명서 카드 설명서 카드 설명서 카드 설명서 카드 설명서 카드 설명서 카드 설명서 카드 설명서 카드 설명서 카드 설명서 카드 설명서 카드 설명서 ',
-  onCancel: (id) => console.log(id),
+  onCancel: (id) => alert(id),
 } as PhotoCardListItemProps;
 
 OutgoingTradeCard.args = SubmittedTradeCardProps;
@@ -103,9 +103,10 @@ OutgoingTradeCard.argTypes = {
 
 export const MyCardList = Template.bind({});
 
-const MyCardListProps = {
+const MyCardListProps: PhotoCardListItemProps = {
   cardId: 1,
   cardName: '우리집 앞마당',
+  fontWeight: 'normal',
   grade: 'legendary',
   genre: 'landscape',
   nickname: '최애',
@@ -115,7 +116,8 @@ const MyCardListProps = {
   totalAmount: 5,
   state: 'trading',
   soldAmount: 1,
-} as PhotoCardListItemProps;
+  onClick: (id) => alert(id),
+};
 
 MyCardList.args = MyCardListProps;
 MyCardList.parameters = {
@@ -123,9 +125,10 @@ MyCardList.parameters = {
 };
 
 export const MarketPlaceCard = Template.bind({});
-const MarketPlaceCardProps = {
+const MarketPlaceCardProps: PhotoCardListItemProps = {
   cardId: 1,
   cardName: '우리집 앞마당',
+  fontWeight: 'normal',
   grade: 'legendary',
   genre: 'landscape',
   nickname: '미쓰손',
@@ -134,7 +137,8 @@ const MarketPlaceCardProps = {
   variant: 'amount',
   totalAmount: 5,
   soldAmount: 5,
-} as PhotoCardListItemProps;
+  onClick: (id) => alert(id),
+};
 
 MarketPlaceCard.args = MarketPlaceCardProps;
 MarketPlaceCard.parameters = {
