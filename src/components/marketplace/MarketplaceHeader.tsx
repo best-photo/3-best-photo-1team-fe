@@ -3,6 +3,7 @@
 import { Modal } from './Modal';
 import LoginAlertModal from './LoginModal';
 import PhotoCardDetailModal from './ProductModal';
+import useAuthStore from '@/src/store/useAuthStore'; // 유석 추가 코드
 
 interface MarketplaceHeaderProps {
   isAlertVisible: boolean;
@@ -21,10 +22,13 @@ export default function MarketplaceHeader({
   setIsLoginAlertVisible,
   isProductVisible,
   setProductVisible,
-  userId,
-}: MarketplaceHeaderProps) {
+}: // userId, // 수환님 원래 코드
+MarketplaceHeaderProps) {
+  const user = useAuthStore((state) => state.user); // 유석 추가 코드
   const handleButtonClick = () => {
-    if (userId) {
+    // if (userId) { // 수환님 원래 코드
+    if (user) {
+      // 유석 추가 코드
       // userId가 있으면 상품 정보를 보여주는 모달로 이동
       if (!isAlertVisible) {
         setAlertVisible(true);
