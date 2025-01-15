@@ -86,8 +86,8 @@ export default function SearchSection({
           <Image
             src={filterIcon}
             alt='필터 버튼'
-            width={50}
-            height={50}
+            width={30}
+            height={30}
             sizes='fill'
           />
         </button>
