@@ -51,6 +51,7 @@ export const logout = async (): Promise<void> => {
 
 // 유저 정보 가져오기
 export const getProfile = async (): Promise<{
+  id: string;
   email: string;
   nickname: string;
   points: number;
