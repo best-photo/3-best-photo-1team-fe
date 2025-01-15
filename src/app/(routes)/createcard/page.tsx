@@ -5,7 +5,7 @@ import { useRouter } from 'next/navigation';
 import { useForm } from 'react-hook-form';
 import { CommonBtn } from '@/src/components/common/CommonBtn/CommonBtn';
 import CommonInputSection from '@/src/components/common/commonInputSection/commonInputSection';
-import Dropdown from '@/src/components/common/filterDropdown/organisms/DropDown';
+import Dropdown from '@/src/components/common/CommonDropDown/DropDown';
 import Image from 'next/image';
 
 interface CardData {
