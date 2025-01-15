@@ -110,7 +110,7 @@ const NotificationBell = () => {
           <div className='box-border absolute top-6 right-0 bg-black border border-gray-400 shadow-lg z-10'>
             <div className=' max-h-[535px] overflow-y-auto'>
               {notificationData?.notifications?.length === 0 ? (
-                <div className='p-5'>알림이 없습니다.</div>
+                <div className='p-5 w-[180px]'>알림이 없습니다.</div>
               ) : (
                 <ul>
                   {notificationData?.notifications.map((notification) => (
