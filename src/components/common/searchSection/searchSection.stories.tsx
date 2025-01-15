@@ -1,6 +1,7 @@
 import { Meta, StoryFn } from '@storybook/react';
 import SearchSection from './searchSection';
 import { SearchSectionProps } from './searchSection.types';
+import { searchSectionCodeSnippet } from './codeExample';
 
 export default {
   title: 'common/organisms/SearchSection',
@@ -14,27 +15,38 @@ const Template: StoryFn<typeof SearchSection> = (args) => (
 
 export const MySale = Template.bind({});
 
+const onSubmitFilter = (query: string) => alert(query);
+
 const MySaleProps: SearchSectionProps = {
   variant: 'mySale',
-  onSubmitFilter: (query) => alert(query),
+  onSubmitFilter,
 };
 
 MySale.args = MySaleProps;
+MySale.parameters = {
+  codeExample: searchSectionCodeSnippet(MySaleProps),
+};
 
 export const Marketplace = Template.bind({});
 
 const MarketplaceProps: SearchSectionProps = {
   variant: 'marketplace',
-  onSubmitFilter: (query) => alert(query),
+  onSubmitFilter,
 };
 
 Marketplace.args = MarketplaceProps;
+Marketplace.parameters = {
+  codeExample: searchSectionCodeSnippet(MySaleProps),
+};
 
 export const MyGallery = Template.bind({});
 
 const MyGalleryProps: SearchSectionProps = {
   variant: 'myGallery',
-  onSubmitFilter: (query) => alert(query),
+  onSubmitFilter,
 };
 
 MyGallery.args = MyGalleryProps;
+MyGallery.parameters = {
+  codeExample: searchSectionCodeSnippet(MySaleProps),
+};
