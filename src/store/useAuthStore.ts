@@ -15,6 +15,7 @@ import {
 
 // User 인터페이스
 interface User {
+  id: string;
   email: string;
   nickname: string;
   points: number;
@@ -40,8 +41,7 @@ const useAuthStore = create<AuthState>()(
     // 로그인
     login: async (credentials) => {
       try {
-        await loginAPI(credentials); // 로그인 API 호출
-        const user = await getProfile(); // 로그인 후 프로필 정보 가져오기
+        const user = await loginAPI(credentials);
         set({
           user,
           isAuthenticated: true,
@@ -95,6 +95,7 @@ const useAuthStore = create<AuthState>()(
 
     // 로그아웃
     logout: async () => {
+      await refresh();
       await logoutAPI();
       set({ isAuthenticated: false, user: null });
     },
