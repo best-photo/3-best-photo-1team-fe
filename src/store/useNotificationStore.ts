@@ -6,9 +6,13 @@ type NotificationState = {
   closeNotification: () => void;
 };
 
-export const useNotificationStore = create<NotificationState>((set) => ({
+export const useNotificationStore = create<NotificationState>((set, get) => ({
   isNotificationOpen: false,
   toggleNotification: () =>
     set((state) => ({ isNotificationOpen: !state.isNotificationOpen })),
-  closeNotification: () => set({ isNotificationOpen: false }),
+  closeNotification: () => {
+    if (get().isNotificationOpen) {
+      set({ isNotificationOpen: false });
+    }
+  },
 }));
