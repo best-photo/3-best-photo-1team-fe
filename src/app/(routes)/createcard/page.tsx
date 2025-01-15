@@ -5,102 +5,82 @@ import { useRouter } from 'next/navigation';
 import { useForm } from 'react-hook-form';
 import { CommonBtn } from '@/src/components/common/CommonBtn/CommonBtn';
 import CommonInputSection from '@/src/components/common/commonInputSection/commonInputSection';
-import Dropdown from '@/src/components/common/filterDropdown/organisms/DropDown';
+import Dropdown from '@/src/components/common/CommonDropDown/DropDown';
 import Image from 'next/image';
-
-interface CardData {
-  cardname: string;
-  grade: string;
-  genre: string;
-  price: number;
-  totalQuantity: number;
-  description: string;
-}
+import { createPhotoCard } from '@/src/services/photoCardService';
+import { CreateCardData } from '@/src/lib/axios/types/api/axiosInstance';
 
 export default function CreatePhotoCard() {
-  const {
-    register,
-    handleSubmit,
-    setValue,
-    watch,
-    formState: { errors },
-  } = useForm<CardData>({
-    mode: 'onChange',
+  const { register, handleSubmit, setValue, watch, formState: { errors } } = useForm<CreateCardData>({
+    mode: "onChange",
   });
 
   const router = useRouter();
 
   const [formData, setFormData] = useState({
     photo: null as File | null,
-    photoName: '사진 업로드',
+    photoName: "사진 업로드",
   });
-
   const [isLoading, setIsLoading] = useState(false);
-  const [photoError, setPhotoError] = useState<string | null>(null); // 사진 업로드 오류 메시지 상태 추가
+  const [photoError, setPhotoError] = useState<string | null>(null);
 
   const handleFileChange = (e: ChangeEvent<HTMLInputElement>) => {
     if (e.target.files && e.target.files[0]) {
       const file = e.target.files[0];
-      if (!file.type.startsWith('image/')) {
-        setPhotoError('이미지 파일만 업로드 가능합니다.');
-        setFormData({ ...formData, photo: null, photoName: '사진 업로드' });
+      if (!file.type.startsWith("image/")) {
+        setPhotoError("이미지 파일만 업로드 가능합니다.");
+        setFormData({ ...formData, photo: null, photoName: "사진 업로드" });
         return;
       }
       if (file.size > 5 * 1024 * 1024) {
-        setPhotoError('파일 크기는 5MB를 초과할 수 없습니다.');
-        setFormData({ ...formData, photo: null, photoName: '사진 업로드' });
+        setPhotoError("파일 크기는 5MB를 초과할 수 없습니다.");
+        setFormData({ ...formData, photo: null, photoName: "사진 업로드" });
         return;
       }
-      setPhotoError(null); // 오류 메시지 초기화
+      setPhotoError(null);
       setFormData({ ...formData, photo: file, photoName: file.name });
     }
   };
-
-  const onSubmit = async (data: CardData) => {
+  
+  const onSubmit = async (data: CreateCardData) => {
     if (isLoading) return;
     setIsLoading(true);
-
-    const body = new FormData();
-    body.append('cardname', data.cardname);
-    body.append('grade', data.grade);
-    body.append('genre', data.genre);
-    body.append('price', data.price.toString());
-    body.append('totalQuantity', data.totalQuantity.toString());
-    body.append('description', data.description);
-
-    if (formData.photo) {
-      body.append('photo', formData.photo);
-    } else {
-      setPhotoError('사진을 업로드해주세요.'); // 사진이 없을 경우 오류 메시지 설정
-      setIsLoading(false);
-      return;
+  
+    if (!formData.photo) {
+      setPhotoError(null); // 사진을 업로드하지 않아도 오류 메시지를 없애기
     }
-
+  
     try {
-      const response = await fetch('/api/createcard', {
-        method: 'POST',
-        body,
-      });
-
-      if (response.ok) {
+      const payload = {
+        ...data,
+        photo: formData.photo || undefined,
+        price: Number(data.price),  // string을 number로 변환
+        totalQuantity: Number(data.totalQuantity)  // string을 number로 변환
+      };
+      // 포토카드 생성 함수 호출
+      const response = await createPhotoCard(payload);
+  
+      // status가 200이면 성공
+      if (response.status === 200) {
         router.push(
-          `/createcard/success?grade=${encodeURIComponent(data.grade)}&name=${encodeURIComponent(data.cardname)}`,
+          `/createcard/success?grade=${encodeURIComponent(data.grade)}&name=${encodeURIComponent(data.cardname)}`
         );
       } else {
-        console.error('API Error:', response.statusText);
+        console.error("API Error:", response.data);
         router.push(
-          `/createcard/fail?grade=${encodeURIComponent(data.grade)}&name=${encodeURIComponent(data.cardname)}`,
+          `/createcard/fail?grade=${encodeURIComponent(data.grade)}&name=${encodeURIComponent(data.cardname)}`
         );
       }
     } catch (error) {
-      console.error('Network Error:', error);
+      console.error("Network Error:", error);
       router.push(
-        `/createcard/fail?grade=${encodeURIComponent(data.grade)}&name=${encodeURIComponent(data.cardname)}`,
+        `/createcard/fail?grade=${encodeURIComponent(data.grade)}&name=${encodeURIComponent(data.cardname)}`
       );
     } finally {
       setIsLoading(false);
     }
   };
+  
 
   return (
     <div className='flex items-center justify-center min-h-screen bg-black p-[15px] lg:p-[40px] md:p-[20px]'>
@@ -128,7 +108,7 @@ export default function CreatePhotoCard() {
           className='flex flex-col items-center md:items-start justify-center w-full max-w-[520px] gap-[20px] mx-auto'
         >
           <div className='w-full'>
-            <CommonInputSection<CardData>
+            <CommonInputSection<CreateCardData>
               register={register}
               errors={errors}
               label='포토카드 이름'
@@ -176,7 +156,7 @@ export default function CreatePhotoCard() {
           </div>
 
           <div className='w-full'>
-            <CommonInputSection<CardData>
+            <CommonInputSection<CreateCardData>
               register={register}
               errors={errors}
               label='가격'
@@ -194,7 +174,7 @@ export default function CreatePhotoCard() {
           </div>
 
           <div className='w-full'>
-            <CommonInputSection<CardData>
+            <CommonInputSection<CreateCardData>
               register={register}
               errors={errors}
               label='총 발행량'
@@ -239,7 +219,7 @@ export default function CreatePhotoCard() {
           </div>
 
           <div className='w-full'>
-            <CommonInputSection<CardData>
+            <CommonInputSection<CreateCardData>
               register={register}
               errors={errors}
               label='설명'
