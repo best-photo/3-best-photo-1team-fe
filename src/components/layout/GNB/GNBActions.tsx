@@ -5,7 +5,7 @@ import NotificationBell from './NotificationBell';
 import ProfileModal from './ProfileModal';
 import useAuthStore from '@/src/store/useAuthStore';
 
-const GNBRightSection = () => {
+const GNBActions = () => {
   // const { isLogin, login, logout, user } = useAuthStore();
   // // 실제 user 추가해야함
   // const isLoggedInAndHasInfo = isLogin && user;
@@ -47,4 +47,4 @@ const GNBRightSection = () => {
   );
 };
 
-export default GNBRightSection;
+export default GNBActions;
