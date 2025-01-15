@@ -47,7 +47,7 @@ function PhotoCardDetailContent() {
 
   return (
     <div className="w-[1480px] mx-[240px]">
-      <PhotoCardDetail
+      {/* <PhotoCardDetail
         variant="myHoldingCard"
         cardName={photoCardData.cardName}
         description={photoCardData.description}
@@ -57,7 +57,7 @@ function PhotoCardDetailContent() {
         nickname={photoCardData.nickname}
         price={photoCardData.price}
         onSale={() => alert("판매버튼 클릭")}
-      />
+      /> */}
     </div>
   );
 }
