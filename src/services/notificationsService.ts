@@ -27,14 +27,25 @@ const getNotifications = async ({
   page?: number;
   limit?: number;
 }): Promise<NotificationResponse> => {
-  const response = await axiosInstance.get(
-    `/notifications?page=${page}&limit=${limit}`,
-  );
-  return response.data;
+  try {
+    const response = await axiosInstance.get(
+      `/notifications?page=${page}&limit=${limit}`,
+    );
+    return response.data;
+  } catch (error) {
+    // 에러 로깅
+    console.error('Failed to fetch notifications:', error);
+    throw error;
+  }
 };
 
 const patchNotification = async (id: string): Promise<void> => {
-  await axiosInstance.patch(`/notifications/${id}`);
+  try {
+    await axiosInstance.patch(`/notifications/${id}`);
+  } catch (error) {
+    console.error(`Failed to update notification ${id}:`, error);
+    throw error;
+  }
 };
 
 export const notificationsService = {
