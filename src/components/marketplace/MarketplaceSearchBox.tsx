@@ -1,18 +1,37 @@
 'use client';
 
-import { useState } from 'react';
 import Dropdown from '../common/CommonDropDown/DropDown';
 import SearchInput from '../common/CommonSearchBox/SearchInput';
 
-export default function MarketplaceSearchBox() {
-  const [selectedGrade, setSelectedGrade] = useState<string>('');
-  const [selectedGenre, setSelectedGenre] = useState<string>('');
-  const [selectedStatus, setSelectedStatus] = useState<string>('');
-  const [selectedPrice, setSelectedPrice] = useState<string>('');
-  const [query, setQuery] = useState<string>('');
+interface MarketplaceSearchBoxProps {
+  filters: {
+    grade: string;
+    genre: string;
+    status: string;
+    priceOrder: string;
+  };
+  setFilters: React.Dispatch<
+    React.SetStateAction<{
+      grade: string;
+      genre: string;
+      status: string;
+      priceOrder: string;
+    }>
+  >;
+  query: string;
+  setQuery: React.Dispatch<React.SetStateAction<string>>;
+  onSearchClick: () => void;
+}
 
-  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setQuery(e.target.value);
+export default function MarketplaceSearchBox({
+  filters,
+  setFilters,
+  query,
+  setQuery,
+  onSearchClick,
+}: MarketplaceSearchBoxProps) {
+  const handleDropdownChange = (key: keyof typeof filters, value: string) => {
+    setFilters((prev) => ({ ...prev, [key]: value }));
   };
 
   return (
@@ -21,35 +40,36 @@ export default function MarketplaceSearchBox() {
         <div className='relative w-[320px] h-[50px]'>
           <SearchInput
             value={query}
-            onChange={handleInputChange}
+            onChange={(e) => setQuery(e.target.value)}
+            onSearchClick={onSearchClick}
             placeholder='검색'
             className='w-[320px]'
           />
         </div>
         <Dropdown
           options={['COMMON', 'RARE', 'SUPER RARE', 'LEGENDARY']}
-          selectedValue={selectedGrade}
+          selectedValue={filters.grade}
           placeholder='등급'
-          onValueChange={setSelectedGrade}
+          onValueChange={(value) => handleDropdownChange('grade', value)}
         />
         <Dropdown
           options={['여행', '풍경', '인물', '사물']}
-          selectedValue={selectedGenre}
+          selectedValue={filters.genre}
           placeholder='장르'
-          onValueChange={setSelectedGenre}
+          onValueChange={(value) => handleDropdownChange('genre', value)}
         />
         <Dropdown
           options={['판매 중', '판매 완료']}
-          selectedValue={selectedStatus}
-          placeholder='매진여부'
-          onValueChange={setSelectedStatus}
+          selectedValue={filters.status}
+          placeholder='매진 여부'
+          onValueChange={(value) => handleDropdownChange('status', value)}
         />
       </div>
       <Dropdown
         options={['최신순', '오래된 순', '높은 가격순', '낮은 가격순']}
-        selectedValue={selectedPrice}
-        placeholder='낮은 가격순'
-        onValueChange={setSelectedPrice}
+        selectedValue={filters.priceOrder}
+        placeholder='정렬 기준'
+        onValueChange={(value) => handleDropdownChange('priceOrder', value)}
         className='border border-[#dddddd]'
       />
     </div>

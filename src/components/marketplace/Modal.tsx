@@ -1,25 +1,60 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import Image from 'next/image';
 import Dropdown from '../common/CommonDropDown/DropDown';
 import SearchInput from '../common/CommonSearchBox/SearchInput';
 import PhotoCardListItem from '../common/photoCard/organisms/photoCardListItem/photoCardListItem';
-import { mockPhotoCards } from './mockData';
+import { AmountListItem } from '../common/photoCard/organisms/photoCardListItem/photoCardListItem.types';
+import { axiosUserCards } from '@/src/lib/axios/types/api/marketplaceMain/userCard';
+import { mapApiDataToAmountListItem } from '@/src/lib/axios/types/marketplaceMain/mainpagecardType';
 
 export function Modal({
   onClose,
   isVisible,
+  userId,
   onPhotoCardClick,
 }: {
   onClose: () => void;
   isVisible: boolean;
-  onPhotoCardClick: () => void;
+  userId: string | null;
+  onPhotoCardClick: (photoCardId: string) => void;
 }) {
-  const [query, setQuery] = useState('');
+  const [inputQuery, setInputQuery] = useState(''); // 입력된 검색어
+  const [query, setQuery] = useState(''); // axios 요청 시 사용할 검색어
+
   const [selectedGrade, setSelectedGrade] = useState<string>('');
   const [selectedGenre, setSelectedGenre] = useState<string>('');
+  const [userCards, setUserCards] = useState<AmountListItem[]>([]);
 
-  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setQuery(e.target.value);
+  const fetchUserCards = async () => {
+    if (!userId) return; // userId가 없는 경우 요청하지 않음
+
+    try {
+      const cards = await axiosUserCards(userId, {
+        query,
+        grade: selectedGrade,
+        genre: selectedGenre,
+      });
+      const formattedCards: AmountListItem[] = cards.map(
+        mapApiDataToAmountListItem,
+      );
+      setUserCards(formattedCards);
+      console.log(userCards);
+    } catch (error) {
+      console.error(
+        '유저 카드 데이터를 가져오는 중 오류가 발생했습니다:',
+        error,
+      );
+    }
+  };
+
+  useEffect(() => {
+    if (isVisible) {
+      fetchUserCards();
+    }
+  }, [query, selectedGrade, selectedGenre, isVisible]);
+
+  const handleSearchClick = () => {
+    setQuery(inputQuery); // 검색어 업데이트
   };
 
   return (
@@ -56,17 +91,11 @@ export function Modal({
             <div className=' flex flex-row gap-[10px] h-[50px] mt-[30px] ml-[120px] mb-[30px]'>
               <div className='w-[320px] relative'>
                 <SearchInput
-                  value={query}
-                  onChange={handleInputChange}
+                  value={inputQuery}
+                  onChange={(e) => setInputQuery(e.target.value)}
+                  onSearchClick={handleSearchClick}
                   placeholder='검색'
                   className='w-[320px]'
-                />
-                <Image
-                  src='/icons/search.svg'
-                  alt='Search Icon'
-                  className='absolute right-[10px] top-1/2 transform -translate-y-1/2 z-10'
-                  width={20}
-                  height={20}
                 />
               </div>
               <Dropdown
@@ -84,14 +113,12 @@ export function Modal({
             </div>
 
             <div className='w-[930px] mx-auto flex flex-wrap h-[600px] overflow-y-auto custom-scroll'>
-              <div
-                onClick={onPhotoCardClick}
-                className='flex gap-[20px] flex-wrap w-[1480px] mx-auto pt-[60px] mb-[100px]'
-              >
-                {mockPhotoCards.map((card, index) => (
+              <div className='flex gap-[20px] flex-wrap w-[1480px] mx-auto pt-[60px] mb-[100px]'>
+                {userCards.map((card, index) => (
                   <PhotoCardListItem
                     key={index}
                     {...card}
+                    onClick={() => onPhotoCardClick(card.cardId)}
                   />
                 ))}
               </div>

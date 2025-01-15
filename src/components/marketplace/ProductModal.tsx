@@ -2,13 +2,19 @@ import Image from 'next/image';
 import Dropdown from '../common/CommonDropDown/DropDown';
 import { useState } from 'react';
 
+interface PhotoCardDetailModalProps {
+  isVisible: boolean;
+  onClose: () => void;
+  userId: string | null;
+  photoCardId: string | null;
+}
+
 export default function PhotoCardDetailModal({
   isVisible,
   onClose,
-}: {
-  isVisible: boolean;
-  onClose: () => void;
-}) {
+  userId,
+  photoCardId,
+}: PhotoCardDetailModalProps) {
   const [selectedGrade, setSelectedGrade] = useState<string>('');
   const [selectedGenre, setSelectedGenre] = useState<string>('');
   const [quantity, setQuantity] = useState<number>(0);
