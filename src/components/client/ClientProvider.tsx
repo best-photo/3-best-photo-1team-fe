@@ -15,7 +15,6 @@ export default function ClientProvider({
   useEffect(() => {
     const refreshOnPathChange = async () => {
       try {
-        console.log('페이지 이동 감지, 토큰 갱신 시도');
         await refreshToken(); // 토큰 갱신
       } catch (error) {
         console.error('토큰 갱신 실패:', error);
