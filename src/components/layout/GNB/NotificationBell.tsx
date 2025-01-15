@@ -23,7 +23,6 @@ const NotificationBell = () => {
   } = useNotificationStore();
 
   const { isAuthenticated } = useAuthStore();
-  useNotificationStore();
 
   // 알림 조회 함수
   const getNotifications = async () => {

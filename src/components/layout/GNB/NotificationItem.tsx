@@ -20,7 +20,7 @@ const NotificationItem = ({
     <li
       key={id}
       className={cn(
-        'p-5 w-[300px] border border-b border-gray-400',
+        'p-5 w-[300px] border-b border-gray-400',
         !isRead ? 'bg-gray-500 text-white' : 'bg-black text-gray-300',
       )}
     >
