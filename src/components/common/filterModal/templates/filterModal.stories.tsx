@@ -7,8 +7,6 @@ export default {
   tags: ['autodocs'],
 } satisfies Meta<typeof FilterModal>;
 
-const Template: StoryFn<typeof FilterModal> = (args) => (
-  <FilterModal {...args} />
-);
+const Template: StoryFn<typeof FilterModal> = () => <FilterModal />;
 
 export const Example = Template.bind({});
