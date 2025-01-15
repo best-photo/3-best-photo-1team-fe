@@ -22,7 +22,7 @@ export const TradeListExample = Template.bind({});
 
 const mockTradeData = [
   {
-    id: 1,
+    id: '1',
     image: DefaultImage,
     cardName: '카드이름',
     price: 5,
@@ -32,7 +32,7 @@ const mockTradeData = [
     description: '풍경 사진을 원해요',
   },
   {
-    id: 2,
+    id: '2',
     image: DefaultImage,
     cardName: '카드이름',
     price: 5,
@@ -42,7 +42,7 @@ const mockTradeData = [
     description: '풍경 사진을 원해요',
   },
   {
-    id: 3,
+    id: '3',
     image: DefaultImage,
     cardName: '카드이름',
     price: 5,
@@ -52,7 +52,7 @@ const mockTradeData = [
     description: '풍경 사진을 원해요',
   },
   {
-    id: 4,
+    id: '4',
     image: DefaultImage,
     cardName: '카드이름',
     price: 5,
@@ -62,7 +62,7 @@ const mockTradeData = [
     description: '풍경 사진을 원해요',
   },
   {
-    id: 5,
+    id: '5',
     image: DefaultImage,
     cardName: '카드이름',
     price: 5,
@@ -72,7 +72,7 @@ const mockTradeData = [
     description: '풍경 사진을 원해요',
   },
   {
-    id: 6,
+    id: '6',
     image: DefaultImage,
     cardName: '카드이름',
     price: 5,
@@ -85,14 +85,14 @@ const mockTradeData = [
 
 TradeListExample.args = {
   variant: 'outgoing',
-  onCancel: (id: number) => alert(id),
+  onCancel: (id) => alert(id),
   trades: mockTradeData,
 };
 
 export const incomingTradeList = Template.bind({});
 incomingTradeList.args = {
   variant: 'incoming',
-  onConfirm: (id: number) => alert(id),
-  onDecline: (id: number) => alert(id),
+  onConfirm: (id) => alert(id),
+  onDecline: (id) => alert(id),
   trades: mockTradeData,
 };

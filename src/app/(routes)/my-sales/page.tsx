@@ -1,7 +1,7 @@
 'use client';
 
 import Header from '@/src/components/mySales/header/header';
-import SearchSection from '@/src/components/mySales/searchSection/searchSection';
+import SearchSection from '@/src/components/common/searchSection/searchSection';
 import defaultImage from '@/public/images/sample-image-1.webp';
 import CardContainer, {
   Card,
@@ -22,100 +22,100 @@ export default function Page() {
 
   const cards: Card[] = [
     {
-      cardId: 1,
+      cardId: '1',
       nickname: nickname,
       price: 5,
       image: defaultImage,
       cardName: '마당 사진',
-      state: 'trading',
+      state: 'exchange',
       grade: 'legendary',
       genre: 'landscape',
       totalAmount: 5,
     },
     {
-      cardId: 2,
+      cardId: '2',
       nickname: nickname,
       price: 5,
       image: defaultImage,
       cardName: '마당 사진',
-      state: 'selling',
+      state: 'sale',
       grade: 'legendary',
       genre: 'landscape',
       totalAmount: 5,
     },
     {
-      cardId: 3,
+      cardId: '3',
       nickname: nickname,
       price: 5,
       image: defaultImage,
       cardName: '마당 사진',
-      state: 'selling',
+      state: 'sale',
       grade: 'legendary',
       genre: 'landscape',
       totalAmount: 5,
     },
     {
-      cardId: 4,
+      cardId: '4',
       nickname: nickname,
       price: 5,
       image: defaultImage,
       cardName: '마당 사진',
-      state: 'selling',
+      state: 'sale',
       grade: 'legendary',
       genre: 'landscape',
       totalAmount: 5,
     },
     {
-      cardId: 5,
+      cardId: '5',
       nickname: nickname,
       price: 5,
       image: defaultImage,
       cardName: '마당 사진',
-      state: 'selling',
+      state: 'sale',
       grade: 'legendary',
       genre: 'landscape',
       totalAmount: 5,
     },
     {
-      cardId: 6,
+      cardId: '6',
       nickname: nickname,
       price: 5,
       image: defaultImage,
       cardName: '마당 사진',
-      state: 'selling',
+      state: 'sale',
       grade: 'legendary',
       genre: 'landscape',
       totalAmount: 5,
     },
     {
-      cardId: 7,
+      cardId: '7',
       nickname: nickname,
       price: 5,
       image: defaultImage,
       cardName: '마당 사진',
-      state: 'selling',
+      state: 'sale',
       grade: 'legendary',
       genre: 'landscape',
       totalAmount: 5,
     },
     {
-      cardId: 8,
+      cardId: '8',
       nickname: nickname,
       price: 5,
       image: defaultImage,
       cardName: '마당 사진',
-      state: 'selling',
+      state: 'sale',
       grade: 'legendary',
       genre: 'landscape',
       totalAmount: 5,
     },
     {
-      cardId: 9,
+      cardId: '9',
       nickname: nickname,
       price: 5,
       image: defaultImage,
       cardName: '마당 사진',
-      state: 'selling',
+      state: 'sale',
       grade: 'legendary',
       genre: 'landscape',
       totalAmount: 5,
@@ -129,13 +129,14 @@ export default function Page() {
         cards={cardsCount}
       />
       <SearchSection
-        onSubmitFilter={(query) => router.push(`${pathname}?${query}`)}
+        onSubmitFilter={(query) => alert(query)}
+        variant='mySale'
       />
       <CardContainer
         cards={cards}
-        onClick={(id: number) => alert(id)}
+        onClick={(id) => alert(id)}
       />
-      <FilterModal variant='mySale' />
+      <FilterModal />
     </div>
   );
 }

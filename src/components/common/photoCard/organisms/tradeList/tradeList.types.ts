@@ -2,7 +2,7 @@ import { StaticImport } from 'next/dist/shared/lib/get-img-props';
 import { Genres, Grades } from '../../types';
 
 export interface Trade {
-  id: number;
+  id: string;
   image: string | StaticImport;
   cardName: string;
   price: number;
@@ -18,13 +18,13 @@ interface TradeListBaseProps {
 
 interface OutgoingTradeListProps extends TradeListBaseProps {
   variant: 'outgoing';
-  onCancel: (id: number) => void;
+  onCancel: (id: string) => void;
 }
 
 interface IncomingTradeListProps extends TradeListBaseProps {
   variant: 'incoming';
-  onDecline: (id: number) => void;
-  onConfirm: (id: number) => void;
+  onDecline: (id: string) => void;
+  onConfirm: (id: string) => void;
 }
 
 export type TradeListProps = OutgoingTradeListProps | IncomingTradeListProps;

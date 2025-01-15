@@ -4,7 +4,7 @@ import PhotoCardListItem from '../../common/photoCard/organisms/photoCardListIte
 import { CardState } from '../../common/photoCard/atoms/stateBadge/stateBadge.types';
 
 export interface Card {
-  cardId: number;
+  cardId: string;
   nickname: string;
   price: number;
   image: string | StaticImport;
@@ -20,7 +20,7 @@ export default function CardContainer({
   onClick,
 }: {
   cards: Card[];
-  onClick: (id: number) => void;
+  onClick: (id: string) => void;
 }) {
   return (
     <div className='w-full grid grid-cols-2 md:grid-cols-2 lg:grid-cols-3 justify-items-center gap-[5px] md:gap-5 lg:gap-20 pb-[140px]'>
