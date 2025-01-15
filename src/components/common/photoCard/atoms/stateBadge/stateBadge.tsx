@@ -2,13 +2,13 @@ import cn from '@/src/utils/cn';
 import { StateBadgeProps } from './stateBadge.types';
 
 const TEXT_COLOR = {
-  selling: 'text-white',
-  trading: 'text-main',
+  sale: 'text-white',
+  exchange: 'text-main',
 };
 
 const TEXT = {
-  selling: '판매 중',
-  trading: '교환 제시 대기 중',
+  sale: '판매 중',
+  exchange: '교환 제시 대기 중',
 };
 
 export default function StateBadge({ state }: StateBadgeProps) {

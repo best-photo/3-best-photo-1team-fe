@@ -2,7 +2,7 @@ export const CARD_GENRES = Object.freeze({
   travel: '여행',
   landscape: '풍경',
   portrait: '인물',
-  stillLife: '사물',
+  object: '사물',
 });
 
 export const CARD_GRADES = Object.freeze({
@@ -13,7 +13,7 @@ export const CARD_GRADES = Object.freeze({
 });
 
 export const SALES_METHODS = Object.freeze({
-  trade: '교환 제시 대기 중',
+  exchange: '교환 제시 대기 중',
   sale: '판매 중',
 });
 

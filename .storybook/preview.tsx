@@ -8,6 +8,31 @@ import React from "react";
 
 const preview: Preview = {
   parameters: {
+    viewport: {
+      viewports: {
+        mobile: {
+          name: 'Mobile',
+          styles: {
+            width: '375px',
+            height: '812px',
+          },
+        },
+        tablet: {
+          name: 'Tablet',
+          styles: {
+            width: '744px',
+            height: '1000px',
+          },
+        },
+        desktop: {
+          name: 'Desktop',
+          styles: {
+            width: '1920px',
+            height: '1080px',
+          },
+        },
+      },
+    },
     controls: {
       matchers: {
         color: /(background|color)$/i,

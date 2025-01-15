@@ -53,10 +53,10 @@ const Template: StoryFn<typeof PhotoCardListItem> = (args) => (
 export const IncomingTradeCard = Template.bind({});
 
 const IncomingTradeCardProps = {
-  tradeId: 1,
+  tradeId: '1',
   cardName: '카드카드',
   grade: 'legendary',
-  genre: 'stillLife',
+  genre: 'object',
   nickname: '최애',
   price: 5,
   image: defaultPhoto,
@@ -75,10 +75,10 @@ IncomingTradeCard.parameters = {
 export const OutgoingTradeCard = Template.bind({});
 
 const SubmittedTradeCardProps = {
-  tradeId: 1,
+  tradeId: '1',
   cardName: '카드카드',
   grade: 'legendary',
-  genre: 'stillLife',
+  genre: 'object',
   nickname: '최애',
   price: 5,
   image: defaultPhoto,
@@ -104,7 +104,7 @@ OutgoingTradeCard.argTypes = {
 export const MyCardList = Template.bind({});
 
 const MyCardListProps: PhotoCardListItemProps = {
-  cardId: 1,
+  cardId: '1',
   cardName: '우리집 앞마당',
   fontWeight: 'normal',
   grade: 'legendary',
@@ -126,7 +126,7 @@ MyCardList.parameters = {
 
 export const MarketPlaceCard = Template.bind({});
 const MarketPlaceCardProps: PhotoCardListItemProps = {
-  cardId: 1,
+  cardId: '1',
   cardName: '우리집 앞마당',
   fontWeight: 'normal',
   grade: 'legendary',

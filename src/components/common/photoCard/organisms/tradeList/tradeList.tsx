@@ -17,6 +17,7 @@ export default function TradeList(props: TradeListProps) {
       <div className='grid gap-[5px] md:gap-4 lg:gap-[80px] grid-cols-2 md:grid-cols-2 lg:grid-cols-3 w-fit auto-rows-auto'>
         {props.trades.map((trade) => {
           const cardProps = {
+            fontWeight: 'normal',
             variant: 'trade',
             tradeId: trade.id,
             cardName: trade.cardName,
@@ -27,7 +28,7 @@ export default function TradeList(props: TradeListProps) {
             image: trade.image,
             description: trade.description,
           };
-          let finalProps = {} as PhotoCardListItemProps;
+          let finalProps: PhotoCardListItemProps = {} as PhotoCardListItemProps;
           if (props.variant === 'incoming') {
             finalProps = {
               ...cardProps,
