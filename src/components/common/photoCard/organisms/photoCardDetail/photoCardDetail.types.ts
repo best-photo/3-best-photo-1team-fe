@@ -32,7 +32,7 @@ export interface MyHoldingCardDetailSectionProps {
 }
 
 export type MySellingCardDetailProps = MySellingCardDetailSectionProps &
-  BaseProps & { variant: 'myCard' };
+  BaseProps & { variant: 'mySellingCard' };
 
 export type OthersCardDetailProps = OthersCardDetailSectionProps &
   BaseProps & { variant: 'othersCard' };
