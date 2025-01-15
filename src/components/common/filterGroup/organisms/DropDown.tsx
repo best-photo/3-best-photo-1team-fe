@@ -56,8 +56,13 @@ export default function Dropdown({
     };
   }, []);
 
+  const prevSelectedOption = useRef(selectedOption);
+
   useEffect(() => {
-    if (!isOpen) onSubmitFilter();
+    if (!isOpen && prevSelectedOption.current.query !== selectedOption.query) {
+      onSubmitFilter();
+      prevSelectedOption.current = selectedOption;
+    }
   }, [isOpen]);
 
   return (

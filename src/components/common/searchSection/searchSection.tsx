@@ -5,7 +5,7 @@ import SearchInput from '../CommonSearchBox/SearchInput';
 import Image from 'next/image';
 import filterIcon from '@/public/icons/filter.svg';
 import { useFilterStore } from '@/src/store/useFilterStore';
-import FilterGroup from '../filterDropdown/templates/filterGroup';
+import FilterGroup from '../filterGroup/templates/filterGroup';
 import FilterModal from '../filterModal/templates/filterModal';
 import {
   FILTER_CATEGORIES,
