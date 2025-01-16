@@ -30,6 +30,7 @@ interface AuthState {
   checkAuth: () => Promise<void>;
   refreshToken: () => Promise<void>;
   logout: () => Promise<void>;
+  setUserInfo: (user: User) => void;
 }
 
 // zustand 상태 생성
@@ -98,6 +99,11 @@ const useAuthStore = create<AuthState>()(
       await refresh();
       await logoutAPI();
       set({ isAuthenticated: false, user: null });
+    },
+
+    // 유저 정보 업데이트
+    setUserInfo: (user) => {
+      set({ user, isAuthenticated: true });
     },
   })),
 );
