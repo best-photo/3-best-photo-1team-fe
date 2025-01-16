@@ -29,7 +29,6 @@ export default function MarketplaceHeader({
   const [selectedPhotoCardId, setSelectedPhotoCardId] = useState<string | null>(
     null,
   );
-
   const { setRenderKey } = useRerenderStore();
 
   const user = useAuthStore((state) => state.user);
