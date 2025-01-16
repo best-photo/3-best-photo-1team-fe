@@ -1,34 +1,61 @@
 import Image from 'next/image';
 import Dropdown from '../common/CommonDropDown/DropDown';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
+import useAuthStore from '@/src/store/useAuthStore';
+import usePhotoCardStore from '@/src/store/photoCardId';
+import { fetchCardByUserAndId } from '@/src/lib/axios/types/api/marketplaceMain/cardByUserId';
 
 interface PhotoCardDetailModalProps {
   isVisible: boolean;
   onClose: () => void;
-  userId: string | null;
-  photoCardId: string | null;
 }
 
 export default function PhotoCardDetailModal({
   isVisible,
   onClose,
-  userId,
-  photoCardId,
 }: PhotoCardDetailModalProps) {
   const [selectedGrade, setSelectedGrade] = useState<string>('');
   const [selectedGenre, setSelectedGenre] = useState<string>('');
   const [quantity, setQuantity] = useState<number>(0);
+  const [cardData, setCardData] = useState<any>(null);
 
-  if (!isVisible) return null;
+  const userId = useAuthStore((state) => state.user?.id);
+  const cardId = usePhotoCardStore((state) => state.selectedPhotoCardId);
+
+  const fetchData = async () => {
+    if (!isVisible || !userId || !cardId) return;
+  
+    try {
+      const data = await fetchCardByUserAndId(userId, cardId);
+      setCardData(data);
+    } catch (err) {
+      console.error('Error fetching card data:', err);
+    }
+  };
+
+  useEffect(() => {
+    if (isVisible && userId && cardId) {
+      fetchData();
+    }
+  }, [isVisible, userId, cardId]);
 
   const decreaseQuantity = () => {
-    setQuantity((prev) => (prev > 0 ? prev - 1 : 0));
+    setQuantity((prev) => {
+      const newQuantity = prev > 0 ? prev - 1 : 0;
+      console.log(newQuantity);
+      return newQuantity;
+    });
   };
 
-  // 수량 증가
   const increaseQuantity = () => {
-    setQuantity((prev) => (prev < 3 ? prev + 1 : 3));
+    setQuantity((prev) => {
+      const maxQuantity = cardData?.totalAmount || 0;
+      const newQuantity = prev < maxQuantity ? prev + 1 : prev;
+      console.log(newQuantity);
+      return newQuantity;
+    });
   };
+  if (!isVisible) return null;
 
   return (
     <>

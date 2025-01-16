@@ -4,7 +4,7 @@ import {Grades, Genres} from '@/src/components/common/photoCard/types'
 export const normalizeGrade = (grade: string): Grades => {
   switch (grade.toUpperCase()) {
     case 'COMMON':
-      return 'COMMON'; 
+      return 'common'; 
     case 'RARE':
       return 'RARE';
     case 'SUPER_RARE':

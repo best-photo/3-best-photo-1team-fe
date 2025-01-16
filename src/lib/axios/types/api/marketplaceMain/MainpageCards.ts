@@ -7,17 +7,15 @@ export const axiosFilteredCards = async (filters: {
   grade: string;
   genre: string;
   status: string;
-  priceOrder: string;
+  placeOrder: string;
 }): Promise<AmountListItem[]> => {
   const params = {
     query: filters.query || '',
     grade: filters.grade || '',
     genre: filters.genre || '',
     status: filters.status || '',
-    priceOrder: filters.priceOrder || '',
+    placeOrder: filters.placeOrder || '',
   };
-
-  console.log('Request params:', params);
 
   const response = await axios.get<any[]>('http://localhost:8000/shop/cards', {
     params,
