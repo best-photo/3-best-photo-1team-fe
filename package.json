@@ -3,7 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "prepare": "husky installl",
+    "prepare": "husky install",
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
@@ -46,6 +46,7 @@
     "copy-to-clipboard": "^3.3.3",
     "eslint": "^8",
     "eslint-config-next": "14.2.17",
+    "eslint-config-prettier": "^10.0.1",
     "eslint-plugin-storybook": "^0.11.1",
     "husky": "^9.1.7",
     "lint-staged": "^15.3.0",
