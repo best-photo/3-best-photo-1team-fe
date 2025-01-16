@@ -17,6 +17,8 @@ export const axiosFilteredCards = async (filters: {
     priceOrder: filters.priceOrder || '',
   };
 
+  console.log('Request params:', params);
+
   const response = await axios.get<any[]>('http://localhost:8000/shop/cards', {
     params,
   });

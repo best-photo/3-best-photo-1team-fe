@@ -1,77 +1,57 @@
 'use client';
 
-import Dropdown from '../common/CommonDropDown/DropDown';
-import SearchInput from '../common/CommonSearchBox/SearchInput';
+import SearchSection from '../common/searchSection/searchSection';
+
+type FiltersType = {
+  grade: string;
+  genre: string;
+  status: string;
+  priceOrder: string;
+};
 
 interface MarketplaceSearchBoxProps {
-  filters: {
-    grade: string;
-    genre: string;
-    status: string;
-    priceOrder: string;
-  };
-  setFilters: React.Dispatch<
-    React.SetStateAction<{
-      grade: string;
-      genre: string;
-      status: string;
-      priceOrder: string;
-    }>
-  >;
-  query: string;
-  setQuery: React.Dispatch<React.SetStateAction<string>>;
-  onSearchClick: () => void;
+  onFilterChange: (filters: FiltersType, query: string) => void;
 }
 
 export default function MarketplaceSearchBox({
-  filters,
-  setFilters,
-  query,
-  setQuery,
-  onSearchClick,
+  onFilterChange,
 }: MarketplaceSearchBoxProps) {
-  const handleDropdownChange = (key: keyof typeof filters, value: string) => {
-    setFilters((prev) => ({ ...prev, [key]: value }));
+  const handleFilterSubmit = (filterQuery: string) => {
+    const parsedFilters = parseFilterQuery(filterQuery);
+
+    const { keyword = '', ...filters } = parsedFilters;
+
+    // 필터 데이터를 FiltersType으로 가공
+    const formattedFilters: FiltersType = {
+      grade: filters.grade || '',
+      genre: filters.genre || '',
+      status: filters.status || '',
+      priceOrder: filters.priceOrder || '',
+    };
+
+    // 상위 컴포넌트로 전달
+    onFilterChange(formattedFilters, keyword);
   };
 
   return (
-    <div className='w-[1480px] h-[50px] flex justify-between items-center mx-auto mt-[20px]'>
+    <div className='w-[1480px] h-[50px] flex justify-between items-center mx-auto mt-[50px]'>
       <div className='flex flex-row gap-[10px] items-center'>
-        <div className='relative w-[320px] h-[50px]'>
-          <SearchInput
-            value={query}
-            onChange={(e) => setQuery(e.target.value)}
-            onSearchClick={onSearchClick}
-            placeholder='검색'
-            className='w-[320px]'
-          />
-        </div>
-        <Dropdown
-          options={['COMMON', 'RARE', 'SUPER RARE', 'LEGENDARY']}
-          selectedValue={filters.grade}
-          placeholder='등급'
-          onValueChange={(value) => handleDropdownChange('grade', value)}
-        />
-        <Dropdown
-          options={['여행', '풍경', '인물', '사물']}
-          selectedValue={filters.genre}
-          placeholder='장르'
-          onValueChange={(value) => handleDropdownChange('genre', value)}
-        />
-        <Dropdown
-          options={['판매 중', '판매 완료']}
-          selectedValue={filters.status}
-          placeholder='매진 여부'
-          onValueChange={(value) => handleDropdownChange('status', value)}
+        <SearchSection
+          variant='marketplace'
+          onSubmitFilter={handleFilterSubmit} // 필터 데이터 처리 함수 전달
         />
       </div>
-      <Dropdown
-        options={['최신순', '오래된 순', '높은 가격순', '낮은 가격순']}
-        selectedValue={filters.priceOrder}
-        placeholder='정렬 기준'
-        onValueChange={(value) => handleDropdownChange('priceOrder', value)}
-        className='border border-[#dddddd]'
-      />
     </div>
   );
+}
+
+// 필터 쿼리 문자열을 객체로 변환
+function parseFilterQuery(query: string): Record<string, string> {
+  return query
+    .split('&')
+    .map((item) => item.split('='))
+    .reduce((acc, [key, value]) => {
+      acc[key] = value || '';
+      return acc;
+    }, {} as Record<string, string>);
 }

@@ -3,7 +3,7 @@
 import { Modal } from './Modal';
 import LoginAlertModal from './LoginModal';
 import PhotoCardDetailModal from './ProductModal';
-import useAuthStore from '@/src/store/useAuthStore'; // 유석 추가 코드
+import useAuthStore from '@/src/store/useAuthStore';
 import { useState } from 'react';
 
 interface MarketplaceHeaderProps {
@@ -13,7 +13,6 @@ interface MarketplaceHeaderProps {
   setIsLoginAlertVisible: React.Dispatch<React.SetStateAction<boolean>>;
   isProductVisible: boolean;
   setProductVisible: React.Dispatch<React.SetStateAction<boolean>>;
-  userId: string | null;
   onModalClose: () => void;
 }
 
@@ -25,25 +24,21 @@ export default function MarketplaceHeader({
   isProductVisible,
   setProductVisible,
   onModalClose,
-}: // userId, // 수환님 원래 코드
-MarketplaceHeaderProps) {
+}: MarketplaceHeaderProps) {
   const [selectedPhotoCardId, setSelectedPhotoCardId] = useState<string | null>(
     null,
   );
 
-  const user = useAuthStore((state) => state.user); // 유석 추가 코드
+  const user = useAuthStore((state) => state.user);
   const userId = user?.id || null;
 
   const handleButtonClick = () => {
-    // if (userId) { // 수환님 원래 코드
     if (user) {
-      // 유석 추가 코드
-      // userId가 있으면 상품 정보를 보여주는 모달로 이동
       if (!isAlertVisible) {
         setAlertVisible(true);
+        console.log(user.id);
       }
     } else {
-      // userId가 없으면 로그인 필요 모달을 띄움
       setIsLoginAlertVisible(true);
     }
   };
