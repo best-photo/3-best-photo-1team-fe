@@ -30,7 +30,7 @@ interface AuthState {
   checkAuth: () => Promise<void>;
   refreshToken: () => Promise<void>;
   logout: () => Promise<void>;
-  setUserInfo: (user: User) => void;
+  setUserInfo: (user: User | null,isAuthenticated?:boolean) => void;
 }
 
 // zustand 상태 생성
@@ -102,8 +102,8 @@ const useAuthStore = create<AuthState>()(
     },
 
     // 유저 정보 업데이트
-    setUserInfo: (user) => {
-      set({ user, isAuthenticated: true });
+    setUserInfo: (user,isAuthenticated = true ) => {
+      set({ user, isAuthenticated });
     },
   })),
 );

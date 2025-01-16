@@ -3,7 +3,9 @@
 import { Modal } from './Modal';
 import LoginAlertModal from './LoginModal';
 import PhotoCardDetailModal from './ProductModal';
-import useAuthStore from '@/src/store/useAuthStore'; // 유석 추가 코드
+import useAuthStore from '@/src/store/useAuthStore';
+import { useState } from 'react';
+import { useRerenderStore } from '@/src/store/rerenderStore';
 
 interface MarketplaceHeaderProps {
   isAlertVisible: boolean;
@@ -12,7 +14,7 @@ interface MarketplaceHeaderProps {
   setIsLoginAlertVisible: React.Dispatch<React.SetStateAction<boolean>>;
   isProductVisible: boolean;
   setProductVisible: React.Dispatch<React.SetStateAction<boolean>>;
-  userId: string | null;
+  onModalClose: () => void;
 }
 
 export default function MarketplaceHeader({
@@ -22,37 +24,42 @@ export default function MarketplaceHeader({
   setIsLoginAlertVisible,
   isProductVisible,
   setProductVisible,
-}: // userId, // 수환님 원래 코드
-MarketplaceHeaderProps) {
-  const user = useAuthStore((state) => state.user); // 유석 추가 코드
+  onModalClose,
+}: MarketplaceHeaderProps) {
+  const [selectedPhotoCardId, setSelectedPhotoCardId] = useState<string | null>(
+    null,
+  );
+  const { setRenderKey } = useRerenderStore();
+
+  const user = useAuthStore((state) => state.user);
+
   const handleButtonClick = () => {
-    // if (userId) { // 수환님 원래 코드
     if (user) {
-      // 유석 추가 코드
-      // userId가 있으면 상품 정보를 보여주는 모달로 이동
-      if (!isAlertVisible) {
-        setAlertVisible(true);
-      }
+      setAlertVisible(true);
+      console.log(user.id);
     } else {
-      // userId가 없으면 로그인 필요 모달을 띄움
       setIsLoginAlertVisible(true);
     }
   };
 
   const handleCloseAlert = () => {
     setAlertVisible(false);
+    onModalClose();
+    setRenderKey();
   };
 
   const handleCloseLoginAlert = () => {
     setIsLoginAlertVisible(false);
+    onModalClose();
   };
 
-  const handlePhotoCardClick = () => {
-    setAlertVisible(false); // 기존 모달 닫기
-    setProductVisible(true); // 새로운 모달 열기
-  };
+const handlePhotoCardClick = () => {
+  setAlertVisible(false);
+  setProductVisible(true);
+};
 
   const handleCloseProductModal = () => {
+    setAlertVisible(true);
     setProductVisible(false);
   };
 
