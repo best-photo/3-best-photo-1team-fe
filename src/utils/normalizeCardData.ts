@@ -1,16 +1,16 @@
-import {Grades, Genres} from '@/src/components/common/photoCard/types'
+import { Grades, Genres } from '@/src/components/common/photoCard/types';
 
 // utils/normalizeCardData.ts
 export const normalizeGrade = (grade: string): Grades => {
   switch (grade.toUpperCase()) {
     case 'COMMON':
-      return 'COMMON'; 
+      return 'common';
     case 'RARE':
-      return 'RARE';
+      return 'rare';
     case 'SUPER_RARE':
-      return 'SUPER RARE'; 
+      return 'superRare';
     case 'LEGENDARY':
-      return 'LEGENDARY';
+      return 'legendary';
     default:
       throw new Error(`Invalid grade value: ${grade}`);
   }
@@ -19,13 +19,13 @@ export const normalizeGrade = (grade: string): Grades => {
 export const normalizeGenre = (genre: string): Genres => {
   switch (genre.toUpperCase()) {
     case 'TRAVEL':
-      return 'travel'; 
+      return 'travel';
     case 'LANDSCAPE':
-      return 'landscape'; 
+      return 'landscape';
     case 'PORTRAIT':
-      return 'portrait'; 
+      return 'portrait';
     case 'OBJECT':
-      return 'object'; 
+      return 'object';
     default:
       throw new Error(`Invalid genre value: ${genre}`);
   }

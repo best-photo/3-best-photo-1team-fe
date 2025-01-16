@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useEffect} from 'react';
+import { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import SearchSection from '@/src/components/common/searchSection/searchSection';
 import PhotoCardListItem from '@/src/components/common/photoCard/organisms/photoCardListItem/photoCardListItem';
@@ -9,7 +9,9 @@ import { PhotoCard } from '@/src/services/mygalleryPhotocardService';
 import { myGalleryPhotoCard } from '@/src/services/mygalleryPhotocardService';
 import Title from '@/src/components/common/title/title';
 
-const convertGradeToLowerCase = (grade: string): 'common' | 'rare' | 'superRare' | 'legendary' => {
+const convertGradeToLowerCase = (
+  grade: string,
+): 'common' | 'rare' | 'superRare' | 'legendary' => {
   switch (grade.toUpperCase()) {
     case 'COMMON':
       return 'common';
@@ -25,7 +27,9 @@ const convertGradeToLowerCase = (grade: string): 'common' | 'rare' | 'superRare'
 };
 
 // genre 변환 함수
-const convertGenreToLowerCase = (genre: string): 'travel' | 'landscape' | 'portrait' | 'object' => {
+const convertGenreToLowerCase = (
+  genre: string,
+): 'travel' | 'landscape' | 'portrait' | 'object' => {
   switch (genre.toUpperCase()) {
     case 'TRAVEL':
       return 'travel';
@@ -77,8 +81,10 @@ export default function MyGalleryPage() {
 
   // 검색어, 등급, 장르에 따라 필터링
   const onsubmitFilter = (query: string) => {
-    const filtered = photoCards.filter(card => {
-      const matchesQuery = card.name.toLowerCase().includes(query.toLowerCase());
+    const filtered = photoCards.filter((card) => {
+      const matchesQuery = card.name
+        .toLowerCase()
+        .includes(query.toLowerCase());
       const matchesGrade = grade ? card.grade === grade : true;
       const matchesGenre = genre ? card.genre === genre : true;
 
@@ -89,41 +95,42 @@ export default function MyGalleryPage() {
   };
 
   return (
-    <div className="w-[1480px] mx-[240px]">
+    <div className='w-[1480px] mx-[240px]'>
       {/* Header */}
       <div>
         <Title
-          variant="primary"
-          font="baskin"
-          children="마이갤러리"
-          buttonText="포토카드 생성하기"
+          variant='primary'
+          font='baskin'
+          buttonText='포토카드 생성하기'
           onButtonClick={() => router.push('/createcard')}
-        />
+        >
+          마이갤러리
+        </Title>
         <PhotoCardPageHeader
-          variant="gallery"
+          variant='gallery'
           nickname={galleryData.nickname}
           common={galleryData.common}
           rare={galleryData.rare}
           superRare={galleryData.superRare}
           legendary={galleryData.legendary}
         />
-        <div className="border border-gray-400 mt-[30px]"></div>
+        <div className='border border-gray-400 mt-[30px]'></div>
       </div>
 
       {/* Search Box */}
-      <div className="flex flex-row gap-[10px] items-center mt-[30px]">
+      <div className='flex flex-row gap-[10px] items-center mt-[30px]'>
         <SearchSection
           variant='myGallery'
           onSubmitFilter={onsubmitFilter}
         />
       </div>
       {/* Display filtered and sorted photo cards */}
-      <div  className="flex gap-[80px] flex-wrap w-[1480px] mx-auto pt-[60px] mb-[100px]">
+      <div className='flex gap-[80px] flex-wrap w-[1480px] mx-auto pt-[60px] mb-[100px]'>
         {Array.isArray(filteredCards) && filteredCards.length > 0 ? (
           filteredCards.map((card) => (
             <PhotoCardListItem
               key={card.id}
-              variant="amount" // 예시로 'amount'로 지정
+              variant='amount' // 예시로 'amount'로 지정
               cardId={card.id}
               cardName={card.name}
               image={card.image} // image는 별도로 처리할 예정
@@ -132,7 +139,7 @@ export default function MyGalleryPage() {
               nickname={card.nickname}
               price={card.price} // price는 string 형식으로 전달
               totalAmount={card.totalQuantity}
-              fontWeight="normal"
+              fontWeight='normal'
               onClick={handleCardClick}
             />
           ))
@@ -143,4 +150,3 @@ export default function MyGalleryPage() {
     </div>
   );
 }
-
