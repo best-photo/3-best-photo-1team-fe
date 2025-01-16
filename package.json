@@ -9,7 +9,8 @@
     "start": "next start",
     "lint": "next lint",
     "storybook": "storybook dev -p 6006",
-    "build-storybook": "storybook build"
+    "build-storybook": "storybook build",
+    "lint-staged": "lint-staged"
   },
   "lint-staged": {
     "*.{js,jsx,ts,tsx}": [
