@@ -53,10 +53,10 @@ export default function MarketplaceHeader({
     onModalClose();
   };
 
-  const handlePhotoCardClick = () => {
-    setAlertVisible(false); // 기존 모달 닫기
-    setProductVisible(true); // 상세 모달 열기
-  };
+const handlePhotoCardClick = () => {
+  setAlertVisible(false);
+  setProductVisible(true);
+};
 
   const handleCloseProductModal = () => {
     setAlertVisible(true);

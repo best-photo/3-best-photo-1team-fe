@@ -14,7 +14,7 @@ export function Modal({
 }: {
   onClose: () => void;
   isVisible: boolean;
-  onPhotoCardClick: (photoCardId: string) => void;
+  onPhotoCardClick: () => void;
 }) {
   const setSelectedPhotoCardId = usePhotoCardStore(
     (state) => state.setSelectedPhotoCardId,
@@ -53,10 +53,6 @@ export function Modal({
     onClose();
   };
 
-  const handlePhotoCardClick = (cardId: string) => {
-    setSelectedPhotoCardId(cardId);
-    onPhotoCardClick(cardId);
-  };
   const handleFilterChange = (filterQuery: string) => {
     const params = new URLSearchParams(filterQuery);
     const newFilters = {
@@ -66,6 +62,11 @@ export function Modal({
     const newQuery = params.get('keyword') || '';
     setFilters(newFilters);
     setQuery(newQuery);
+  };
+
+  const PhotoCardClick = (cardId: string) => {
+    setSelectedPhotoCardId(cardId);
+    onPhotoCardClick();
   };
 
   useEffect(() => {
@@ -109,7 +110,7 @@ export function Modal({
                   <PhotoCardListItem
                     key={card.cardId}
                     {...card}
-                    onClick={() => handlePhotoCardClick(card.cardId)}
+                    onClick={() => PhotoCardClick(card.cardId)}
                   />
                 ))}
               </div>
