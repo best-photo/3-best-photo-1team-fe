@@ -10,17 +10,15 @@ export default function ClientProvider({
 }: {
   children: React.ReactNode;
 }) {
-  const { refreshToken, setUserInfo, logout } = useAuthStore();
+  const { refreshToken, setUserInfo } = useAuthStore();
   const pathname = usePathname(); // 현재 경로를 가져옴
 
   useEffect(() => {
     const refreshOnPathChange = async () => {
       try {
         await refreshToken(); // 토큰 갱신
-        const profile = await getProfile(); // 프로필 정보 가져오기
-        setUserInfo(profile); // 프로필 정보로 상태 업데이트
       } catch (error) {
-        logout(); // 토큰 갱신 실패 시 로그아웃
+        setUserInfo(null ,false); // 토큰 갱신 실패 시 회원정보 초기화
         console.error('토큰 갱신 실패:', error);
       }
     };
