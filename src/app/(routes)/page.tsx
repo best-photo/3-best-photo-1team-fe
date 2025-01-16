@@ -6,6 +6,7 @@ import SearchSection from '../../components/common/searchSection/searchSection';
 import PhotoCardListItem from '@/src/components/common/photoCard/organisms/photoCardListItem/photoCardListItem';
 import { AmountListItem } from '@/src/components/common/photoCard/organisms/photoCardListItem/photoCardListItem.types';
 import { axiosFilteredCards } from '@/src/lib/axios/types/api/marketplaceMain/MainpageCards';
+import { useRerenderStore } from '@/src/store/rerenderStore';
 
 // 등급 변환 함수
 const convertGradeToLowerCase = (
@@ -54,6 +55,7 @@ export default function Home() {
   const [isLoginAlertVisible, setIsLoginAlertVisible] = useState(false);
   const [isProductVisible, setProductVisible] = useState(false);
   const [triggerRefresh, setTriggerRefresh] = useState(false);
+  const { renderKey } = useRerenderStore();
 
   const [filters, setFilters] = useState({
     grade: '',
@@ -132,6 +134,7 @@ export default function Home() {
         <div className='border-b border-white w-[1480px] mx-auto mt-[20px]'></div>
         <div className='w-[1480px] h-[50px] flex justify-between items-center mx-auto mt-[50px]'>
           <SearchSection
+            key={renderKey}
             variant='marketplace'
             onSubmitFilter={handleFilterChange}
           />

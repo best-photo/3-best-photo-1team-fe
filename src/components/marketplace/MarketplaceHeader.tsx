@@ -5,6 +5,7 @@ import LoginAlertModal from './LoginModal';
 import PhotoCardDetailModal from './ProductModal';
 import useAuthStore from '@/src/store/useAuthStore';
 import { useState } from 'react';
+import { useRerenderStore } from '@/src/store/rerenderStore';
 
 interface MarketplaceHeaderProps {
   isAlertVisible: boolean;
@@ -28,6 +29,7 @@ export default function MarketplaceHeader({
   const [selectedPhotoCardId, setSelectedPhotoCardId] = useState<string | null>(
     null,
   );
+  const { setRenderKey } = useRerenderStore();
 
   const user = useAuthStore((state) => state.user);
   const userId = user?.id || null;
@@ -46,6 +48,7 @@ export default function MarketplaceHeader({
   const handleCloseAlert = () => {
     setAlertVisible(false);
     onModalClose();
+    setRenderKey();
   };
 
   const handleCloseLoginAlert = () => {
