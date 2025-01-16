@@ -3,19 +3,24 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "prepare": "husky install",
+    "prepare": "husky",
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
+    "lint:fix": "next lint --fix",
+    "lint:strict": "next lint '*/**/*.{js,jsx,ts,tsx}'",
+    "format": "prettier --check './**/*.{js,jsx,ts,tsx,css,md,json}' --config ./.prettierrc",
+    "format:fix": "prettier --write './**/*.{js,jsx,ts,tsx,css,md,json}' --config ./.prettierrc",
     "storybook": "storybook dev -p 6006",
     "build-storybook": "storybook build",
     "lint-staged": "lint-staged"
   },
   "lint-staged": {
     "*.{js,jsx,ts,tsx}": [
-      "eslint --cache --fix",
-      "prettier --cache --write"
+      "prettier . --write",
+      "eslint . --fix",
+      "next lint"
     ]
   },
   "dependencies": {
@@ -44,11 +49,15 @@
     "@types/node": "^20",
     "@types/react": "^18",
     "@types/react-dom": "^18",
+    "@typescript-eslint/eslint-plugin": "^8.20.0",
+    "@typescript-eslint/parser": "^8.20.0",
     "copy-to-clipboard": "^3.3.3",
     "eslint": "^8",
     "eslint-config-next": "14.2.17",
     "eslint-config-prettier": "^10.0.1",
+    "eslint-plugin-prettier": "^5.2.2",
     "eslint-plugin-storybook": "^0.11.1",
+    "eslint-plugin-tsc": "^2.0.0",
     "husky": "^9.1.7",
     "lint-staged": "^15.3.0",
     "postcss": "^8",

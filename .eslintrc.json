@@ -1,12 +1,27 @@
 {
+  "parser": "@typescript-eslint/parser",
+  "plugins": ["tsc","@typescript-eslint"],
   "extends": [
     "next/core-web-vitals",
     "next/typescript",
+    "eslint:recommended",
     "plugin:storybook/recommended",
-    "prettier"
+    "plugin:@typescript-eslint/recommended",
+    // "plugin:@typescript-eslint/recommended-requiring-type-checking",
+    "plugin:prettier/recommended"
   ],
-    "rules": {
+  "parserOptions": {
+    "project": "./tsconfig.json"
+  },
+  "rules": {
+    "no-useless-catch": "warn", // 사용하지 않는 catch 문 경고
     "@typescript-eslint/no-unused-vars": "warn", // 규칙 경고로 변경
-    "@typescript-eslint/no-explicit-any": "warn" // 규칙 경고로 변경
+    "@typescript-eslint/no-explicit-any": "warn", // 규칙 경고로 변경
+     "tsc/config": [
+      "warn",
+      {
+        "configFile": "./tsconfig.json" // tsconfig 경로를 지정
+      }
+    ]
   }
 }

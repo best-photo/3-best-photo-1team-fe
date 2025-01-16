@@ -1,4 +1,13 @@
 echo "🔍 commit 하기 전 lint rule을 확인합니다"
+
+if npx npx prettier . --write && npx eslint . --fix && npx next lint; then
+  echo "✅ 프로젝트 전체 lint 규칙이 성공적으로 적용되었습니다."
+  exit 0
+else
+  echo "❌ 프로젝트 전체 lint 규칙 검사에서 오류가 발생했습니다. 문제를 확인해주세요."
+  exit 1
+fi
+
 if npx lint-staged; then
   echo "✅ 모든 lint 규칙이 성공적으로 적용되었습니다."
   exit 0

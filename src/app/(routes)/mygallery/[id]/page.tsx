@@ -1,21 +1,21 @@
-"use client";
+'use client';
 
-import { useState, useEffect, Suspense } from "react";
-import { useSearchParams } from "next/navigation";
+import { useState, useEffect, Suspense } from 'react';
+import { useSearchParams } from 'next/navigation';
 // import PhotoCardDetail from "@/src/components/common/photoCard/organisms/photoCardDetail/photoCardDetail";
 
 function PhotoCardDetailContent() {
   const searchParams = useSearchParams();
-  const id = searchParams.get("id"); // Get the ID from the search parameters
+  const id = searchParams.get('id'); // Get the ID from the search parameters
 
   const [photoCardData, setPhotoCardData] = useState({
-    cardName: "",
-    description: "",
+    cardName: '',
+    description: '',
     image: null,
-    grade: "",
-    genre: "",
-    nickname: "",
-    price: "",
+    grade: '',
+    genre: '',
+    nickname: '',
+    price: '',
   });
 
   // Fetch data from API
@@ -38,7 +38,7 @@ function PhotoCardDetailContent() {
           price: data.price,
         });
       } catch (error) {
-        console.error("Failed to fetch photo card data:", error);
+        console.error('Failed to fetch photo card data:', error);
       }
     };
 
@@ -46,7 +46,7 @@ function PhotoCardDetailContent() {
   }, [id]);
 
   return (
-    <div className="w-[1480px] mx-[240px]">
+    <div className='w-[1480px] mx-[240px]'>
       {/* <PhotoCardDetail
         variant="myHoldingCard"
         cardName={photoCardData.cardName}
