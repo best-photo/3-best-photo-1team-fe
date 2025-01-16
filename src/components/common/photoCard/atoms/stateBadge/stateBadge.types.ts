@@ -1,4 +1,4 @@
-export type CardState = 'selling' | 'trading';
+export type CardState = 'sale' | 'exchange';
 
 export interface StateBadgeProps {
   state: CardState;

@@ -129,12 +129,12 @@ export default function Page() {
         cards={cardsCount}
       />
       <SearchSection
-        onSubmitFilter={(query) => alert(query)}
+        onSubmitFilter={(query) => router.push(`${pathname}?${query}`)}
         variant='mySale'
       />
       <CardContainer
         cards={cards}
-        onClick={(id) => alert(id)}
+        onClick={(id) => router.push(`/${id}`)}
       />
       <FilterModal />
     </div>
