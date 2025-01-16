@@ -19,5 +19,5 @@ const Template: StoryFn<typeof StateBadge> = (args) => <StateBadge {...args} />;
 export const Selling = Template.bind({});
 
 Selling.args = {
-  state: 'selling',
+  state: 'sale',
 };
