@@ -18,7 +18,7 @@ export default function ClientProvider({
       try {
         await refreshToken(); // 토큰 갱신
       } catch (error) {
-        setUserInfo(null ,false); // 토큰 갱신 실패 시 회원정보 초기화
+        setUserInfo(null, false); // 토큰 갱신 실패 시 회원정보 초기화
         console.error('토큰 갱신 실패:', error);
       }
     };
