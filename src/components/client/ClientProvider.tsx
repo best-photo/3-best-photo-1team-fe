@@ -4,6 +4,9 @@ import { useEffect } from 'react';
 import { usePathname } from 'next/navigation'; // App Router에서 경로 변경 감지
 import useAuthStore from '@/src/store/useAuthStore';
 import { getProfile } from '@/src/services/authService';
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
+
+const queryClient = new QueryClient();
 
 export default function ClientProvider({
   children,
@@ -18,7 +21,7 @@ export default function ClientProvider({
       try {
         await refreshToken(); // 토큰 갱신
       } catch (error) {
-        setUserInfo(null ,false); // 토큰 갱신 실패 시 회원정보 초기화
+        setUserInfo(null, false); // 토큰 갱신 실패 시 회원정보 초기화
         console.error('토큰 갱신 실패:', error);
       }
     };
@@ -26,5 +29,7 @@ export default function ClientProvider({
     refreshOnPathChange();
   }, [pathname, refreshToken]); // 경로(pathname)가 변경될 때마다 실행
 
-  return <>{children}</>;
+  return (
+    <QueryClientProvider client={queryClient}>{children}</QueryClientProvider>
+  );
 }

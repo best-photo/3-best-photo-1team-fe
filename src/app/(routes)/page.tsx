@@ -6,6 +6,9 @@ import SearchSection from '../../components/common/searchSection/searchSection';
 import PhotoCardListItem from '@/src/components/common/photoCard/organisms/photoCardListItem/photoCardListItem';
 import { AmountListItem } from '@/src/components/common/photoCard/organisms/photoCardListItem/photoCardListItem.types';
 import { axiosFilteredCards } from '@/src/lib/axios/types/api/marketplaceMain/MainpageCards';
+import axiosInstance from '@/src/lib/axios/axiosInstance';
+import { useInfiniteQuery } from '@tanstack/react-query';
+import { useInView } from 'react-intersection-observer';
 
 // 등급 변환 함수
 const convertGradeToLowerCase = (
@@ -45,6 +48,17 @@ const convertGenreToLowerCase = (
     default:
       throw new Error(`Invalid genre value: ${genre}`);
   }
+};
+
+const getPosts = async (page: any) => {
+  console.log(page);
+  const res = await fetch(
+    `https://jsonplaceholder.typicode.com/posts?_page=${page.pageParam}`,
+  );
+  if (!res.ok) {
+    throw new Error('There was an error!');
+  }
+  return res.json();
 };
 
 export default function Home() {
@@ -117,6 +131,50 @@ export default function Home() {
     fetchFilteredCards(filters, query);
   }, [filters, query, triggerRefresh]);
 
+  const { ref, inView } = useInView();
+  const {
+    isPending,
+    error,
+    data,
+    isFetching,
+    fetchNextPage,
+    hasNextPage,
+    isFetchingNextPage,
+  } = useInfiniteQuery({
+    queryKey: ['posts'],
+    queryFn: getPosts,
+    staleTime: 10000,
+    initialPageParam: 1,
+    getNextPageParam: (lastPage, allPages) => {
+      console.log('lastPage:', lastPage, 'allPages:', allPages);
+      console.log(lastPage.length, allPages.length);
+      return lastPage.length === 0 ? null : allPages.length + 1;
+    },
+  });
+
+  useEffect(() => {
+    if (inView) fetchNextPage();
+  }, [inView]);
+
+  console.log('inView:', inView);
+  console.log(data);
+
+  if (isPending) {
+    return (
+      <h1 className='text-3xl text-center my-8 font-bold text-gray-400'>
+        Loading...
+      </h1>
+    );
+  }
+
+  if (error) {
+    return (
+      <h1 className='text-3xl text-center my-8 font-bold text-gray-400'>
+        Error: {error.message}
+      </h1>
+    );
+  }
+
   return (
     <>
       <div className='pt-[60px]'>
@@ -149,6 +207,40 @@ export default function Home() {
         ) : (
           <div>포토카드가 없습니다.</div>
         )}
+        <div className={`${isFetching ? '' : ''}`}>
+          {data.pages.map((page) => (
+            <div key={page.id}>
+              {page.map((post: any) => (
+                <div
+                  key={post.id}
+                  className='border p-4 my-4'
+                >
+                  <h2 className='text-xl font-bold'>{post.title}</h2>
+                  <p>{post.body}</p>
+                </div>
+              ))}
+            </div>
+          ))}
+          <div>
+            {hasNextPage && (
+              <div
+                ref={ref}
+                className='h-4 text-3xl text-center w-full bg-blue-200'
+              >
+                {isFetchingNextPage ? 'Loading more...' : ''}
+              </div>
+            )}
+            {/* {hasNextPage && (
+              <button
+                disabled={isFetchingNextPage}
+                className='px-3 py-1 bg-blue rounded-md text-white font-bold'
+                onClick={() => fetchNextPage()}
+              >
+                Load more
+              </button>
+            )} */}
+          </div>
+        </div>
       </div>
     </>
   );
