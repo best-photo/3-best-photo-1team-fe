@@ -4,21 +4,27 @@ import PhotoCardListItem from '../common/photoCard/organisms/photoCardListItem/p
 import { AmountListItem } from '../common/photoCard/organisms/photoCardListItem/photoCardListItem.types';
 import { axiosUserCards } from '@/src/lib/axios/types/api/marketplaceMain/userCard';
 import SearchSection from '../common/searchSection/searchSection';
+import usePhotoCardStore from '@/src/store/photoCardId';
+import useAuthStore from '@/src/store/useAuthStore';
 
 export function Modal({
   onClose,
   isVisible,
-  userId,
   onPhotoCardClick,
 }: {
   onClose: () => void;
   isVisible: boolean;
-  userId: string | null;
-  onPhotoCardClick: (photoCardId: string) => void;
+  onPhotoCardClick: () => void;
 }) {
+  const setSelectedPhotoCardId = usePhotoCardStore(
+    (state) => state.setSelectedPhotoCardId,
+  );
+
   const [userCards, setUserCards] = useState<AmountListItem[]>([]);
   const [filters, setFilters] = useState({ grade: '', genre: '' });
   const [query, setQuery] = useState('');
+
+  const userId = useAuthStore((state) => state.user?.id);
 
   const fetchUserCards = async (
     filters: { grade: string; genre: string },
@@ -38,6 +44,15 @@ export function Modal({
     }
   };
 
+  const handleModalClose = () => {
+    setFilters({
+      grade: '',
+      genre: '',
+    });
+    setQuery('');
+    onClose();
+  };
+
   const handleFilterChange = (filterQuery: string) => {
     const params = new URLSearchParams(filterQuery);
     const newFilters = {
@@ -47,6 +62,11 @@ export function Modal({
     const newQuery = params.get('keyword') || '';
     setFilters(newFilters);
     setQuery(newQuery);
+  };
+
+  const PhotoCardClick = (cardId: string) => {
+    setSelectedPhotoCardId(cardId);
+    onPhotoCardClick();
   };
 
   useEffect(() => {
@@ -67,7 +87,7 @@ export function Modal({
               src='/icons/close.svg'
               alt='Close'
               className='absolute top-[30px] right-[30px] cursor-pointer'
-              onClick={onClose}
+              onClick={handleModalClose}
               width={18}
               height={18}
             />
@@ -90,7 +110,7 @@ export function Modal({
                   <PhotoCardListItem
                     key={card.cardId}
                     {...card}
-                    onClick={() => onPhotoCardClick(card.cardId)}
+                    onClick={() => PhotoCardClick(card.cardId)}
                   />
                 ))}
               </div>

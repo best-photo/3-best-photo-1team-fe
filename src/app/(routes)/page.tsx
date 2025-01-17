@@ -6,9 +6,10 @@ import SearchSection from '../../components/common/searchSection/searchSection';
 import PhotoCardListItem from '@/src/components/common/photoCard/organisms/photoCardListItem/photoCardListItem';
 import { AmountListItem } from '@/src/components/common/photoCard/organisms/photoCardListItem/photoCardListItem.types';
 import { axiosFilteredCards } from '@/src/lib/axios/types/api/marketplaceMain/MainpageCards';
-import axiosInstance from '@/src/lib/axios/axiosInstance';
 import { useInfiniteQuery } from '@tanstack/react-query';
 import { useInView } from 'react-intersection-observer';
+import Dropdown from '@/src/components/common/CommonDropDown/DropDown';
+import { useRerenderStore } from '@/src/store/rerenderStore';
 
 // 등급 변환 함수
 const convertGradeToLowerCase = (
@@ -68,24 +69,25 @@ export default function Home() {
   const [isLoginAlertVisible, setIsLoginAlertVisible] = useState(false);
   const [isProductVisible, setProductVisible] = useState(false);
   const [triggerRefresh, setTriggerRefresh] = useState(false);
+  const { renderKey } = useRerenderStore();
 
   const [filters, setFilters] = useState({
     grade: '',
     genre: '',
     status: '',
-    priceOrder: '',
   });
 
-  const [query, setQuery] = useState('');
+  const [query, setQuery] = useState<string>('');
+  const [selectedPrice, setSelectedPrice] = useState<string>('');
 
   const fetchFilteredCards = async (
     filters: {
       grade: string;
       genre: string;
       status: string;
-      priceOrder: string;
     },
     query: string,
+    selectedPrice: string,
   ) => {
     try {
       const transformedFilters = {
@@ -93,7 +95,11 @@ export default function Home() {
         grade: filters.grade ? convertGradeToLowerCase(filters.grade) : '',
         genre: filters.genre ? convertGenreToLowerCase(filters.genre) : '',
       };
-      const combinedFilters = { ...transformedFilters, query };
+      const combinedFilters = {
+        ...transformedFilters,
+        query,
+        placeOrder: selectedPrice,
+      };
       console.log('Transformed Filters:', combinedFilters);
       const cards = await axiosFilteredCards(combinedFilters);
       setPhotoCards(cards);
@@ -108,8 +114,8 @@ export default function Home() {
       grade: '',
       genre: '',
       status: '',
-      priceOrder: '',
     });
+    setSelectedPrice('');
     setQuery('');
   };
 
@@ -120,7 +126,6 @@ export default function Home() {
       grade: params.get('grade') || '',
       genre: params.get('genre') || '',
       status: params.get('status') || '',
-      priceOrder: params.get('priceOrder') || '',
     };
     const newQuery = params.get('keyword') || '';
     setFilters(newFilters);
@@ -128,9 +133,10 @@ export default function Home() {
   };
 
   useEffect(() => {
-    fetchFilteredCards(filters, query);
-  }, [filters, query, triggerRefresh]);
+    fetchFilteredCards(filters, query, selectedPrice);
+  }, [filters, query, selectedPrice, triggerRefresh]);
 
+  /* 무한 스크롤 테스트 부분 */
   const { ref, inView } = useInView();
   const {
     isPending,
@@ -146,8 +152,6 @@ export default function Home() {
     staleTime: 10000,
     initialPageParam: 1,
     getNextPageParam: (lastPage, allPages) => {
-      console.log('lastPage:', lastPage, 'allPages:', allPages);
-      console.log(lastPage.length, allPages.length);
       return lastPage.length === 0 ? null : allPages.length + 1;
     },
   });
@@ -155,9 +159,6 @@ export default function Home() {
   useEffect(() => {
     if (inView) fetchNextPage();
   }, [inView]);
-
-  console.log('inView:', inView);
-  console.log(data);
 
   if (isPending) {
     return (
@@ -188,10 +189,18 @@ export default function Home() {
           onModalClose={handleModalClose}
         />
         <div className='border-b border-white w-[1480px] mx-auto mt-[20px]'></div>
-        <div className='w-[1480px] h-[50px] flex justify-between items-center mx-auto mt-[50px]'>
+        <div className='w-[1480px] h-[50px] flex justify-between  mx-auto mt-[20px]'>
           <SearchSection
+            key={renderKey}
             variant='marketplace'
             onSubmitFilter={handleFilterChange}
+          />
+          <Dropdown
+            options={['최신순', '오래된 순', '높은 가격순', '낮은 가격순']}
+            selectedValue={selectedPrice}
+            placeholder='낮은 가격순'
+            onValueChange={setSelectedPrice}
+            className='border border-[#dddddd] w-[180px]'
           />
         </div>
       </div>
@@ -221,6 +230,7 @@ export default function Home() {
               ))}
             </div>
           ))}
+          {/* 무한 스크롤 테스트 부분  */}
           <div>
             {hasNextPage && (
               <div

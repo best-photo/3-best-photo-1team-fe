@@ -5,6 +5,7 @@ import LoginAlertModal from './LoginModal';
 import PhotoCardDetailModal from './ProductModal';
 import useAuthStore from '@/src/store/useAuthStore';
 import { useState } from 'react';
+import { useRerenderStore } from '@/src/store/rerenderStore';
 
 interface MarketplaceHeaderProps {
   isAlertVisible: boolean;
@@ -28,16 +29,14 @@ export default function MarketplaceHeader({
   const [selectedPhotoCardId, setSelectedPhotoCardId] = useState<string | null>(
     null,
   );
+  const { setRenderKey } = useRerenderStore();
 
   const user = useAuthStore((state) => state.user);
-  const userId = user?.id || null;
 
   const handleButtonClick = () => {
     if (user) {
-      if (!isAlertVisible) {
-        setAlertVisible(true);
-        console.log(user.id);
-      }
+      setAlertVisible(true);
+      console.log(user.id);
     } else {
       setIsLoginAlertVisible(true);
     }
@@ -46,6 +45,7 @@ export default function MarketplaceHeader({
   const handleCloseAlert = () => {
     setAlertVisible(false);
     onModalClose();
+    setRenderKey();
   };
 
   const handleCloseLoginAlert = () => {
@@ -53,16 +53,14 @@ export default function MarketplaceHeader({
     onModalClose();
   };
 
-  const handlePhotoCardClick = (photoCardId: string) => {
-    setSelectedPhotoCardId(photoCardId); // 클릭된 카드 ID 저장
-    setAlertVisible(false); // 기존 모달 닫기
-    setProductVisible(true); // 상세 모달 열기
-  };
+const handlePhotoCardClick = () => {
+  setAlertVisible(false);
+  setProductVisible(true);
+};
 
   const handleCloseProductModal = () => {
+    setAlertVisible(true);
     setProductVisible(false);
-    setSelectedPhotoCardId(null); // 선택된 카드 ID 초기화
-    onModalClose();
   };
 
   const handleLoginRedirect = () => {
@@ -90,7 +88,6 @@ export default function MarketplaceHeader({
         isVisible={isAlertVisible}
         onClose={handleCloseAlert}
         onPhotoCardClick={handlePhotoCardClick}
-        userId={userId}
       />
 
       {/* 로그인 필요 모달을 LoginAlertModal로 분리하여 사용 */}
@@ -105,8 +102,6 @@ export default function MarketplaceHeader({
         <PhotoCardDetailModal
           isVisible={isProductVisible}
           onClose={handleCloseProductModal}
-          userId={userId}
-          photoCardId={selectedPhotoCardId} // 선택된 카드 ID 전달
         />
       )}
     </div>

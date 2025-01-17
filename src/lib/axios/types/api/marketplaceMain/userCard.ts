@@ -24,6 +24,5 @@ export const axiosUserCards = async (
       params,
     },
   );
-
   return response.data.map(mapApiDataToAmountListItem);
 };
