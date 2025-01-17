@@ -107,7 +107,7 @@ const BuyerView = ({ cardId }: BuyerViewProps) => {
           onClose={() => setPurchaseAlertVisible(false)}
           onClick={() =>
             router.push(
-              `/photo-card/${cardId}/fail?grade=legendary&name=우리집 앞마당&quantity=2`,
+              `/purchase-success?grade=legendary&name=우리집 앞마당&quantity=2`,
             )
           }
         />
