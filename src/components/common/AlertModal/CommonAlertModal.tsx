@@ -1,7 +1,6 @@
 'use client';
 
 import Image from 'next/image';
-import { usePathname } from 'next/navigation';
 import React from 'react';
 import { CommonBtn } from '@/src/components/common/CommonBtn/CommonBtn';
 
@@ -12,8 +11,6 @@ interface CommonAlertModalProps {
   content: string;
   buttonText: string;
 }
-
-const PathMatching = {};
 
 const CommonAlertModal: React.FC<CommonAlertModalProps> = ({
   onClose,

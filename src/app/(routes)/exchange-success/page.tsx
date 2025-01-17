@@ -1,17 +1,13 @@
 'use client';
 
 import React, { Suspense } from 'react';
-import { useRouter, useSearchParams } from 'next/navigation';
+import { useRouter } from 'next/navigation';
 import { ResultsProps } from '@/src/components/SuccessOrFail/Result';
 import ResultSection from '@/src/components/SuccessOrFail/Result';
 import { CommonBtn } from '@/src/components/common/CommonBtn/CommonBtn';
 
 function ExchangeSuccessContent() {
   const router = useRouter();
-  const searchParams = useSearchParams();
-  const grade = searchParams.get('grade');
-  const name = searchParams.get('name');
-  const quantity = searchParams.get('quantity');
 
   const handleNavigation = () => {
     router.push('/my-sales');
