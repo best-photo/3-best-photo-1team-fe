@@ -4,6 +4,9 @@ import { useEffect, useState } from 'react';
 import useAuthStore from '@/src/store/useAuthStore';
 import usePhotoCardStore from '@/src/store/photoCardId';
 import { fetchCardByUserAndId } from '@/src/lib/axios/types/api/marketplaceMain/cardByUserId';
+import { createShopEntry } from '@/src/lib/axios/types/api/marketplaceMain/marketsell';
+import Grade from '../common/photoCard/atoms/grade/grade';
+import Genre from '../common/photoCard/atoms/genre/genre';
 
 interface PhotoCardDetailModalProps {
   isVisible: boolean;
@@ -17,14 +20,26 @@ export default function PhotoCardDetailModal({
   const [selectedGrade, setSelectedGrade] = useState<string>('');
   const [selectedGenre, setSelectedGenre] = useState<string>('');
   const [quantity, setQuantity] = useState<number>(0);
+  const [price, setPrice] = useState<number | ''>('');
+  const [description, setDescription] = useState<string>('');
   const [cardData, setCardData] = useState<any>(null);
-
   const userId = useAuthStore((state) => state.user?.id);
   const cardId = usePhotoCardStore((state) => state.selectedPhotoCardId);
 
+  const handlePriceChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const value = event.target.value;
+    setPrice(value === '' ? '' : Number(value));
+  };
+
+  const handleDescriptionChange = (
+    event: React.ChangeEvent<HTMLInputElement>,
+  ) => {
+    setDescription(event.target.value);
+  };
+
   const fetchData = async () => {
     if (!isVisible || !userId || !cardId) return;
-  
+
     try {
       const data = await fetchCardByUserAndId(userId, cardId);
       setCardData(data);
@@ -39,23 +54,77 @@ export default function PhotoCardDetailModal({
     }
   }, [isVisible, userId, cardId]);
 
+  useEffect(() => {
+    if (cardData) {
+      console.log('Updated cardData:', cardData);
+    }
+  }, [cardData]);
+
+  if (!isVisible) return null;
+
+  if (!cardData) {
+    return (
+      <div className='fixed top-0 left-0 w-full h-full bg-[#000000CC] bg-opacity-[80] z-[50]'>
+        <div className='fixed top-[40px] left-1/2 transform -translate-x-1/2 w-[1160px] h-[1000px] bg-[#161616] rounded-[2px] z-[60] flex items-center justify-center'>
+          <p>Loading card data...</p>
+        </div>
+      </div>
+    );
+  }
+
   const decreaseQuantity = () => {
     setQuantity((prev) => {
       const newQuantity = prev > 0 ? prev - 1 : 0;
-      console.log(newQuantity);
       return newQuantity;
     });
   };
 
   const increaseQuantity = () => {
     setQuantity((prev) => {
-      const maxQuantity = cardData?.totalAmount || 0;
+      const maxQuantity = cardData?.totalAmount - cardData?.soldAmount || 0;
       const newQuantity = prev < maxQuantity ? prev + 1 : prev;
-      console.log(newQuantity);
       return newQuantity;
     });
   };
   if (!isVisible) return null;
+
+  const handleRegister = async () => {
+    if (
+      !userId ||
+      !cardId ||
+      !quantity ||
+      !price ||
+      !selectedGrade ||
+      !selectedGenre
+    ) {
+      alert('모든 필드를 입력해주세요.');
+      return;
+    }
+
+    try {
+      await createShopEntry({
+        sellerId: userId,
+        cardId,
+        price: Number(price),
+        quantity,
+        exchangeGrade: selectedGrade,
+        exchangeGenre: selectedGenre,
+        exchangeDescription: description,
+      });
+      alert('판매 등록이 완료되었습니다!');
+      onClose();
+      // 상태 초기화
+      setQuantity(0);
+      setPrice('');
+      setDescription('');
+      setSelectedGrade('');
+      setSelectedGenre('');
+      window.location.href = '/createcard/success'; // 수정해야함
+    } catch (error) {
+      console.error('판매 등록 중 오류 발생:', error);
+      alert('판매 등록 중 오류가 발생했습니다. 다시 시도해주세요.');
+    }
+  };
 
   return (
     <>
@@ -84,7 +153,7 @@ export default function PhotoCardDetailModal({
             className='absolute top-[120px] left-[120px] text-[40px] font-normal font-[700] leading-[47.1px] tracking-[-0.03em] text-[#FFFFFF]'
             style={{ fontFamily: 'var(--font-noto-sans-kr)' }}
           >
-            우리집 앞마당
+            {cardData.cardName}
           </div>
           <div className='border-b border-white w-[920px] mx-auto mt-[192px]'></div>
           <div>
@@ -95,31 +164,28 @@ export default function PhotoCardDetailModal({
               width={440}
               height={330}
             />
-
-            {/* 유저정보 */}
-            <div className='fixed flex flex-row gap-[10px] top-[243px] left-[600px]'>
-              <div
-                className='text-[24px] font-bold leading-[34.75px] text-left  decoration-skip-ink-none text-[#FF2A6A]'
-                style={{ fontFamily: 'var(--font-noto-sans-kr)' }}
-              >
-                LEGENDARY
+            <div className='fixed flex flex-row justify-between w-[440px] gap-[10px] top-[243px] left-[600px]'>
+              <div className='flex gap-[10px]'>
+                <div
+                  className='text-[24px] font-bold leading-[34.75px] text-left  decoration-skip-ink-none text-[#FF2A6A]'
+                  style={{ fontFamily: 'var(--font-noto-sans-kr)' }}
+                >
+                  <Grade grade={cardData.grade} />
+                </div>
+                <div
+                  className='text-[24px] font-bold leading-[34.75px] text-left decoration-skip-ink-none text-[#A4A4A4]'
+                  style={{ fontFamily: 'var(--font-noto-sans-kr)' }}
+                >
+                  | <Genre genre={cardData.genre} />
+                </div>
               </div>
               <div
-                className='text-[24px] font-bold leading-[34.75px] text-left  decoration-skip-ink-none text-[#A4A4A4]'
+                className='text-[24px] font-bold leading-[34.75px] underline text-left  decoration-skip-ink-none text-[#A4A4A4]'
                 style={{ fontFamily: 'var(--font-noto-sans-kr)' }}
               >
-                | 풍경
-              </div>
-              <div
-                className='ml-[170px] text-[24px] font-bold leading-[34.75px] underline text-left  decoration-skip-ink-none text-[#A4A4A4]'
-                style={{ fontFamily: 'var(--font-noto-sans-kr)' }}
-              >
-                {/* 유저정보, 클릭시에 마이페이지로 이동시킬 예정 */}
-                유디
+                {cardData.nickname}
               </div>
             </div>
-
-            {/* 판매수량, 장당가격  */}
             <div className='fixed flex flex-col gap-[20px] top-[338px] left-[600px]'>
               <div className='flex justify-between items-center w-[440px]'>
                 <div
@@ -153,17 +219,11 @@ export default function PhotoCardDetailModal({
                   </div>
 
                   <div className='w-[56px] h-[50px]'>
-                    <div
-                      className='text-[20px] font-normal leading-[28.96px] text-left '
-                      style={{ fontFamily: 'var(--font-noto-sans-kr)' }}
-                    >
-                      /3
+                    <div className='text-[20px] font-[var(--font-noto-sans-kr)] leading-[28.96px] text-left'>
+                      /{cardData.totalAmount - cardData.soldAmount}
                     </div>
-                    <div
-                      className='text-[14px] font-normal leading-[28.96px] text-left '
-                      style={{ fontFamily: 'var(--font-noto-sans-kr)' }}
-                    >
-                      최대 3장
+                    <div className='text-[14px] leading-[28.96px] text-left font-[var(--font-noto-sans-kr)]'>
+                      최대 {cardData.totalAmount - cardData.soldAmount}장
                     </div>
                   </div>
                 </div>
@@ -171,23 +231,19 @@ export default function PhotoCardDetailModal({
 
               <div>
                 <div className='flex justify-between items-center w-[440px]'>
-                  <div
-                    className='text-[20px] font-normal leading-[28.96px] text-left '
-                    style={{ fontFamily: 'var(--font-noto-sans-kr)' }}
-                  >
+                  <div className='text-[20px] font-[var(--font-noto-sans-kr)] leading-[28.96px] text-left '>
                     장당 가격
                   </div>
                   <div className='w-[246px] h-[50px] flex flex-row gap-[20px]'>
                     <div className='flex w-[245px] h-[50px] rounded-[2px] gap-[25px] border border-[#DDDDDD]'>
                       <input
                         type='text'
+                        value={price}
+                        onChange={handlePriceChange}
                         className='bg-[#161616] outline-none px-[20px] py-[23.5px] w-[180px] h-[23px]'
                         placeholder='숫자만 입력'
                       />
-                      <div
-                        className='flex justify-center items-center text-[20px] font-bold leading-[28.96px] text-right text-[#FFFFFF] '
-                        style={{ fontFamily: 'var(--font-noto-sans-kr)' }}
-                      >
+                      <div className='flex justify-center items-center text-[20px] font-[var(--font-noto-sans-kr)] leading-[28.96px] text-right text-[#FFFFFF] '>
                         P
                       </div>
                     </div>
@@ -195,14 +251,10 @@ export default function PhotoCardDetailModal({
                 </div>
               </div>
             </div>
-            <div
-              className='fixed top-[653px] left-[120px] text-[28px] font-normal leading-[28.96px] text-left'
-              style={{ fontFamily: 'var(--font-noto-sans-kr)' }}
-            >
+            <div className='fixed top-[653px] left-[120px] text-[28px] font-[var(--font-noto-sans-kr)] leading-[28.96px] text-left'>
               교환 희망 정보
             </div>
             <div className='border-b border-white w-[920px] mx-auto mt-[500px]'></div>
-
             <div className='w-[920px] flex justify-center gap-[40px] mx-auto mt-[40px]'>
               <div className='w-[440px]'>
                 <div className='font-noto text-[16px] font-bold leading-[23.17px] text-left '>
@@ -238,11 +290,13 @@ export default function PhotoCardDetailModal({
                 교환 희망 설명
               </div>
               <input
+                type='text'
+                value={description}
+                onChange={handleDescriptionChange}
                 placeholder='설명을 입력해 주세요'
                 className='w-[920px] h-[120px] p-[12px_20px] rounded-[2px] bg-[#161616] border border-[#DDDDDD] mt-[10px] pb-[70px] outline-none'
               />
             </div>
-
             <div className='w-[920px] flex my-[60px] mx-auto gap-[40px]'>
               <div
                 onClick={onClose}
@@ -250,7 +304,10 @@ export default function PhotoCardDetailModal({
               >
                 취소하기
               </div>
-              <div className='w-[440px] h-[55px] px-[186px] py-[17px] gap-[10px] bg-[#EFFF04] text-[black] text-[16px] font-bold leading-[23.17px] rounded-[2px] border border-[#EEEEEE] cursor-[pointer] font-noto'>
+              <div
+                onClick={handleRegister}
+                className='w-[440px] h-[55px] px-[186px] py-[17px] gap-[10px] bg-[#EFFF04] text-[black] text-[16px] font-bold leading-[23.17px] rounded-[2px] border border-[#EEEEEE] cursor-[pointer] font-noto'
+              >
                 판매하기
               </div>
             </div>

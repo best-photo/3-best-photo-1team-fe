@@ -81,6 +81,7 @@ export default function Home() {
         ...filters,
         grade: filters.grade ? convertGradeToLowerCase(filters.grade) : '',
         genre: filters.genre ? convertGenreToLowerCase(filters.genre) : '',
+        status: filters.status,
       };
       const combinedFilters = {
         ...transformedFilters,
@@ -107,13 +108,15 @@ export default function Home() {
   };
 
   const handleFilterChange = (filterQuery: string) => {
+    console.log('filterQuery :' + filterQuery);
     const params = new URLSearchParams(filterQuery);
 
     const newFilters = {
       grade: params.get('grade') || '',
       genre: params.get('genre') || '',
-      status: params.get('status') || '',
+      status: params.get('stockState') || '',
     };
+    console.log('Parsed Filters:', newFilters);
     const newQuery = params.get('keyword') || '';
     setFilters(newFilters);
     setQuery(newQuery);

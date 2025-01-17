@@ -20,5 +20,10 @@ export const axiosFilteredCards = async (filters: {
   const response = await axios.get<any[]>('http://localhost:8000/shop/cards', {
     params,
   });
-  return response.data.map(mapApiDataToAmountListItem);
+  return response.data.map((data) => {
+    const mappedItem = mapApiDataToAmountListItem(data);
+    const quantity = data.quantity || 0;
+    const soldAmount = data.totalQuantity - quantity;
+    return { ...mappedItem, quantity, soldAmount };
+  });
 };

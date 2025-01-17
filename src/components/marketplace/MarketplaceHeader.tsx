@@ -26,11 +26,7 @@ export default function MarketplaceHeader({
   setProductVisible,
   onModalClose,
 }: MarketplaceHeaderProps) {
-  const [selectedPhotoCardId, setSelectedPhotoCardId] = useState<string | null>(
-    null,
-  );
   const { setRenderKey } = useRerenderStore();
-
   const user = useAuthStore((state) => state.user);
 
   const handleButtonClick = () => {
@@ -53,10 +49,10 @@ export default function MarketplaceHeader({
     onModalClose();
   };
 
-const handlePhotoCardClick = () => {
-  setAlertVisible(false);
-  setProductVisible(true);
-};
+  const handlePhotoCardClick = () => {
+    setAlertVisible(false);
+    setProductVisible(true);
+  };
 
   const handleCloseProductModal = () => {
     setAlertVisible(true);

@@ -4,15 +4,15 @@ import PhotoCardListItem from '../../common/photoCard/organisms/photoCardListIte
 import { CardState } from '../../common/photoCard/atoms/stateBadge/stateBadge.types';
 
 export interface Card {
-  cardId: string;
-  nickname: string;
+  id: string;
+  targetId: string;
   price: number;
   image: string | StaticImport;
-  cardName: string;
+  name: string;
   state: CardState;
   grade: Grades;
   genre: Genres;
-  totalAmount: number;
+  nickname: string;
 }
 
 export default function CardContainer({
@@ -24,21 +24,26 @@ export default function CardContainer({
 }) {
   return (
     <div className='w-full grid grid-cols-2 md:grid-cols-2 lg:grid-cols-3 justify-items-center gap-[5px] md:gap-5 lg:gap-20 pb-[140px]'>
-      {cards.map((card) => (
+      {cards?.map((card) => (
         <PhotoCardListItem
-          key={card.cardId}
+          key={card.id + card.targetId}
           variant='amount'
           fontWeight='normal'
-          cardId={card.cardId}
+          cardId={card.id}
           nickname={card.nickname}
           price={card.price}
           image={card.image}
-          cardName={card.cardName}
+          cardName={card.name}
           state={card.state}
-          grade={card.grade}
-          genre={card.genre}
-          totalAmount={card.totalAmount}
-          onClick={onClick}
+          // 임시방편
+          grade={
+            card.grade
+              .toLowerCase()
+              .replace('super_rare', 'superRare') as Grades
+          }
+          genre={card.genre.toLowerCase() as Genres}
+          totalAmount={1}
+          onClick={() => onClick(card.targetId)}
         />
       ))}
     </div>
