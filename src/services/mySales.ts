@@ -10,13 +10,13 @@ interface MySalesQueryParams {
 }
 
 export const getMySalesCard = async (params: MySalesQueryParams) => {
-  const filteredParams = Object.fromEntries(
-    Object.entries(params).filter(([_, value]) => value !== undefined),
-  );
-
   try {
     const { data } = await axiosInstance.get('/users/my-cards/sales', {
-      params: filteredParams,
+      params: {
+        ...params,
+        page: params.page || 1,
+        limit: params.limit || 30,
+      },
     });
     return data;
   } catch (e: any) {
