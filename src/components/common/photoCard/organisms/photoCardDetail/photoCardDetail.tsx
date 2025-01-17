@@ -10,15 +10,15 @@ import MySellingCardDetailSection from './myCardDetailSection';
 import { CommonBtn } from '../../../CommonBtn/CommonBtn';
 
 const RemainingAmount = ({
-  soldAmount,
+  remainingAmount,
   totalAmount,
 }: {
-  soldAmount: number;
+  remainingAmount: number;
   totalAmount: number;
 }) => {
   return (
     <div className='flex gap-[5px]'>
-      {soldAmount}
+      {remainingAmount}
       <span className='text-gray-300 font-light'>/{totalAmount}</span>
     </div>
   );
@@ -35,10 +35,10 @@ export default function PhotoCardDetail(props: PhotoCardDetailProps) {
     description,
     price,
     totalAmount,
-    soldAmount,
+    remainingAmount,
   } = props;
 
-  if (totalAmount < soldAmount) {
+  if (totalAmount < remainingAmount) {
     console.error('판매된 수량은 총 수량보다 클 수 없습니다.');
     return <div>판매된 수량이 총 수량보다 크게 입력되었습니다.</div>;
   }
@@ -94,7 +94,7 @@ export default function PhotoCardDetail(props: PhotoCardDetailProps) {
               ) : (
                 <RemainingAmount
                   totalAmount={totalAmount}
-                  soldAmount={soldAmount}
+                  remainingAmount={remainingAmount}
                 />
               )}
             </CustomLabel>
@@ -102,7 +102,7 @@ export default function PhotoCardDetail(props: PhotoCardDetailProps) {
           {variant === 'othersCard' && (
             <OthersCardDetail
               onPurchase={props.onPurchase}
-              maxAmount={totalAmount - soldAmount}
+              maxAmount={remainingAmount}
               price={price}
             />
           )}
