@@ -7,7 +7,7 @@ export const CardAmountSection = ({
   price,
   totalAmount,
   headerWeight = 'normal',
-  soldAmount,
+  remainingAmount,
   state,
 }: AmountSectionProps) => {
   return (
@@ -22,15 +22,15 @@ export const CardAmountSection = ({
         <span>{price}P</span>
       </CustomLabel>
       <CustomLabel
-        title={soldAmount && !state ? '잔여' : '수량'}
+        title={remainingAmount && !state ? '잔여' : '수량'}
         titleWeight={headerWeight}
         contentWeight={headerWeight}
         size='small'
         className='text-gray-300'
       >
-        {soldAmount && !state ? (
+        {remainingAmount && !state ? (
           <div className='flex gap-[5px]'>
-            {soldAmount}
+            {remainingAmount}
             <span className='text-gray-300 font-light'>/{totalAmount}</span>
           </div>
         ) : (

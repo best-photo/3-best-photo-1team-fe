@@ -18,11 +18,15 @@ export default function PhotoCardListItem(props: PhotoCardListItemProps) {
   const isPrimary = props.variant === 'amount';
   const isSecondary = props.variant === 'trade';
   const isSoldOut =
-    isPrimary && props.totalAmount && props.soldAmount === props.totalAmount;
+    isPrimary && props.totalAmount && props.remainingAmount === 0;
 
-  if (isPrimary && props.soldAmount && props.totalAmount < props.soldAmount) {
-    console.error('판매된 수량은 총 수량보다 클 수 없습니다.');
-    return <div>판매된 수량이 총 수량보다 크게 입력되었습니다.</div>;
+  if (
+    isPrimary &&
+    props.remainingAmount &&
+    props.totalAmount < props.remainingAmount
+  ) {
+    console.error('남은 수량은 총 수량보다 클 수 없습니다.');
+    return <div>남은 수량이 총 수량보다 크게 입력되었습니다.</div>;
   }
 
   return (
@@ -82,7 +86,7 @@ export default function PhotoCardListItem(props: PhotoCardListItemProps) {
         <CardAmountSection
           price={props.price}
           totalAmount={props.totalAmount}
-          soldAmount={props.soldAmount}
+          remainingAmount={props.remainingAmount}
           headerWeight={props.headerWeight}
           state={props.state}
         />
