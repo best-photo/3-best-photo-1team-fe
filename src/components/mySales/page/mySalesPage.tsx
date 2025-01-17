@@ -45,6 +45,8 @@ export default function MySalesPage() {
       },
     });
 
+  const allCards = data?.pages.flatMap((page) => page.items) ?? [];
+
   const handleObserver = useCallback(
     (entries: IntersectionObserverEntry[]) => {
       const [target] = entries;
@@ -66,9 +68,6 @@ export default function MySalesPage() {
     observer.observe(element);
     return () => observer.disconnect();
   }, [handleObserver]);
-
-  const allCards = data?.pages.flatMap((page) => page.items) ?? [];
-  console.log('data', data?.pages?.[0].items);
 
   const cardsCount = {
     common: total?.items.filter((item: any) => item.grade === 'COMMON').length,
