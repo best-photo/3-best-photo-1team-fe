@@ -5,12 +5,14 @@ import { CardState } from '../../common/photoCard/atoms/stateBadge/stateBadge.ty
 
 export interface Card {
   id: string;
+  targetId: string;
   price: number;
   image: string | StaticImport;
   name: string;
   state: CardState;
   grade: Grades;
   genre: Genres;
+  nickname: string;
 }
 
 export default function CardContainer({
@@ -24,19 +26,24 @@ export default function CardContainer({
     <div className='w-full grid grid-cols-2 md:grid-cols-2 lg:grid-cols-3 justify-items-center gap-[5px] md:gap-5 lg:gap-20 pb-[140px]'>
       {cards?.map((card) => (
         <PhotoCardListItem
-          key={card.id}
+          key={card.id + card.targetId}
           variant='amount'
           fontWeight='normal'
           cardId={card.id}
-          nickname={''}
+          nickname={card.nickname}
           price={card.price}
           image={card.image}
           cardName={card.name}
           state={card.state}
-          grade={card.grade}
-          genre={card.genre}
+          // 임시방편
+          grade={
+            card.grade
+              .toLowerCase()
+              .replace('super_rare', 'superRare') as Grades
+          }
+          genre={card.genre.toLowerCase() as Genres}
           totalAmount={1}
-          onClick={onClick}
+          onClick={() => onClick(card.targetId)}
         />
       ))}
     </div>

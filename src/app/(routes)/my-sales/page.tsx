@@ -20,6 +20,7 @@ export default function Page() {
     grade: searchParams.get('grade') || undefined,
     genre: searchParams.get('genre') || undefined,
     stockState: searchParams.get('stockState') || undefined,
+    salesMethod: searchParams.get('salesMethod') || undefined,
     page: Number(searchParams.get('page')) || 1,
     limit: Number(searchParams.get('size')) || 30,
   };
@@ -30,7 +31,7 @@ export default function Page() {
   });
 
   const { data } = useQuery({
-    queryKey: ['mySales', query.grade, query.keyword, query.genre],
+    queryKey: ['mySales', query],
     queryFn: () => getMySalesCard(query),
   });
 
