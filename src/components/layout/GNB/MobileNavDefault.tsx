@@ -13,7 +13,7 @@ const MobileNavDefault = () => {
 
   return (
     <div className='flex items-center justify-between h-full px-5'>
-      {user ? (
+      {isAuthenticated && user ? (
         <ProfileModal
           user={user}
           logout={logout}
