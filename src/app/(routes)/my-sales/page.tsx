@@ -2,130 +2,51 @@
 
 import Header from '@/src/components/mySales/header/header';
 import SearchSection from '@/src/components/common/searchSection/searchSection';
-import defaultImage from '@/public/images/sample-image-1.webp';
-import CardContainer, {
-  Card,
-} from '@/src/components/mySales/cardContainer/cardContainer';
+import CardContainer from '@/src/components/mySales/cardContainer/cardContainer';
 import FilterModal from '@/src/components/common/filterModal/templates/filterModal';
-import { usePathname, useRouter } from 'next/navigation';
+import { usePathname, useRouter, useSearchParams } from 'next/navigation';
+import { useQuery } from '@tanstack/react-query';
+import { getMySalesCard } from '@/src/services/mySales';
+import useAuthStore from '@/src/store/useAuthStore';
 
 export default function Page() {
-  const nickname = '유디'; // 이후 교체 예정
-  const cardsCount = {
-    common: 10,
-    rare: 10,
-    superRare: 10,
-    legendary: 10,
-  };
+  const { user } = useAuthStore();
   const router = useRouter();
   const pathname = usePathname();
+  const searchParams = useSearchParams();
 
-  const cards: Card[] = [
-    {
-      cardId: '1',
-      nickname: nickname,
-      price: 5,
-      image: defaultImage,
-      cardName: '마당 사진',
-      state: 'exchange',
-      grade: 'legendary',
-      genre: 'landscape',
-      totalAmount: 5,
-    },
-    {
-      cardId: '2',
-      nickname: nickname,
-      price: 5,
-      image: defaultImage,
-      cardName: '마당 사진',
-      state: 'sale',
-      grade: 'legendary',
-      genre: 'landscape',
-      totalAmount: 5,
-    },
-    {
-      cardId: '3',
-      nickname: nickname,
-      price: 5,
-      image: defaultImage,
-      cardName: '마당 사진',
-      state: 'sale',
-      grade: 'legendary',
-      genre: 'landscape',
-      totalAmount: 5,
-    },
-    {
-      cardId: '4',
-      nickname: nickname,
-      price: 5,
-      image: defaultImage,
-      cardName: '마당 사진',
-      state: 'sale',
-      grade: 'legendary',
-      genre: 'landscape',
-      totalAmount: 5,
-    },
-    {
-      cardId: '5',
-      nickname: nickname,
-      price: 5,
-      image: defaultImage,
-      cardName: '마당 사진',
-      state: 'sale',
-      grade: 'legendary',
-      genre: 'landscape',
-      totalAmount: 5,
-    },
-    {
-      cardId: '6',
-      nickname: nickname,
-      price: 5,
-      image: defaultImage,
-      cardName: '마당 사진',
-      state: 'sale',
-      grade: 'legendary',
-      genre: 'landscape',
-      totalAmount: 5,
-    },
-    {
-      cardId: '7',
-      nickname: nickname,
-      price: 5,
-      image: defaultImage,
-      cardName: '마당 사진',
-      state: 'sale',
-      grade: 'legendary',
-      genre: 'landscape',
-      totalAmount: 5,
-    },
-    {
-      cardId: '8',
-      nickname: nickname,
-      price: 5,
-      image: defaultImage,
-      cardName: '마당 사진',
-      state: 'sale',
-      grade: 'legendary',
-      genre: 'landscape',
-      totalAmount: 5,
-    },
-    {
-      cardId: '9',
-      nickname: nickname,
-      price: 5,
-      image: defaultImage,
-      cardName: '마당 사진',
-      state: 'sale',
-      grade: 'legendary',
-      genre: 'landscape',
-      totalAmount: 5,
-    },
-  ];
+  const query = {
+    keyword: searchParams.get('keyword') || undefined,
+    grade: searchParams.get('grade') || undefined,
+    genre: searchParams.get('genre') || undefined,
+    stockState: searchParams.get('stockState') || undefined,
+    page: Number(searchParams.get('page')) || 1,
+    limit: Number(searchParams.get('size')) || 30,
+  };
+
+  const { data: total } = useQuery({
+    queryKey: ['mySales', 'total'],
+    queryFn: () => getMySalesCard({ page: 1, limit: 30 }),
+  });
+
+  const { data } = useQuery({
+    queryKey: ['mySales', query.grade, query.keyword, query.genre],
+    queryFn: () => getMySalesCard(query),
+  });
+
+  const cardsCount = {
+    common: total?.items.filter((item: any) => item.grade === 'COMMON').length,
+    rare: total?.items.filter((item: any) => item.grade === 'RARE').length,
+    superRare: total?.items.filter((item: any) => item.grade === 'SUPER_RARE')
+      .length,
+    legendary: total?.items.filter((item: any) => item.grade === 'LEGENDARY')
+      .length,
+  };
 
   return (
     <div className='flex flex-col max-w-[744px] md:max-w-[1480px] mx-auto p-[15px] md:p-5 h-[1500px]'>
       <Header
-        nickname={nickname}
+        nickname={user?.nickname || ''}
         cards={cardsCount}
       />
       <SearchSection
@@ -133,8 +54,8 @@ export default function Page() {
         variant='mySale'
       />
       <CardContainer
-        cards={cards}
-        onClick={(id) => router.push(`/${id}`)}
+        cards={data?.items}
+        onClick={(id) => router.push(`marketplace/${id}`)}
       />
       <FilterModal />
     </div>

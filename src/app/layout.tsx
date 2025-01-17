@@ -3,6 +3,8 @@ import { Noto_Sans_KR } from 'next/font/google';
 import localFont from 'next/font/local';
 import './globals.css';
 import ClientProvider from '@/src/components/client/ClientProvider';
+import { QueryClientProvider } from '@tanstack/react-query';
+import QueryProvider from './queryProvider';
 
 const baskinRobbinsBold = localFont({
   src: './fonts/BaskinRobbins-Bold.woff',
@@ -27,14 +29,16 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang='ko'>
-      <body
-        className={`${notoSansKr.variable} ${baskinRobbinsBold.variable} antialiased flex flex-col min-h-screen `}
-      >
-        <ClientProvider>
-          <div className='custom-scroll'>{children}</div>
-        </ClientProvider>
-      </body>
-    </html>
+    <QueryProvider>
+      <html lang='ko'>
+        <body
+          className={`${notoSansKr.variable} ${baskinRobbinsBold.variable} antialiased flex flex-col min-h-screen `}
+        >
+          <ClientProvider>
+            <div className='custom-scroll'>{children}</div>
+          </ClientProvider>
+        </body>
+      </html>
+    </QueryProvider>
   );
 }
