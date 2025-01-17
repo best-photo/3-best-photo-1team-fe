@@ -5,6 +5,9 @@ const nextConfig = {
     // your project has ESLint errors.
     ignoreDuringBuilds: true,
   },
+  images: {
+    domains: ['localhost', 'best-photo-be.fly.dev'],
+  }
 };
 
 export default nextConfig;
