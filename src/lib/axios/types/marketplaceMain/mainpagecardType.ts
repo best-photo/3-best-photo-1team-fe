@@ -31,7 +31,7 @@ export const mapApiDataToAmountListItem = (data: ApiData): AmountListItem => ({
   image: '/images/sample-image-1.webp',
   fontWeight: 'bold',
   totalAmount: data.totalQuantity || 0,
-  remainingAmount: (data.totalQuantity || 0) - (data.remainingQuantity || 0),
+  remainingAmount: data.remainingQuantity || 0,
   headerWeight: 'normal',
   state: undefined,
   variant: 'amount',
