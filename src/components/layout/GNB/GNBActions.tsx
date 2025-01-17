@@ -10,7 +10,11 @@ const GNBActions = () => {
   // // 실제 user 추가해야함
   // const isLoggedInAndHasInfo = isLogin && user;
 
-  const { isAuthenticated, user, logout } = useAuthStore();
+  // const { isAuthenticated, user, logout } = useAuthStore();
+
+  const isAuthenticated = useAuthStore((state) => state.isAuthenticated);
+  const user = useAuthStore((state) => state.user);
+  const logout = useAuthStore((state) => state.logout);
 
   return (
     <div className='flex items-center gap-4'>
@@ -19,8 +23,8 @@ const GNBActions = () => {
           <div>{user.points.toLocaleString()}P</div>
           <NotificationBell />
           <ProfileModal
-            userName={user.nickname}
-            points={user.points}
+            user={user}
+            logout={logout}
           />
           <div className='text-gray-400'>|</div>
 
