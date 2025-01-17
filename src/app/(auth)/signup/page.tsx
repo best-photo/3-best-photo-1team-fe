@@ -196,7 +196,7 @@ export default function Signup() {
           onClick={closeModal}
         >
           <dialog
-            className='modalContent w-[450px] h-[250px] bg-white rounded-[8px] fixed top-1/2 transform -translate-y-1/2 border-[2px] border-black z-20'
+            className='modalContent w-[300px] md:w-[450px] h-[250px] bg-white rounded-[8px] fixed top-1/2 transform -translate-y-1/2 border-[2px] border-black z-20'
             open
             onClick={(e) => e.stopPropagation()}
           >
@@ -208,7 +208,7 @@ export default function Signup() {
             </p>
             <button
               onClick={closeModal}
-              className='modalButton text-[16px] bg-main text-black absolute bottom-[28px] right-[28px] w-[120px] h-[48px] leading-[44px] text-center rounded-[8px] border-[2px] border-black cursor-pointer'
+              className='text-[16px] bg-main text-black absolute bottom-[28px] right-[28px] w-[80px] md:w-[120px] h-[48px] leading-[44px] text-center rounded-[8px] border-[2px] border-black cursor-pointer'
               autoFocus
             >
               확인
