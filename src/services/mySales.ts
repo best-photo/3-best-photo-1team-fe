@@ -13,7 +13,9 @@ export const getMySalesCard = async (params: MySalesQueryParams) => {
   try {
     const { data } = await axiosInstance.get('/users/my-cards/sales', {
       params: {
-        ...params,
+        ...Object.fromEntries(
+          Object.entries(params).filter(([_, v]) => v !== undefined),
+        ),
         page: params.page || 1,
         limit: params.limit || 30,
       },

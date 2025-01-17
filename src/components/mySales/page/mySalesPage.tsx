@@ -21,8 +21,8 @@ export default function MySalesPage() {
     genre: searchParams.get('genre') || undefined,
     stockState: searchParams.get('stockState') || undefined,
     salesMethod: searchParams.get('salesMethod') || undefined,
-    page: Number(searchParams.get('page')),
-    limit: Number(searchParams.get('size')),
+    page: Number(searchParams.get('page')) || 1,
+    limit: Number(searchParams.get('size')) || 30,
   };
 
   const observerRef = useRef<HTMLDivElement>(null);
