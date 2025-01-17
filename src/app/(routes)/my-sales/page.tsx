@@ -5,7 +5,7 @@ import MySalesPage from '@/src/components/mySales/page/mySalesPage';
 
 export default function Page() {
   return (
-    <Suspense>
+    <Suspense fallback={<div>로딩중...</div>}>
       <MySalesPage />
     </Suspense>
   );

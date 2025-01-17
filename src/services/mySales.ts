@@ -4,7 +4,7 @@ interface MySalesQueryParams {
   keyword?: string;
   grade?: string;
   genre?: string;
-  stockSTate?: string;
+  stockState?: string;
   page: number;
   limit: number;
 }
