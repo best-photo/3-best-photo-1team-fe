@@ -6,6 +6,7 @@ import { axiosUserCards } from '@/src/lib/axios/types/api/marketplaceMain/userCa
 import SearchSection from '../common/searchSection/searchSection';
 import usePhotoCardStore from '@/src/store/photoCardId';
 import useAuthStore from '@/src/store/useAuthStore';
+import { usePathname } from 'next/navigation';
 
 export function Modal({
   onClose,
@@ -16,6 +17,16 @@ export function Modal({
   isVisible: boolean;
   onPhotoCardClick: () => void;
 }) {
+  const pathname = usePathname();
+  const basePath = pathname.split('/')[1];
+  let title = '타이틀을 넣어주세요';
+  if (basePath === '') {
+    title = '나의 포토카드 판매하기';
+  }
+  if (basePath === 'photo-card') {
+    title = '포토카드 교환하기';
+  }
+
   const setSelectedPhotoCardId = usePhotoCardStore(
     (state) => state.setSelectedPhotoCardId,
   );
@@ -80,7 +91,7 @@ export function Modal({
       {isVisible && (
         <div className='fixed top-0 left-0 w-full h-full bg-[#000000CC] bg-opacity-[80] z-[50]'>
           <div className='fixed top-[40px] left-1/2 transform -translate-x-1/2 w-[1160px] h-[1000px] bg-[#161616] rounded-[2px] z-[60]'>
-            <div className='absolute top-[60px] left-[120px] text-[24px]'>
+            <div className='absolute top-[60px] left-[120px] text-[24px] font-baskin'>
               마이갤러리
             </div>
             <Image
@@ -95,7 +106,7 @@ export function Modal({
               className='absolute top-[120px] left-[120px] text-[46px] font-normal leading-[47.1px] tracking-[-0.03em] text-[#FFFFFF]'
               style={{ fontFamily: 'var(--font-baskin-robbins)' }}
             >
-              나의 포토카드 판매하기
+              {title}
             </div>
             <div className='border-b border-white w-[920px] mx-auto mt-[192px]'></div>
             <div className='flex flex-row gap-[10px] mt-[30px] ml-[120px]'>
