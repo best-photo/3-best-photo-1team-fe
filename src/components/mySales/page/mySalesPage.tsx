@@ -3,11 +3,11 @@
 import Header from '@/src/components/mySales/header/header';
 import SearchSection from '@/src/components/common/searchSection/searchSection';
 import CardContainer from '@/src/components/mySales/cardContainer/cardContainer';
-import FilterModal from '@/src/components/common/filterModal/templates/filterModal';
 import { usePathname, useRouter, useSearchParams } from 'next/navigation';
-import { useQuery } from '@tanstack/react-query';
+import { useInfiniteQuery, useQuery } from '@tanstack/react-query';
 import { getMySalesCard } from '@/src/services/mySales';
 import useAuthStore from '@/src/store/useAuthStore';
+import { useCallback, useEffect, useRef } from 'react';
 
 export default function MySalesPage() {
   const { user } = useAuthStore();
@@ -25,15 +25,49 @@ export default function MySalesPage() {
     limit: Number(searchParams.get('size')) || 30,
   };
 
+  const observerRef = useRef<HTMLDivElement>(null);
+
   const { data: total } = useQuery({
     queryKey: ['mySales', 'total'],
     queryFn: () => getMySalesCard({ page: 1, limit: 30 }),
   });
 
-  const { data } = useQuery({
-    queryKey: ['mySales', query],
-    queryFn: () => getMySalesCard(query),
-  });
+  const { data, fetchNextPage, hasNextPage, isFetchingNextPage } =
+    useInfiniteQuery({
+      queryKey: ['mySales', query],
+      queryFn: ({ pageParam }) => getMySalesCard({ ...query, page: pageParam }),
+      initialPageParam: 1,
+      getNextPageParam: (lastPage) => {
+        if (lastPage.meta.page < lastPage.meta.totalPage) {
+          return lastPage.meta.page + 1;
+        }
+        return undefined;
+      },
+    });
+
+  const allCards = data?.pages.flatMap((page) => page.items) ?? [];
+
+  const handleObserver = useCallback(
+    (entries: IntersectionObserverEntry[]) => {
+      const [target] = entries;
+      if (target.isIntersecting && hasNextPage && !isFetchingNextPage) {
+        fetchNextPage();
+      }
+    },
+    [fetchNextPage, hasNextPage, isFetchingNextPage],
+  );
+
+  useEffect(() => {
+    const element = observerRef.current;
+    if (!element) return;
+
+    const observer = new IntersectionObserver(handleObserver, {
+      threshold: 0.5,
+    });
+
+    observer.observe(element);
+    return () => observer.disconnect();
+  }, [handleObserver]);
 
   const cardsCount = {
     common: total?.items.filter((item: any) => item.grade === 'COMMON').length,
@@ -55,10 +89,14 @@ export default function MySalesPage() {
         variant='mySale'
       />
       <CardContainer
-        cards={data?.items}
+        cards={allCards}
         onClick={(id) => router.push(`marketplace/${id}`)}
       />
-      <FilterModal />
+
+      <div
+        ref={observerRef}
+        className='h-20 flex items-center justify-center'
+      ></div>
     </div>
   );
 }

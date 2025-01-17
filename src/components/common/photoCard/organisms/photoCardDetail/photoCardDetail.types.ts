@@ -10,7 +10,7 @@ interface BaseProps {
   nickname: string;
   price: number;
   totalAmount: number;
-  soldAmount: number;
+  remainingAmount: number;
 }
 
 export interface MySellingCardDetailSectionProps {

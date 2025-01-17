@@ -33,7 +33,7 @@ const OthersPhotoCardDetailProps = {
     '우리집 앞마당 사진이에요 멋지죠? 우리집 앞마당 사진이에요 멋지죠? 우리집 앞마당 사진이에요 ',
   price: 4,
   totalAmount: 5,
-  soldAmount: 2,
+  remainingAmount: 2,
   variant: 'othersCard',
 } as PhotoCardDetailProps;
 
@@ -56,7 +56,7 @@ const MyPhotoCardDetailProps = {
     '우리집 앞마당 사진이에요 멋지죠? 우리집 앞마당 사진이에요 멋지죠? 우리집 앞마당 사진이에요 ',
   price: 4,
   totalAmount: 5,
-  soldAmount: 2,
+  remainingAmount: 2,
   variant: 'mySellingCard',
   onDelete: () => console.log(''),
   onEdit: () => console.log(''),
@@ -82,7 +82,7 @@ const MyHoldingPhotoCardDetailProps = {
     '우리집 앞마당 사진이에요 멋지죠? 우리집 앞마당 사진이에요 멋지죠? 우리집 앞마당 사진이에요 ',
   price: 4,
   totalAmount: 5,
-  soldAmount: 2,
+  remainingAmount: 2,
   variant: 'myHoldingCard',
   onSale: () => alert('판매버튼 클릭'),
 } as PhotoCardDetailProps;

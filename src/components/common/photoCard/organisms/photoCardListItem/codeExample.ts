@@ -18,7 +18,7 @@ import PhotoCardListItem from '@/src/components/common/photoCard/organisms/photo
 
   if (props.variant === 'amount') {
     code += `totalAmount=${props.totalAmount}
-        soldAmount=${props.soldAmount}
+        soldAmount=${props.remainingAmount}
         state="${props.state}"
     />
 \`\`\`
