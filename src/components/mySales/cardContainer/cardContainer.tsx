@@ -12,6 +12,7 @@ export interface Card {
   state: CardState;
   grade: Grades;
   genre: Genres;
+  totalQuantity: number;
   nickname: string;
 }
 
@@ -42,7 +43,7 @@ export default function CardContainer({
               .replace('super_rare', 'superRare') as Grades
           }
           genre={card.genre.toLowerCase() as Genres}
-          totalAmount={1}
+          totalAmount={card.totalQuantity}
           onClick={() => onClick(card.targetId)}
         />
       ))}
