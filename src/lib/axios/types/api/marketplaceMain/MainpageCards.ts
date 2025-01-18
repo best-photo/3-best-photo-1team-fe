@@ -1,6 +1,6 @@
-import axios from 'axios';
 import { AmountListItem } from '@/src/components/common/photoCard/organisms/photoCardListItem/photoCardListItem.types';
 import { mapApiDataToAmountListItem } from '../../marketplaceMain/mainpagecardType';
+import axiosInstance from '../../../axiosInstance';
 
 export const axiosFilteredCards = async (filters: {
   query: string;
@@ -17,8 +17,13 @@ export const axiosFilteredCards = async (filters: {
     placeOrder: filters.placeOrder || '',
   };
 
-  const response = await axios.get<any[]>('http://localhost:8000/shop/cards', {
+  const response = await axiosInstance.get<any[]>(`/shop/cards`, {
     params,
   });
-  return response.data.map(mapApiDataToAmountListItem);
+  return response.data.map((data) => {
+    const mappedItem = mapApiDataToAmountListItem(data);
+    const quantity = data.quantity || 0;
+    const soldAmount = data.totalQuantity - quantity;
+    return { ...mappedItem, quantity, soldAmount };
+  });
 };

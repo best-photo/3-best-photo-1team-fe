@@ -1,6 +1,7 @@
 'use client';
 
 import React, { useState, useEffect } from 'react';
+import Image from 'next/image';
 import {
   getLastDrawTime,
   openPointBox,
@@ -162,21 +163,48 @@ const RandomPointModal: React.FC<RandomPointModalProps> = ({
         {canParticipate ? (
           <div className='flex justify-between mt-[60px] lg:mt-[84px] px-[16px] md:px-[35px] lg:px-[100px]'>
             <div
-              className='w-[97.87px] md:w-[164.67px] lg:w-[245.96px] h-[75.87px] md:h-[127.11px] lg:h-[190.67px] bg-[url("/images/rBox1.png")] bg-cover cursor-pointer hover:scale-105'
+              className='relative w-[97.87px] md:w-[164.67px] lg:w-[245.96px] h-[75.87px] md:h-[127.11px] lg:h-[190.67px] cursor-pointer hover:scale-105'
               onClick={handleDrawPoints}
-            ></div>
+            >
+              <Image
+                src='/images/rBox1.png'
+                alt='rBox1'
+                layout='fill'
+                objectFit='cover'
+              />
+            </div>
             <div
-              className='w-[89.03px] md:w-[149.8px] lg:w-[223.74px] h-[78.79px] md:h-[132px] lg:h-[198px] bg-[url("/images/rBox2.png")] relative bg-cover cursor-pointer hover:scale-105'
+              className='relative w-[89.03px] md:w-[149.8px] lg:w-[223.74px] h-[78.79px] md:h-[132px] lg:h-[198px] cursor-pointer hover:scale-105'
               onClick={handleDrawPoints}
-            ></div>
+            >
+              <Image
+                src='/images/rBox2.png'
+                alt='rBox2'
+                layout='fill'
+                objectFit='cover'
+              />
+            </div>
             <div
-              className='w-[97.87px] md:w-[164.67px] lg:w-[245.96px] h-[75.87px] md:h-[127.11px] lg:h-[190.67px] bg-[url("/images/rBox3.png")] relative bg-cover cursor-pointer  hover:scale-105'
+              className='relative w-[97.87px] md:w-[164.67px] lg:w-[245.96px] h-[75.87px] md:h-[127.11px] lg:h-[190.67px] cursor-pointer hover:scale-105'
               onClick={handleDrawPoints}
-            ></div>
+            >
+              <Image
+                src='/images/rBox3.png'
+                alt='rBox3'
+                layout='fill'
+                objectFit='cover'
+              />
+            </div>
           </div>
         ) : (
           <div>
-            <div className='mt-[60px] lg:mt-[84px] mx-auto w-[315px] md:w-[530px] lg:w-[835.66px] h-[78.79px] md:h-[132px] lg:h-[198px] bg-[url("/images/random-boxes.webp")] bg-no-repeat bg-contain relative grayscale'>
+            <div className='relative mt-[60px] lg:mt-[84px] mx-auto w-[315px] md:w-[530px] lg:w-[835.66px] h-[78.79px] md:h-[132px] lg:h-[198px] grayscale'>
+              <Image
+                src='/images/random-boxes.webp'
+                alt='RandomBoxes'
+                layout='fill'
+                objectFit='contain'
+              />
               <div className='w-[210px] md:w-[360px] lg:w-[600px] h-[40px] md:h-[70px] lg:h-[100px] absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 border-double border-[5px] border-main flex items-center justify-center font-baskin text-main text-[17px] md:text-[31px] lg:text-[53px] -rotate-[4deg] bg-blend-multiply'>
                 랜덤포인트 상자 뽑기 완료
               </div>
@@ -193,7 +221,14 @@ const RandomPointModal: React.FC<RandomPointModalProps> = ({
                   <span className='text-main'>{earnedPoints} 포인트</span> 당첨!
                 </span>
               </div>
-              <div className='w-[113.8px] md:w-[227.6px] lg:w-[284.5px] h-[122.4px] md:h-[244.8px] lg:h-[306px] bg-[url("/images/rBoxPoint.png")] bg-no-repeat bg-cover'></div>
+              <div className='relative w-[113.8px] md:w-[227.6px] lg:w-[284.5px] h-[122.4px] md:h-[244.8px] lg:h-[306px]'>
+                <Image
+                  src='/images/rBoxPoint.png'
+                  alt='Point Box'
+                  layout='fill'
+                  objectFit='cover'
+                />
+              </div>
               <canvas
                 id='canvas'
                 className='fixed top-0 left-0 w-full h-full pointer-events-none'
@@ -203,9 +238,17 @@ const RandomPointModal: React.FC<RandomPointModalProps> = ({
           </>
         )}
         <button
-          className='closeButton absolute top-[21.24px] right-[21.24px] lg:top-[37px] lg:right-[37px] w-[15.53px] h-[15.53px] lg:w-[18px] lg:h-[18px] bg-[url(/icons/close.svg)] bg-no-repeat bg-cover'
+          className='closeButton absolute top-[21.24px] right-[21.24px] lg:top-[37px] lg:right-[37px] w-[15.53px] h-[15.53px] lg:w-[18px] lg:h-[18px]'
           onClick={onClose}
-        ></button>
+        >
+          <Image
+            src='/icons/close.svg'
+            alt='CloseButton'
+            width={18}
+            height={18}
+            className='object-contain'
+          />
+        </button>
       </dialog>
     </div>
   );

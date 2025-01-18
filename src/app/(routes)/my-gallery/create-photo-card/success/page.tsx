@@ -13,7 +13,7 @@ function CreatePhotoSuccessContent() {
   const grade = searchParams.get('grade');
 
   const handleNavigation = () => {
-    router.push('/mygallery');
+    router.push('/my-gallery');
   };
 
   const result: ResultsProps = {
@@ -22,7 +22,7 @@ function CreatePhotoSuccessContent() {
     text: `[${grade?.toUpperCase() || '-'} | ${
       name || '-'
     }] 포토카드 생성에 성공했습니다!`,
-    backPathUrl: '/mygallery',
+    backPathUrl: '/my-gallery',
   };
 
   return (

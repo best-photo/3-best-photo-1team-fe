@@ -8,6 +8,7 @@ interface ApiData {
   totalQuantity?: number;
   remainingQuantity?: number;
   id?: string | null;
+  quantity?: number;
 }
 
 export const mapApiDataToAmountListItem = (data: ApiData): AmountListItem => ({
