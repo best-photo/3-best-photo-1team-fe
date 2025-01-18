@@ -78,7 +78,7 @@ const BuyerView = ({ cardId }: BuyerViewProps) => {
         }}
         nickname='미쓰손'
         price={4}
-        soldAmount={2}
+        remainingAmount={2}
         totalAmount={5}
         variant='othersCard'
         onPurchase={() => setPurchaseAlertVisible(true)}
