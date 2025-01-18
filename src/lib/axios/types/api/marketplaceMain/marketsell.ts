@@ -1,11 +1,4 @@
-import axios from 'axios';
-
-const apiClient = axios.create({
-  baseURL: 'http://localhost:8000',
-  headers: {
-    'Content-Type': 'application/json',
-  },
-});
+import axiosInstance from '../../../axiosInstance';
 
 interface ShopEntryParams {
   sellerId: string;
@@ -21,7 +14,7 @@ export const createShopEntry = async (
   params: ShopEntryParams,
 ): Promise<any> => {
   try {
-    const response = await apiClient.post('/shop', params);
+    const response = await axiosInstance.post('/shop', params);
     console.log('판매 등록 성공:', response.data);
     return response.data;
   } catch (error) {

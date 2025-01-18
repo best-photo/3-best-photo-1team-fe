@@ -1,6 +1,6 @@
-import axios from 'axios';
 import { AmountListItem } from '@/src/components/common/photoCard/organisms/photoCardListItem/photoCardListItem.types';
 import { mapApiDataToAmountListItem } from '../../marketplaceMain/mainpagecardType';
+import axiosInstance from '../../../axiosInstance';
 
 export const axiosUserCards = async (
   userId: string,
@@ -18,11 +18,8 @@ export const axiosUserCards = async (
 
   console.log('Request params:', params);
 
-  const response = await axios.get<any[]>(
-    `http://localhost:8000/shop/cards/${userId}`,
-    {
-      params,
-    },
-  );
+  const response = await axiosInstance.get<any[]>(`/shop/cards/${userId}`, {
+    params,
+  });
   return response.data.map(mapApiDataToAmountListItem);
 };
