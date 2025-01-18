@@ -115,7 +115,7 @@ const MyCardListProps: PhotoCardListItemProps = {
   variant: 'amount',
   totalAmount: 5,
   state: 'exchange',
-  soldAmount: 1,
+  remainingAmount: 1,
   onClick: (id) => alert(id),
 };
 
@@ -136,7 +136,7 @@ const MarketPlaceCardProps: PhotoCardListItemProps = {
   image: defaultPhoto,
   variant: 'amount',
   totalAmount: 5,
-  soldAmount: 5,
+  remainingAmount: 5,
   onClick: (id) => alert(id),
 };
 

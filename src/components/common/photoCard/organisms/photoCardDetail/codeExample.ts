@@ -20,7 +20,7 @@ import PhotoCardDetail from '@/src/components/common/photoCard/organisms/photoCa
   if (props.variant === 'mySellingCard')
     code += `
         totalAmount=${props.totalAmount}
-        soldAmount=${props.soldAmount}
+        remainingAmount=${props.remainingAmount}
         tradeGenre="${props.variant === 'mySellingCard' && props.tradeGenre}"
         tradeGrade="${props.tradeGrade}"
         tradeDescription="${props.tradeDescription}"
@@ -32,9 +32,9 @@ import PhotoCardDetail from '@/src/components/common/photoCard/organisms/photoCa
   else if (props.variant === 'othersCard')
     code += `
         totalAmount=${props.totalAmount}
-        soldAmount=${props.soldAmount}
+        remainingAmount=${props.remainingAmount}
         onPurchase=${props.onPurchase} // 구매버튼 클릭 시 실행할 함수
-        maxAmount=${props.totalAmount - props.soldAmount} // totalAmount - soldAmount
+        maxAmount=${props.remainingAmount} // remainingAmount
     />
 \`\`\`
 `;

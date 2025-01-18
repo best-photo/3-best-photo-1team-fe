@@ -15,7 +15,7 @@ interface BaseProps {
 export interface AmountSectionProps {
   price: number;
   totalAmount: number;
-  soldAmount?: number;
+  remainingAmount?: number;
   headerWeight?: 'normal' | 'bold';
   state?: CardState;
 }

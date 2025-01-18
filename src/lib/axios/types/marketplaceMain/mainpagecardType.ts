@@ -8,6 +8,7 @@ interface ApiData {
   totalQuantity?: number;
   remainingQuantity?: number;
   id?: string | null;
+  quantity?: number;
 }
 
 export const mapApiDataToAmountListItem = (data: ApiData): AmountListItem => ({
@@ -31,7 +32,7 @@ export const mapApiDataToAmountListItem = (data: ApiData): AmountListItem => ({
   image: '/images/sample-image-1.webp',
   fontWeight: 'bold',
   totalAmount: data.totalQuantity || 0,
-  soldAmount: (data.totalQuantity || 0) - (data.remainingQuantity || 0),
+  remainingAmount: data.remainingQuantity || 0,
   headerWeight: 'normal',
   state: undefined,
   variant: 'amount',
