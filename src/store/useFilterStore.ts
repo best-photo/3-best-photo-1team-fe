@@ -19,6 +19,8 @@ interface FilterStoreState {
   options: Options;
   setCategories: (categories: FilterCategory[]) => void;
   setOptions: (options: Options) => void;
+  optionCounts: number[];
+  setOptionCounts: (counts: number[]) => void;
   selectedCategory: FilterCategory;
   selectedOption: FilterOption;
   setSelectedCategory: (category: FilterCategory) => void;
@@ -48,6 +50,11 @@ export const useFilterStore = create<FilterStoreState>((set, get) => ({
     set(() => ({
       options,
       selectedOption: { value: '', query: '' },
+    })),
+  optionCounts: [0, 0, 0, 0],
+  setOptionCounts: (counts) =>
+    set(() => ({
+      optionCounts: counts,
     })),
   selectedCategory: { value: '', queryString: '' },
   selectedOption: { value: '', query: '' },

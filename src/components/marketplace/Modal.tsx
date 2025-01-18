@@ -101,6 +101,8 @@ export function Modal({
             <div className='flex flex-row gap-[10px] mt-[30px] ml-[120px]'>
               <SearchSection
                 variant='myGallery'
+                // 수정 필요
+                optionCounts={[10, 10]}
                 onSubmitFilter={handleFilterChange}
               />
             </div>

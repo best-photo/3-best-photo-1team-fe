@@ -140,6 +140,7 @@ export default function Home() {
           <SearchSection
             key={renderKey}
             variant='marketplace'
+            optionCounts={[10, 10, 10, 10]}
             onSubmitFilter={handleFilterChange}
           />
           <Dropdown
