@@ -20,6 +20,7 @@ export interface PhotoCard {
   genre: Genres; 
   price: number;
   totalQuantity: number;
+  remainingQuantity: number;
   description: string;
   nickname: string;
 }
