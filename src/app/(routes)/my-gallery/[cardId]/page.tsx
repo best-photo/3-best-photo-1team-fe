@@ -65,7 +65,7 @@ export default function PhotoCardDetailPage({
         genre={convertGenreToLowerCase(photoCard.genre)}
         nickname={photoCard.nickname}
         totalAmount={photoCard.totalQuantity}
-        remainingAmount={photoCard.remainingQuantity|| 0}
+        remainingAmount={photoCard.remainingQuantity || 0}
         price={photoCard.price}
         onSale={() => alert('판매버튼 클릭')}
       />
