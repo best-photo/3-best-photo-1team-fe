@@ -1,6 +1,7 @@
 import { NextResponse } from 'next/server';
 import { cookies } from 'next/headers';
 import { verify, JsonWebTokenError } from 'jsonwebtoken';
+import ValidatedEnvVars from '@/src/config/env';
 
 enum TokenType {
   accessToken = 'accessToken',
@@ -24,9 +25,6 @@ export async function GET() {
     // 쿠키에서 accessToken 또는 refreshToken을 가져옵니다
     const accessToken = cookieStore.get('accessToken')?.value;
     const refreshToken = cookieStore.get('refreshToken')?.value;
-    // secret은 .env에서 가져옵니다
-    const accessTokenSecret = process.env.JWT_SECRET;
-    const refreshTokenSecret = process.env.JWT_REFRESH_SECRET;
 
     // 토큰이 없으면 401 에러를 반환
     if (!accessToken || !refreshToken) {
@@ -36,18 +34,14 @@ export async function GET() {
       );
     }
 
-    if (!accessTokenSecret || !refreshTokenSecret) {
-      throw new Error('JWT Secret이 설정되지 않았습니다.');
-    }
-
     // verify()는 토큰이 유효하지 않으면 에러를 던집니다
     const decodedAccessToken = verify(
       accessToken,
-      accessTokenSecret,
+      ValidatedEnvVars.JWT_SECRET,
     ) as TokenPayload;
     const decodedRefreshToken = verify(
       refreshToken,
-      refreshTokenSecret,
+      ValidatedEnvVars.JWT_REFRESH_SECRET,
     ) as TokenPayload;
 
     if (decodedAccessToken.sub !== decodedRefreshToken.sub) {
