@@ -2,11 +2,11 @@ import { useEffect, useState } from 'react';
 import Image from 'next/image';
 import PhotoCardListItem from '../common/photoCard/organisms/photoCardListItem/photoCardListItem';
 import { AmountListItem } from '../common/photoCard/organisms/photoCardListItem/photoCardListItem.types';
-import { axiosUserCards } from '@/src/lib/axios/types/api/marketplaceMain/userCard';
 import SearchSection from '../common/searchSection/searchSection';
 import usePhotoCardStore from '@/src/store/photoCardId';
 import useAuthStore from '@/src/store/useAuthStore';
 import { usePathname } from 'next/navigation';
+import { axiosUserCards } from '@/src/services/marketPlaceService';
 
 export function Modal({
   onClose,
