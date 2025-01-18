@@ -5,9 +5,9 @@ import MarketplaceHeader from '../../components/marketplace/MarketplaceHeader';
 import SearchSection from '../../components/common/searchSection/searchSection';
 import PhotoCardListItem from '@/src/components/common/photoCard/organisms/photoCardListItem/photoCardListItem';
 import { AmountListItem } from '@/src/components/common/photoCard/organisms/photoCardListItem/photoCardListItem.types';
-import { axiosFilteredCards } from '@/src/lib/axios/types/api/marketplaceMain/MainpageCards';
 import Dropdown from '@/src/components/common/CommonDropDown/DropDown';
 import { useRerenderStore } from '@/src/store/rerenderStore';
+import { axiosFilteredCards } from '@/src/services/marketPlaceService';
 
 // 등급 변환 함수
 const convertGradeToLowerCase = (
@@ -88,7 +88,6 @@ export default function Home() {
         query,
         placeOrder: selectedPrice,
       };
-      console.log('Transformed Filters:', combinedFilters);
       const cards = await axiosFilteredCards(combinedFilters);
       setPhotoCards(cards);
     } catch (error) {
@@ -108,7 +107,6 @@ export default function Home() {
   };
 
   const handleFilterChange = (filterQuery: string) => {
-    console.log('filterQuery :' + filterQuery);
     const params = new URLSearchParams(filterQuery);
 
     const newFilters = {
@@ -116,7 +114,6 @@ export default function Home() {
       genre: params.get('genre') || '',
       status: params.get('stockState') || '',
     };
-    console.log('Parsed Filters:', newFilters);
     const newQuery = params.get('keyword') || '';
     setFilters(newFilters);
     setQuery(newQuery);
