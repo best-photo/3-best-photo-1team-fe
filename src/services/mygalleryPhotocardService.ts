@@ -39,8 +39,9 @@ export const myGalleryPhotoCard = async (filters: {
   genre?: string;
 }): Promise<PhotoCard[]> => {
   try {
-    // 로그인한 사용자의 ID를 localStorage에서 불러옴
-    const userId = localStorage.getItem('userId');
+    // 로그인한 사용자의 ID를 NextJS API Routes에서 불러옴
+    const getUserId = await fetch('/api/auth/user');
+    const { userId } = await getUserId.json();
     console.log('확인', userId);
     if (!userId) {
       throw new Error('사용자가 로그인되지 않았습니다.');
