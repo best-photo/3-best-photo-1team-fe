@@ -71,7 +71,7 @@ const SellerView = ({ cardId }: SellerViewProps) => {
         nickname='미쓰손'
         price={4}
         totalAmount={5}
-        soldAmount={2}
+        remainingAmount={2}
         tradeGenre='travel'
         tradeGrade='legendary'
         tradeDescription='여행 사진이 갖고 싶어요.'
