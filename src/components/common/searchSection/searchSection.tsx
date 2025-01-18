@@ -78,7 +78,7 @@ export default function SearchSection({
 
   return (
     <>
-      <div className='flex gap-[10px] md:gap-[30px] lg:gap-[60px] mb-5 md:mb-10 lg:mb-[60px] justify-between md:justify-start'>
+      <div className='flex gap-[10px] md:gap-[30px] lg:gap-[60px] mb-5 md:mb-10 lg:mb-[60px] justify-between md:justify-start relative'>
         <button
           className='p-[12.5px] h-[50px] border border-white block md:hidden lg:hidden'
           onClick={() => setModalOpen(!modalOpen)}
@@ -95,7 +95,7 @@ export default function SearchSection({
           value={keyword}
           onChange={(e) => setKeyword(e.target.value)}
           placeholder='검색'
-          className='w-[290px] md:w-[200px] lg:w-[320px]'
+          className='w-full md:w-[200px] lg:w-[320px]'
           onSearchClick={handleInput}
         />
 
