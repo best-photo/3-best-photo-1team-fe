@@ -15,8 +15,8 @@ const SellerView = ({ cardId }: SellerViewProps) => {
     {
       id: '1',
       cardName: '풍경 사진 1',
-      grade: 'rare' as 'rare',
-      genre: 'landscape' as 'landscape',
+      grade: 'rare' as const,
+      genre: 'landscape' as const,
       nickname: '사용자1',
       price: 1000,
       image: {

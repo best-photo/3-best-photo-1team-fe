@@ -1,10 +1,10 @@
-import axios from "axios";
+import axios from 'axios';
 
 const createCardAxios = axios.create({
   baseURL: process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8080',
   timeout: 5000,
   headers: {
-    'Accept': '*/*', // 기본적으로 모든 응답을 허용
+    Accept: '*/*', // 기본적으로 모든 응답을 허용
   },
   withCredentials: true,
 });
