@@ -19,6 +19,7 @@ const onSubmitFilter = (query: string) => alert(query);
 
 const MySaleProps: SearchSectionProps = {
   variant: 'mySale',
+  optionCounts: [10, 10, 10, 10],
   onSubmitFilter,
 };
 
@@ -31,6 +32,7 @@ export const Marketplace = Template.bind({});
 
 const MarketplaceProps: SearchSectionProps = {
   variant: 'marketplace',
+  optionCounts: [10, 10, 10, 10],
   onSubmitFilter,
 };
 
@@ -43,6 +45,7 @@ export const MyGallery = Template.bind({});
 
 const MyGalleryProps: SearchSectionProps = {
   variant: 'myGallery',
+  optionCounts: [10, 10, 10, 10],
   onSubmitFilter,
 };
 
