@@ -138,6 +138,8 @@ export default function MyGalleryPage() {
       <div className='flex flex-row gap-[10px] items-center mt-[30px]'>
         <SearchSection
           variant='myGallery'
+          //수정 필요
+          optionCounts={[10, 10]}
           onSubmitFilter={handleFilterSubmit} // 필터링 이벤트 전달
         />
       </div>

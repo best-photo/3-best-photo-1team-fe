@@ -46,6 +46,7 @@ const OPTIONS = {
 
 export default function SearchSection({
   onSubmitFilter,
+  optionCounts,
   variant,
 }: SearchSectionProps) {
   const [keyword, setKeyword] = useState('');
@@ -54,6 +55,11 @@ export default function SearchSection({
   const setOptions = useFilterStore((state) => state.setOptions);
   const setCategories = useFilterStore((state) => state.setCategories);
   const setSelectedOption = useFilterStore((state) => state.setSelectedOption);
+  const setOptionCounts = useFilterStore((state) => state.setOptionCounts);
+
+  useEffect(() => {
+    setOptionCounts(optionCounts);
+  }, [optionCounts]);
 
   useEffect(() => {
     setOptions(OPTIONS[variant]);

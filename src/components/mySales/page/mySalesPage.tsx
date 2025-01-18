@@ -86,6 +86,8 @@ export default function MySalesPage() {
       />
       <SearchSection
         onSubmitFilter={(query) => router.push(`${pathname}?${query}`)}
+        // 수정 필요
+        optionCounts={[10, 10, 10, 10]}
         variant='mySale'
       />
       <CardContainer
