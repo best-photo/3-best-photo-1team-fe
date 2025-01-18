@@ -19,22 +19,24 @@ export const CardAmountSection = ({
         size='small'
         className='text-gray-300'
       >
-        <span>{price}P</span>
+        <span>{price.toLocaleString()}P</span>
       </CustomLabel>
       <CustomLabel
-        title={remainingAmount && !state ? '잔여' : '수량'}
+        title={remainingAmount !== undefined && !state ? '잔여' : '수량'}
         titleWeight={headerWeight}
         contentWeight={headerWeight}
         size='small'
         className='text-gray-300'
       >
-        {remainingAmount && !state ? (
+        {remainingAmount !== undefined && !state ? (
           <div className='flex gap-[5px]'>
-            {remainingAmount}
-            <span className='text-gray-300 font-light'>/{totalAmount}</span>
+            {remainingAmount.toLocaleString()}
+            <span className='text-gray-300 font-light'>
+              /{totalAmount.toLocaleString()}
+            </span>
           </div>
         ) : (
-          <span>{totalAmount}</span>
+          <span>{totalAmount.toLocaleString()}</span>
         )}
       </CustomLabel>
       <Image
