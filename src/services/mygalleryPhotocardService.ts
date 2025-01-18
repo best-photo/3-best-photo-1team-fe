@@ -1,5 +1,5 @@
 import axiosInstance from '@/src/lib/axios/axiosInstance';
-import {Genres} from '@/src/components/common/photoCard/types'
+import { Genres } from '@/src/components/common/photoCard/types';
 import { Card } from '../components/mySales/cardContainer/cardContainer';
 
 export interface CreateCardData {
@@ -16,15 +16,15 @@ export interface PhotoCard {
   id: string;
   name: string;
   imageUrl: string;
-  grade: 'COMMON' | 'RARE' | 'SUPER RARE' | 'LEGENDARY'; 
-  genre: Genres; 
+  grade: 'COMMON' | 'RARE' | 'SUPER RARE' | 'LEGENDARY';
+  genre: Genres;
   price: number;
   totalQuantity: number;
   description: string;
   nickname: string;
 }
 
-export interface  CardInfo {
+export interface CardInfo {
   nickname: string;
   common: number;
   rare: number;
@@ -66,9 +66,6 @@ export const myGalleryPhotoCard = async (filters: {
   }
 };
 
-
-
-
 export const getCardById = async (cardId: string): Promise<PhotoCard> => {
   try {
     const response = await axiosInstance.get(`/cards/public-cards/${cardId}`, {
@@ -79,7 +76,7 @@ export const getCardById = async (cardId: string): Promise<PhotoCard> => {
 
     // 데이터 확인 (디버깅용)
     console.log('Fetched card data:', response.data);
-    
+
     // 서버에서 반환된 데이터가 PhotoCard 타입과 맞는지 확인하고 반환
     return response.data;
   } catch (error) {
@@ -88,16 +85,22 @@ export const getCardById = async (cardId: string): Promise<PhotoCard> => {
   }
 };
 
-export const getDetailCard = async (userId: string, cardId: string): Promise<PhotoCard> => {
+export const getDetailCard = async (
+  userId: string,
+  cardId: string,
+): Promise<PhotoCard> => {
   try {
-    const response = await axiosInstance.get(`/users/my-cards/${userId}/${cardId}`, {
-      headers: {
-        'Content-Type': 'application/json',
+    const response = await axiosInstance.get(
+      `/users/my-cards/${userId}/${cardId}`,
+      {
+        headers: {
+          'Content-Type': 'application/json',
+        },
       },
-    });
+    );
 
     console.log('Fetched card data:', response.data);
-    
+
     return response.data;
   } catch (error) {
     console.error('API Error:', error);

@@ -4,7 +4,7 @@ import { CommonBtn } from '@/src/components/common/CommonBtn/CommonBtn';
 import PhotoCardListItem from '../common/photoCard/organisms/photoCardListItem/photoCardListItem';
 import { useEffect, useState } from 'react';
 import CommonAlertModal from '../common/AlertModal/CommonAlertModal';
-``;
+
 interface PhotoCardExchangeModalProps {
   cardId: string | null;
   onClose: () => void;

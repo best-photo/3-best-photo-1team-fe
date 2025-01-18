@@ -1,4 +1,6 @@
-export const convertGradeToLowerCase = (grade: string): 'common' | 'rare' | 'superRare' | 'legendary' => {
+export const convertGradeToLowerCase = (
+  grade: string,
+): 'common' | 'rare' | 'superRare' | 'legendary' => {
   switch (grade.toUpperCase()) {
     case 'COMMON':
       return 'common';
@@ -13,7 +15,9 @@ export const convertGradeToLowerCase = (grade: string): 'common' | 'rare' | 'sup
   }
 };
 
-export const convertGenreToLowerCase = (genre: string): 'travel' | 'landscape' | 'portrait' | 'object' => {
+export const convertGenreToLowerCase = (
+  genre: string,
+): 'travel' | 'landscape' | 'portrait' | 'object' => {
   switch (genre.toUpperCase()) {
     case 'TRAVEL':
       return 'travel';
@@ -28,7 +32,9 @@ export const convertGenreToLowerCase = (genre: string): 'travel' | 'landscape' |
   }
 };
 
-export const convertGradeToUpperCase = (grade: string): 'COMMON' | 'RARE' | 'SUPER_RARE' | 'LEGENDARY' => {
+export const convertGradeToUpperCase = (
+  grade: string,
+): 'COMMON' | 'RARE' | 'SUPER_RARE' | 'LEGENDARY' => {
   switch (grade.toLowerCase()) {
     case 'common':
       return 'COMMON';
@@ -45,7 +51,9 @@ export const convertGradeToUpperCase = (grade: string): 'COMMON' | 'RARE' | 'SUP
   }
 };
 
-export const convertGenreToUpperCase = (genre: string): 'TRAVEL' | 'LANDSCAPE' | 'PORTRAIT' | 'OBJECT' => {
+export const convertGenreToUpperCase = (
+  genre: string,
+): 'TRAVEL' | 'LANDSCAPE' | 'PORTRAIT' | 'OBJECT' => {
   switch (genre.toLowerCase()) {
     case 'travel':
       return 'TRAVEL';

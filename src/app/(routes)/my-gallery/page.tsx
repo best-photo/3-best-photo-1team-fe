@@ -8,7 +8,12 @@ import PhotoCardPageHeader from '@/src/components/common/photoCard/organisms/pho
 import { CardInfo, PhotoCard } from '@/src/services/mygalleryPhotocardService';
 import { myGalleryPhotoCard } from '@/src/services/mygalleryPhotocardService';
 import Title from '@/src/components/common/title/title';
-import { convertGradeToLowerCase, convertGenreToLowerCase, convertGradeToUpperCase, convertGenreToUpperCase } from '@/src/utils/convertCase';
+import {
+  convertGradeToLowerCase,
+  convertGenreToLowerCase,
+  convertGradeToUpperCase,
+  convertGenreToUpperCase,
+} from '@/src/utils/convertCase';
 import { fetchUserGalleryData } from '@/src/services/mygalleryPhotocardService'; // 추가한 서비스
 
 export default function MyGalleryPage() {
@@ -40,7 +45,7 @@ export default function MyGalleryPage() {
         console.error('포토카드 데이터를 가져오는 데 실패했습니다:', error);
       }
     };
-  
+
     fetchGalleryData();
   }, []);
 
@@ -107,42 +112,43 @@ export default function MyGalleryPage() {
   };
 
   return (
-    <div className="w-[1480px] mx-[240px]">
+    <div className='w-[1480px] mx-[240px]'>
       {/* Header */}
       <div>
         <Title
-          variant="primary"
-          font="baskin"
-          children="마이갤러리"
-          buttonText="포토카드 생성하기"
+          variant='primary'
+          font='baskin'
+          buttonText='포토카드 생성하기'
           onButtonClick={() => router.push('/my-gallery/create-photo-card')}
-        />
+        >
+          마이갤러리
+        </Title>
         <PhotoCardPageHeader
-          variant="gallery"
+          variant='gallery'
           nickname={galleryData.nickname}
           common={galleryData.common}
           rare={galleryData.rare}
           superRare={galleryData.superRare}
           legendary={galleryData.legendary}
         />
-        <div className="border border-gray-400 mt-[30px]"></div>
+        <div className='border border-gray-400 mt-[30px]'></div>
       </div>
 
       {/* Search Box */}
-      <div className="flex flex-row gap-[10px] items-center mt-[30px]">
+      <div className='flex flex-row gap-[10px] items-center mt-[30px]'>
         <SearchSection
-          variant="myGallery"
+          variant='myGallery'
           onSubmitFilter={handleFilterSubmit} // 필터링 이벤트 전달
         />
       </div>
 
       {/* Display filtered and sorted photo cards */}
-      <div className="flex gap-[80px] flex-wrap w-[1480px] mx-auto pt-[60px] mb-[100px]">
+      <div className='flex gap-[80px] flex-wrap w-[1480px] mx-auto pt-[60px] mb-[100px]'>
         {Array.isArray(filteredCards) && filteredCards.length > 0 ? (
           filteredCards.map((card) => (
             <PhotoCardListItem
               key={card.id}
-              variant="amount"
+              variant='amount'
               cardId={card.id}
               cardName={card.name}
               image={`http://localhost:8080/${card.imageUrl}`}
@@ -151,7 +157,7 @@ export default function MyGalleryPage() {
               nickname={card.nickname}
               price={card.price}
               totalAmount={card.totalQuantity}
-              fontWeight="normal"
+              fontWeight='normal'
               onClick={handleCardClick}
             />
           ))
