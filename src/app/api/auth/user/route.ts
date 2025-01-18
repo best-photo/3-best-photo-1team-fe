@@ -2,6 +2,11 @@ import { NextResponse } from 'next/server';
 import { cookies } from 'next/headers';
 import { verify, JsonWebTokenError } from 'jsonwebtoken';
 
+interface TokenPayload {
+  sub: string;
+  exp: number;
+}
+
 export async function GET() {
   try {
     const cookieStore = cookies();
@@ -25,13 +30,28 @@ export async function GET() {
     }
 
     // verify()는 토큰이 유효하지 않으면 에러를 던집니다
-
-    const decodedAccessToken = verify(accessToken, accessTokenSecret);
-    const decodedRefreshToken = verify(refreshToken, refreshTokenSecret);
+    const decodedAccessToken = verify(
+      accessToken,
+      accessTokenSecret,
+    ) as TokenPayload;
+    const decodedRefreshToken = verify(
+      refreshToken,
+      refreshTokenSecret,
+    ) as TokenPayload;
 
     if (decodedAccessToken.sub !== decodedRefreshToken.sub) {
       return NextResponse.json(
         { error: '토큰 사용자가 일치하지 않습니다.' },
+        { status: 401 },
+      );
+    }
+
+    const now = Math.floor(Date.now() / 1000);
+
+    // 토큰 만료 시간 검증
+    if (decodedAccessToken.exp < now || decodedRefreshToken.exp < now) {
+      return NextResponse.json(
+        { error: '만료된 토큰입니다.' },
         { status: 401 },
       );
     }
