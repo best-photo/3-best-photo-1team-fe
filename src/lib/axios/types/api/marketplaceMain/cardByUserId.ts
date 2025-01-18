@@ -1,13 +1,11 @@
-import axios from 'axios';
 import { mapApiDataToAmountListItem } from '../../marketplaceMain/mainpagecardType';
+import axiosInstance from '../../../axiosInstance';
 
 export const fetchCardByUserAndId = async (userId: string, cardId: string) => {
   console.log(userId);
   console.log(cardId);
   try {
-    const response = await axios.get(
-      `http://localhost:8000/shop/card/${userId}/${cardId}`,
-    );
+    const response = await axiosInstance.get(`/shop/card/${userId}/${cardId}`);
     const mappedData = mapApiDataToAmountListItem(response.data);
     console.log('Mapped Data:', mappedData);
     return mappedData;
