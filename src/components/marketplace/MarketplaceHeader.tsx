@@ -64,17 +64,13 @@ export default function MarketplaceHeader({
   };
 
   return (
-    <div className='w-[1480px] h-[63px] flex justify-between items-center mx-auto '>
-      <div
-        className='w-[320px] h-[63px] text-[62px] font-normal leading-[63.49px] tracking-[-0.03em] text-left'
-        style={{ fontFamily: 'var(--font-baskin-robbins)' }}
-      >
+    <div className='w-full h-[63px] flex justify-between items-center max-md:fixed max-md:bottom-[15px]'>
+      <div className='hidden md:block text-[0px] md:text-[48px] lg:text-[62px] font-normal leading-[63.49px] tracking-[-0.03em] text-left font-baskin'>
         마켓플레이스
       </div>
       <button
         onClick={handleButtonClick}
-        className='w-[440px] h-[60px] rounded-[2px] bg-[var(--color-main)] text-[18px] font-bold leading-[26.06px] text-center text-black no-underline'
-        style={{ fontFamily: 'var(--font-noto-sans-kr)' }}
+        className='max-md:w-[calc(100vw_-_40px)] md:w-[342px] lg:w-[440px] h-[55px] md:h-[60px] rounded-[2px] bg-main text-[18px] font-bold leading-[26.06px] text-center text-black no-underline font-noto'
       >
         나의 포토카드 판매하기
       </button>

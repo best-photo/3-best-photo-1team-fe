@@ -16,10 +16,17 @@ export default function ClientProvider({
   useEffect(() => {
     const refreshOnPathChange = async () => {
       try {
-        await refreshToken(); // 토큰 갱신
+        const updatedUser = await getProfile();
+        useAuthStore.getState().setUserInfo(updatedUser);
+        setTimeout(() => {
+          refreshToken(); // 토큰 갱신
+        }, 10000);
       } catch (error) {
         setUserInfo(null, false); // 토큰 갱신 실패 시 회원정보 초기화
-        console.error('토큰 갱신 실패:', error);
+        console.error(
+          '토큰 갱신 실패 시 회원정보 초기화와 동시에 에러:',
+          error,
+        );
       }
     };
 

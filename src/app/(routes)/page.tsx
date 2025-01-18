@@ -128,7 +128,7 @@ export default function Home() {
 
   return (
     <>
-      <div className='pt-[60px]'>
+      <div className='pt-[65px] md:pt-[40px] lg:pt-[60px] max-w-[1480px] px-5 lg:px-10 mx-auto'>
         <MarketplaceHeader
           isAlertVisible={isAlertVisible}
           setAlertVisible={setAlertVisible}
@@ -138,8 +138,8 @@ export default function Home() {
           setProductVisible={setProductVisible}
           onModalClose={handleModalClose}
         />
-        <div className='border-b border-white w-[1480px] mx-auto mt-[20px]'></div>
-        <div className='w-[1480px] h-[50px] flex justify-between  mx-auto mt-[20px]'>
+        <div className='border-b border-white w-full mx-auto mt-[20px]'></div>
+        <div className='w-full h-[50px] flex justify-between  mx-auto mt-[20px]'>
           <SearchSection
             key={renderKey}
             variant='marketplace'
@@ -155,7 +155,7 @@ export default function Home() {
         </div>
       </div>
 
-      <div className='flex gap-[80px] flex-wrap w-[1480px] mx-auto pt-[60px] mb-[100px]'>
+      <div className='flex gap-[80px] flex-wrap max-w-[1480px] px-5 lg:px-10 mx-auto pt-[20px] md:pt-[40px] lg:pt-[60px] mb-[100px]'>
         {photoCards.length > 0 ? (
           photoCards.map((card) => (
             <PhotoCardListItem
