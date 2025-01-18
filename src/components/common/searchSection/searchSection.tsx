@@ -80,7 +80,7 @@ export default function SearchSection({
     <>
       <div className='flex gap-[10px] md:gap-[30px] lg:gap-[60px] mb-5 md:mb-10 lg:mb-[60px] justify-between md:justify-start'>
         <button
-          className='p-[12.5px] border border-white block md:hidden lg:hidden'
+          className='p-[12.5px] h-[50px] border border-white block md:hidden lg:hidden'
           onClick={() => setModalOpen(!modalOpen)}
         >
           <Image
