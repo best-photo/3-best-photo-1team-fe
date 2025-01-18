@@ -2,14 +2,25 @@ import { NextResponse } from 'next/server';
 import { cookies } from 'next/headers';
 import { verify, JsonWebTokenError } from 'jsonwebtoken';
 
+enum TokenType {
+  accessToken = 'accessToken',
+  refreshToken = 'refreshToken',
+}
+
 interface TokenPayload {
   sub: string;
   exp: number;
 }
 
+const clearCookie = async (token: TokenType) => {
+  const cookieStore = cookies();
+  cookieStore.delete(token);
+};
+
 export async function GET() {
   try {
     const cookieStore = cookies();
+
     // 쿠키에서 accessToken 또는 refreshToken을 가져옵니다
     const accessToken = cookieStore.get('accessToken')?.value;
     const refreshToken = cookieStore.get('refreshToken')?.value;
@@ -63,6 +74,9 @@ export async function GET() {
   } catch (error) {
     // 에러 종류별로 다른 응답
     if (error instanceof JsonWebTokenError) {
+      // 토큰이 유효하지 않은 경우 쿠키에서 토큰 삭제
+      clearCookie(TokenType.accessToken);
+      clearCookie(TokenType.refreshToken);
       return NextResponse.json(
         { error: '유효하지 않은 토큰입니다.' },
         { status: 401 },
