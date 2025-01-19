@@ -13,7 +13,10 @@ export default function FilterActions() {
   const options = useFilterStore((state) => state.options);
   const optionCounts = useFilterStore((state) => state.optionCounts);
   const selectedCategory = useFilterStore((state) => state.selectedCategory);
-  const index = options[selectedCategory?.value].indexOf(selectedOption);
+  const index =
+    selectedCategory?.value && options[selectedCategory.value]
+      ? options[selectedCategory.value].indexOf(selectedOption)
+      : -1;
   const handleSubmit = () => {
     onSubmitFilter();
     setModalOpen(false);

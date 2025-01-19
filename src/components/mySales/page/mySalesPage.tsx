@@ -59,12 +59,12 @@ export default function MySalesPage() {
   });
 
   const formattedGradeCount = gradeCount
-    ? Object.entries(gradeCount).reduce((acc, [grade, count]) => {
-        return {
-          ...acc,
-          [grade.toLowerCase().replace('super_rare', 'superRare')]: count,
-        };
-      }, {})
+    ? Object.fromEntries(
+        Object.entries(gradeCount).map(([grade, count]) => [
+          grade.toLowerCase().replace('super_rare', 'superRare'),
+          count,
+        ]),
+      )
     : {};
 
   const { data, fetchNextPage, hasNextPage, isFetchingNextPage } =

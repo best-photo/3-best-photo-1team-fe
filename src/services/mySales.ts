@@ -37,5 +37,6 @@ export const getMyCardsCount = async (filter: string) => {
     return data;
   } catch (e: any) {
     console.error('Error response', e.response?.data);
+    throw e;
   }
 };
