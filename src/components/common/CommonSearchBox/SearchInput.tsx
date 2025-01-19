@@ -25,9 +25,7 @@ const SearchInput: React.FC<SearchInputProps> = ({
   };
 
   return (
-    <div
-      className={`max-md:absolute max-md:top-[-90px] max-md:w-[calc(100vw_-_40px)] relative w-full h-[50px] ${className}`}
-    >
+    <div className={`relative w-full h-[50px] ${className}`}>
       <input
         placeholder={placeholder}
         value={value}

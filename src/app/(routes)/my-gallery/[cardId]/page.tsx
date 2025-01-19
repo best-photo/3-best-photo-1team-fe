@@ -11,6 +11,7 @@ import {
   convertGradeToLowerCase,
   convertGenreToLowerCase,
 } from '@/src/utils/convertCase';
+import PhotoCardDetailModal from '@/src/components/marketplace/ProductModal';
 
 export default function PhotoCardDetailPage({
   params,
@@ -22,6 +23,7 @@ export default function PhotoCardDetailPage({
   // 상태 관리
   const [photoCard, setPhotoCard] = useState<PhotoCard | null>(null);
   const [error, setError] = useState<string | null>(null);
+  const [isModalVisible, setModalVisible] = useState(false); // 모달 상태 관리
 
   // 비동기 함수로 카드 정보 불러오기
   useEffect(() => {
@@ -37,6 +39,14 @@ export default function PhotoCardDetailPage({
 
     fetchCard();
   }, [cardId]); // cardId가 변경되면 다시 호출
+
+  const handleSaleClick = () => {
+    setModalVisible(true); // 모달을 표시
+  };
+
+  const handleModalClose = () => {
+    setModalVisible(false); // 모달을 닫기
+  };
 
   if (error) {
     return (
@@ -65,9 +75,13 @@ export default function PhotoCardDetailPage({
         genre={convertGenreToLowerCase(photoCard.genre)}
         nickname={photoCard.nickname}
         totalAmount={photoCard.totalQuantity}
-        remainingAmount={photoCard.remainingQuantity|| 0}
+        remainingAmount={photoCard.remainingQuantity || 0}
         price={photoCard.price}
-        onSale={() => alert('판매버튼 클릭')}
+        onSale={handleSaleClick} // 모달을 띄우는 함수로 변경
+      />
+      <PhotoCardDetailModal
+        isVisible={isModalVisible} // 모달 상태
+        onClose={handleModalClose} // 모달 닫기 핸들러
       />
     </div>
   );

@@ -5,9 +5,9 @@ import MarketplaceHeader from '../../components/marketplace/MarketplaceHeader';
 import SearchSection from '../../components/common/searchSection/searchSection';
 import PhotoCardListItem from '@/src/components/common/photoCard/organisms/photoCardListItem/photoCardListItem';
 import { AmountListItem } from '@/src/components/common/photoCard/organisms/photoCardListItem/photoCardListItem.types';
-import { axiosFilteredCards } from '@/src/lib/axios/types/api/marketplaceMain/MainpageCards';
 import Dropdown from '@/src/components/common/CommonDropDown/DropDown';
 import { useRerenderStore } from '@/src/store/rerenderStore';
+import { axiosFilteredCards } from '@/src/services/marketPlaceService';
 
 // 등급 변환 함수
 const convertGradeToLowerCase = (
@@ -88,7 +88,6 @@ export default function Home() {
         query,
         placeOrder: selectedPrice,
       };
-      console.log('Transformed Filters:', combinedFilters);
       const cards = await axiosFilteredCards(combinedFilters);
       setPhotoCards(cards);
     } catch (error) {
@@ -108,7 +107,6 @@ export default function Home() {
   };
 
   const handleFilterChange = (filterQuery: string) => {
-    console.log('filterQuery :' + filterQuery);
     const params = new URLSearchParams(filterQuery);
 
     const newFilters = {
@@ -116,7 +114,6 @@ export default function Home() {
       genre: params.get('genre') || '',
       status: params.get('stockState') || '',
     };
-    console.log('Parsed Filters:', newFilters);
     const newQuery = params.get('keyword') || '';
     setFilters(newFilters);
     setQuery(newQuery);
@@ -128,7 +125,7 @@ export default function Home() {
 
   return (
     <>
-      <div className='pt-[65px] md:pt-[40px] lg:pt-[60px] max-w-[1480px] px-5 lg:px-10 mx-auto'>
+      <div className='pt-[60px]'>
         <MarketplaceHeader
           isAlertVisible={isAlertVisible}
           setAlertVisible={setAlertVisible}
@@ -138,8 +135,8 @@ export default function Home() {
           setProductVisible={setProductVisible}
           onModalClose={handleModalClose}
         />
-        <div className='border-b border-white w-full mx-auto mt-[20px]'></div>
-        <div className='w-full h-[50px] flex justify-between  mx-auto mt-[20px]'>
+        <div className='border-b border-white w-[1480px] mx-auto mt-[20px]'></div>
+        <div className='w-[1480px] h-[50px] flex justify-between  mx-auto mt-[20px]'>
           <SearchSection
             key={renderKey}
             variant='marketplace'
@@ -156,7 +153,7 @@ export default function Home() {
         </div>
       </div>
 
-      <div className='flex gap-[80px] flex-wrap max-w-[1480px] px-5 lg:px-10 mx-auto pt-[20px] md:pt-[40px] lg:pt-[60px] mb-[100px]'>
+      <div className='flex gap-[80px] flex-wrap w-[1480px] mx-auto pt-[60px] mb-[100px]'>
         {photoCards.length > 0 ? (
           photoCards.map((card) => (
             <PhotoCardListItem
