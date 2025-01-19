@@ -100,3 +100,22 @@ export const fetchCardData = async (cardId: string) => {
   const mappedData = mapApiDataToAmountListItem(response.data);
   return mappedData;
 };
+
+export const axiosGetFilterCountsByCategory = async (
+  category: 'grades' | 'genres' | 'stockState',
+): Promise<number[]> => {
+  try {
+    const response = await axiosInstance.get(`/shop/filters/${category}`);
+    console.log('Fetched Data:', response.data);
+
+    if (Array.isArray(response.data)) {
+      return response.data;
+    }
+
+    console.warn('Unexpected response format:', response.data);
+    return [];
+  } catch (error) {
+    console.error('Error fetching category data:', error);
+    return [];
+  }
+};

@@ -7,15 +7,16 @@ import PhotoCardListItem from '@/src/components/common/photoCard/organisms/photo
 import { AmountListItem } from '@/src/components/common/photoCard/organisms/photoCardListItem/photoCardListItem.types';
 import Dropdown from '@/src/components/common/CommonDropDown/DropDown';
 import { useRerenderStore } from '@/src/store/rerenderStore';
-import { axiosFilteredCards } from '@/src/services/marketPlaceService';
+import {
+  axiosFilteredCards,
+  axiosGetFilterCountsByCategory,
+} from '@/src/services/marketPlaceService';
+import { useFilterStore } from '@/src/store/useFilterStore';
 
-// 등급 변환 함수
 const convertGradeToLowerCase = (
   grade: string,
 ): 'common' | 'rare' | 'superRare' | 'legendary' => {
-  switch (
-    grade.toLowerCase() // 소문자로 변환
-  ) {
+  switch (grade.toLowerCase()) {
     case 'common':
       return 'common';
     case 'rare':
@@ -31,7 +32,6 @@ const convertGradeToLowerCase = (
   }
 };
 
-// 장르 변환 함수
 const convertGenreToLowerCase = (
   genre: string,
 ): 'travel' | 'landscape' | 'portrait' | 'object' => {
@@ -51,7 +51,8 @@ const convertGenreToLowerCase = (
 
 export default function Home() {
   const [photoCards, setPhotoCards] = useState<AmountListItem[]>([]);
-
+  const [optionCounts, setOptionCounts] = useState<number[]>([]);
+  const { selectedCategory } = useFilterStore();
   const [isAlertVisible, setAlertVisible] = useState(false);
   const [isLoginAlertVisible, setIsLoginAlertVisible] = useState(false);
   const [isProductVisible, setProductVisible] = useState(false);
@@ -63,6 +64,46 @@ export default function Home() {
     genre: '',
     status: '',
   });
+
+  useEffect(() => {
+    const fetchCategoryData = async () => {
+      if (!selectedCategory || !selectedCategory.value) return;
+
+      try {
+        const categoryMap: Record<string, 'grades' | 'genres' | 'stockState'> =
+          {
+            등급: 'grades',
+            장르: 'genres',
+            '매진 여부': 'stockState',
+          };
+
+        const category = categoryMap[selectedCategory.value];
+
+        if (!category) {
+          throw new Error(`Unsupported category: ${selectedCategory.value}`);
+        }
+
+        const data = await axiosGetFilterCountsByCategory(category);
+
+        let sortedData = data;
+        if (category === 'grades') {
+          const gradeOrder = [0, 2, 3, 1];
+          sortedData = gradeOrder.map((index) => data[index]);
+        } else if (category === 'genres') {
+          const genreOrder = [3, 1, 2, 0];
+          sortedData = genreOrder.map((index) => data[index]);
+        }
+
+        setOptionCounts(sortedData);
+
+        console.log(`Updated counts for ${category}:`, data);
+      } catch (error) {
+        console.error('Error fetching category data:', error);
+      }
+    };
+
+    fetchCategoryData();
+  }, [selectedCategory]);
 
   const [query, setQuery] = useState<string>('');
   const [selectedPrice, setSelectedPrice] = useState<string>('');
@@ -140,7 +181,7 @@ export default function Home() {
           <SearchSection
             key={renderKey}
             variant='marketplace'
-            optionCounts={[10, 10, 10, 10]}
+            optionCounts={optionCounts}
             onSubmitFilter={handleFilterChange}
           />
           <Dropdown
