@@ -30,7 +30,7 @@ export default function FilterOption({
       ) : (
         <span>{option.value}</span>
       )}
-      <span>{optionCount.toLocaleString()}개</span>
+      <span>{optionCount?.toLocaleString()}개</span>
     </div>
   );
 }

@@ -26,3 +26,16 @@ export const getMySalesCard = async (params: MySalesQueryParams) => {
     throw e;
   }
 };
+
+export const getMyCardsCount = async (filter: string) => {
+  try {
+    const { data } = await axiosInstance.get('/users/my-cards/sales/count', {
+      params: {
+        filter,
+      },
+    });
+    return data;
+  } catch (e: any) {
+    console.error('Error response', e.response?.data);
+  }
+};
