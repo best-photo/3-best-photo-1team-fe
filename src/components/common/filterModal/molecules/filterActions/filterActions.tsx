@@ -9,6 +9,14 @@ export default function FilterActions() {
   const reset = useFilterStore((state) => state.reset);
   const setModalOpen = useFilterStore((state) => state.setModalOpen);
   const onSubmitFilter = useFilterStore((state) => state.onSubmitFilter);
+  const selectedOption = useFilterStore((state) => state.selectedOption);
+  const options = useFilterStore((state) => state.options);
+  const optionCounts = useFilterStore((state) => state.optionCounts);
+  const selectedCategory = useFilterStore((state) => state.selectedCategory);
+  const index =
+    selectedCategory?.value && options[selectedCategory.value]
+      ? options[selectedCategory.value].indexOf(selectedOption)
+      : -1;
   const handleSubmit = () => {
     onSubmitFilter();
     setModalOpen(false);
@@ -36,7 +44,7 @@ export default function FilterActions() {
         heightPreset={3}
         className='min-w-[272px] max-w-[500px]'
       >
-        {5}개 포토보기
+        {optionCounts[index]?.toLocaleString() || 0}개 포토보기
       </CommonBtn>
     </div>
   );

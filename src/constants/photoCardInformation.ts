@@ -6,10 +6,10 @@ export const CARD_GENRES = Object.freeze({
 });
 
 export const CARD_GRADES = Object.freeze({
-  legendary: 'LEGENDARY',
   common: 'COMMON',
   rare: 'RARE',
   superRare: 'SUPER RARE',
+  legendary: 'LEGENDARY',
 });
 
 export const SALES_METHODS = Object.freeze({

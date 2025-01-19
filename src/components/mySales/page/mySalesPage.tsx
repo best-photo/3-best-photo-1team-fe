@@ -4,16 +4,23 @@ import Header from '@/src/components/mySales/header/header';
 import SearchSection from '@/src/components/common/searchSection/searchSection';
 import CardContainer from '@/src/components/mySales/cardContainer/cardContainer';
 import { usePathname, useRouter, useSearchParams } from 'next/navigation';
-import { useInfiniteQuery, useQuery } from '@tanstack/react-query';
-import { getMySalesCard } from '@/src/services/mySales';
+import {
+  useInfiniteQuery,
+  useQuery,
+  useQueryClient,
+} from '@tanstack/react-query';
+import { getMyCardsCount, getMySalesCard } from '@/src/services/mySales';
 import useAuthStore from '@/src/store/useAuthStore';
 import { useCallback, useEffect, useRef } from 'react';
+import { useFilterStore } from '@/src/store/useFilterStore';
 
 export default function MySalesPage() {
   const { user } = useAuthStore();
   const router = useRouter();
   const pathname = usePathname();
   const searchParams = useSearchParams();
+  const selectedCategory = useFilterStore((store) => store.selectedCategory);
+  const queryClient = useQueryClient();
 
   const query = {
     keyword: searchParams.get('keyword') || undefined,
@@ -27,10 +34,38 @@ export default function MySalesPage() {
 
   const observerRef = useRef<HTMLDivElement>(null);
 
-  const { data: total } = useQuery({
-    queryKey: ['mySales', 'total'],
-    queryFn: () => getMySalesCard({ page: 1, limit: 30 }),
+  useEffect(() => {
+    const categories = ['grade', 'genre', 'salesMethod', 'stockState'];
+
+    categories.forEach(async (category) => {
+      await queryClient.prefetchQuery({
+        queryKey: ['cardsCount', category],
+        queryFn: () => getMyCardsCount(category),
+        staleTime: 5 * 60 * 1000,
+      });
+    });
+  }, []);
+
+  const { data: cardsCount, isFetched } = useQuery({
+    queryKey: ['cardsCount', selectedCategory.queryString],
+    queryFn: () => getMyCardsCount(selectedCategory.queryString),
+    staleTime: 5 * 1000 * 60,
   });
+
+  const { data: gradeCount } = useQuery({
+    queryKey: ['cardsCount', 'grade'],
+    queryFn: () => getMyCardsCount('grade'),
+    staleTime: 5 * 1000 * 60,
+  });
+
+  const formattedGradeCount = gradeCount
+    ? Object.fromEntries(
+        Object.entries(gradeCount).map(([grade, count]) => [
+          grade.toLowerCase().replace('super_rare', 'superRare'),
+          count,
+        ]),
+      )
+    : {};
 
   const { data, fetchNextPage, hasNextPage, isFetchingNextPage } =
     useInfiniteQuery({
@@ -69,25 +104,17 @@ export default function MySalesPage() {
     return () => observer.disconnect();
   }, [handleObserver]);
 
-  const cardsCount = {
-    common: total?.items.filter((item: any) => item.grade === 'COMMON').length,
-    rare: total?.items.filter((item: any) => item.grade === 'RARE').length,
-    superRare: total?.items.filter((item: any) => item.grade === 'SUPER_RARE')
-      .length,
-    legendary: total?.items.filter((item: any) => item.grade === 'LEGENDARY')
-      .length,
-  };
-
   return (
     <div className='flex flex-col max-w-[744px] md:max-w-[1480px] mx-auto p-[15px] md:p-5 h-[1500px]'>
       <Header
         nickname={user?.nickname || ''}
-        cards={cardsCount}
+        cards={gradeCount && formattedGradeCount}
       />
       <SearchSection
         onSubmitFilter={(query) => router.push(`${pathname}?${query}`)}
-        // 수정 필요
-        optionCounts={[10, 10, 10, 10]}
+        optionCounts={
+          isFetched && cardsCount ? Object.values(cardsCount) : [0, 0, 0, 0]
+        }
         variant='mySale'
       />
       <CardContainer
