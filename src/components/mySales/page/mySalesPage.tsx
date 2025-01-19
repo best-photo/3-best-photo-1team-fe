@@ -35,15 +35,13 @@ export default function MySalesPage() {
   const observerRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    // 모든 카테고리 정의
     const categories = ['grade', 'genre', 'salesMethod', 'stockState'];
 
-    // 각 카테고리에 대해 prefetch 수행
     categories.forEach(async (category) => {
       await queryClient.prefetchQuery({
         queryKey: ['cardsCount', category],
         queryFn: () => getMyCardsCount(category),
-        staleTime: 5 * 60 * 1000, // 5분
+        staleTime: 5 * 60 * 1000,
       });
     });
   }, []);
@@ -114,7 +112,6 @@ export default function MySalesPage() {
       />
       <SearchSection
         onSubmitFilter={(query) => router.push(`${pathname}?${query}`)}
-        // 수정 필요
         optionCounts={
           isFetched && cardsCount ? Object.values(cardsCount) : [0, 0, 0, 0]
         }
