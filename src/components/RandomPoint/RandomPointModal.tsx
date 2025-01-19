@@ -41,10 +41,7 @@ const RandomPointModal: React.FC<RandomPointModalProps> = ({
     const initialize = async () => {
       try {
         try {
-          // await refresh();
-          setTimeout(() => {
-            refresh();
-          }, 2000);
+          await refresh();
         } catch (error) {
           console.error('랜덤포인트모달 남은시간계산 전 리프레시 실패:', error);
           // router.push('/login'); // refresh 실패 시 로그인 페이지로 이동
