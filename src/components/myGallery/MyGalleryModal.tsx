@@ -164,7 +164,7 @@ export default function MyGalleryModal({
             <Image
               src={cardData.imageUrl}
               alt='Search Icon'
-              className='fixed top-[243px] left-[120px]'
+              className='fixed top-[243px] left-[120px] lg:w-[440px] lg:h-[330px] md:w-[342px] md:h-[260px] sm:w-[345px] sm:h-[258.75px]'
               width={440}
               height={330}
             />
