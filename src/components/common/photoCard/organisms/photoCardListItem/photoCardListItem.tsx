@@ -62,7 +62,7 @@ export default function PhotoCardListItem(props: PhotoCardListItemProps) {
           height={270}
           priority={true}
           quality={90}
-          className='w-[150px] md:w-[302px] lg:w-[360px] h-[110px] md:h-[226px] lg:h-[270px]'
+          className='w-[150px] md:w-[302px] lg:w-[360px] h-[110px] md:h-[226px] lg:h-[270px] object-cover'
         />
       </div>
       <h1 className='text-[14px] md:text-[22px] lg:text-[22px] font-bold mb-[5px] md:mb-[10px] lg:mb-[10px]'>

@@ -7,11 +7,12 @@ export interface Card {
   id: string;
   targetId: string;
   price: number;
-  image: string | StaticImport;
+  imageUrl: string | StaticImport;
   name: string;
   state: CardState;
   grade: Grades;
   genre: Genres;
+  remainingQuantity: number;
   totalQuantity: number;
   nickname: string;
 }
@@ -33,7 +34,7 @@ export default function CardContainer({
           cardId={card.id}
           nickname={card.nickname}
           price={card.price}
-          image={card.image}
+          image={card.imageUrl}
           cardName={card.name}
           state={card.state}
           // 임시방편
@@ -43,6 +44,7 @@ export default function CardContainer({
               .replace('super_rare', 'superRare') as Grades
           }
           genre={card.genre.toLowerCase() as Genres}
+          remainingAmount={card.remainingQuantity}
           totalAmount={card.totalQuantity}
           onClick={() => onClick(card.targetId)}
         />
