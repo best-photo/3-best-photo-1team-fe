@@ -1,16 +1,23 @@
+'use client';
+
 import CustomLabel from '../../molecules/customLabel/customLabel';
 import AmountControl from '../../../amountControl/amountControl';
 import { usePurchaseAmountStore } from '@/src/store/purchaseAmountStore';
 import { CommonBtn } from '../../../CommonBtn/CommonBtn';
 import HorizontalDivider from '../../atoms/divider/horizontalDivider';
 import { OthersCardDetailSectionProps } from './photoCardDetail.types';
+import { useEffect } from 'react';
 
 export default function OthersCardDetail({
   onPurchase,
   maxAmount,
   price,
 }: OthersCardDetailSectionProps) {
-  const { amount, plusAmount, minusAmount } = usePurchaseAmountStore();
+  const { amount, plusAmount, minusAmount, reset } = usePurchaseAmountStore();
+
+  useEffect(() => {
+    reset();
+  }, []);
 
   return (
     <>
