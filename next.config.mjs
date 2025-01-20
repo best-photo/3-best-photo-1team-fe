@@ -6,7 +6,7 @@ const nextConfig = {
     ignoreDuringBuilds: true,
   },
   images: {
-    domains: ['localhost', 'best-photo-be.fly.dev','cdn.pixabay.com'],
+    domains: ['localhost','api.ooyoo.dev','best-photo-be.fly.dev','cdn.pixabay.com'],
   }
 };
 
