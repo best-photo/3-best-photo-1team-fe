@@ -70,7 +70,7 @@ export default function PhotoCardDetailPage({
         variant='myHoldingCard'
         cardName={photoCard.name}
         description={photoCard.description}
-        image={`http://localhost:8080/${photoCard.imageUrl}`}
+        image={photoCard.imageUrl}
         grade={convertGradeToLowerCase(photoCard.grade)}
         genre={convertGenreToLowerCase(photoCard.genre)}
         nickname={photoCard.nickname}
