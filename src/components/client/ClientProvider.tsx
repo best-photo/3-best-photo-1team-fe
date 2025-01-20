@@ -26,7 +26,7 @@ export default function ClientProvider({
     };
 
     refreshOnPathChange();
-  }, [pathname, refreshToken]); // 경로(pathname)가 변경될 때마다 실행
+  }, [pathname, refreshToken, setUserInfo]); // 경로(pathname)가 변경될 때마다 실행
 
   return <>{children}</>;
 }

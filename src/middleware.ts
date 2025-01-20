@@ -15,7 +15,7 @@ export function middleware(request: NextRequest) {
   }
 
   // 4. 토큰이 있는 경우 처리
-  console.log('액세스토큰 존재함');
+  console.log('리프레시 토큰 존재함');
 
   return response;
 }
