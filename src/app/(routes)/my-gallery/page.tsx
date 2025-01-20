@@ -33,16 +33,6 @@ export default function MyGalleryPage() {
   useEffect(() => {
     const fetchGalleryData = async () => {
       try {
-        // 서버 API를 통해 사용자 ID 가져오기
-        const response = await fetch('/api/auth/user');
-        const userData = await response.json();
-
-        if (!response.ok) {
-          console.log('사용자가 로그인되지 않았습니다.');
-          router.push('/login');
-          return;
-        }
-
         const data = await fetchUserGalleryData();
         console.log('Fetched gallery data:', data);
         setGalleryData(data);
