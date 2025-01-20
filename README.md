@@ -3,6 +3,7 @@
 - [팀 문서](https://www.notion.so/chobodev/16924202780c809a9cdee8926986f244?v=16924202780c811580b1000c2847f948)
 - [스토리북](https://6789154b0616d33f386b330c-hzopgexaja.chromatic.com/?path=/story/common-organisms-photocarddetail--others-photo-card-detail)
 - [공통 컴포넌트 피그마](https://www.figma.com/design/r1mdbBRLniyQVRzajkxlus/1%ED%8C%80-%EC%B5%9C%EC%95%A0%EC%9D%98%ED%8F%AC%ED%86%A0-%EA%B3%B5%ED%86%B5%EC%BB%B4%ED%8F%AC%EB%84%8C%ED%8A%B8?node-id=0-1&p=f&t=Iiri5hbok9pEPmmi-0)
+- [배포 링크](https://www.ooyoo.dev/)
 
 ## 팀원 구성
 
