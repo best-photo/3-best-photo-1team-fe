@@ -1,4 +1,4 @@
-![image](https://github.com/user-attachments/assets/88fae17e-de8a-481a-a3ee-acf1ea5cd7be)# 풀스택 3기 파트3 1팀
+# 풀스택 3기 파트3 1팀
 
 - [팀 문서](https://www.notion.so/chobodev/16924202780c809a9cdee8926986f244?v=16924202780c811580b1000c2847f948)
 - [스토리북](https://6789154b0616d33f386b330c-hzopgexaja.chromatic.com/?path=/story/common-organisms-photocarddetail--others-photo-card-detail)
@@ -52,11 +52,13 @@
 - 유저기능 전역상태 관리
   - zustand를 통한 전역 상태관리
   - 실시간 데이터를 업데이트를 위한 상태 구독
-![image](https://github.com/user-attachments/assets/2929bb4c-9317-42a5-9cda-e68a03e99d52)
+
 ![image](https://github.com/user-attachments/assets/11ba8e64-fdc8-4eb0-9cd6-3e2b11bb15d6)
+![image](https://github.com/user-attachments/assets/2929bb4c-9317-42a5-9cda-e68a03e99d52)
 - 프로필 모달
   - 전역적으로 열림/닫힘
   - 반응형 디자인
+
 ![image](https://github.com/user-attachments/assets/8057115a-7e7f-4a9d-81e9-cd4df22bfb40)
 ![image](https://github.com/user-attachments/assets/af61c48c-eb79-4af6-a600-08afe4388950)
 ![image](https://github.com/user-attachments/assets/933da331-96c2-4c86-9ee0-5384dca5c414)
