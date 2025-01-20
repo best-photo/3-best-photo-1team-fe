@@ -9,6 +9,10 @@ import CommonAlertModal from '@/src/components/common/AlertModal/CommonAlertModa
 import { Modal } from '@/src/components/marketplace/Modal';
 import PhotoCardExchangeModal from '@/src/components/marketplace/PhotoCardExchangeModal';
 import axiosInstance from '@/src/lib/axios/axiosInstance';
+import {
+  convertGenreToLowerCase,
+  convertGradeToLowerCase,
+} from '@/src/utils/convertCase';
 
 interface BuyerViewProps {
   shopId: string;
@@ -29,20 +33,6 @@ const purchaseCard = async (shopId: string, quantity: number) => {
 
 const BuyerView = ({ shopId, shopData }: BuyerViewProps) => {
   const router = useRouter();
-
-  const [tradeCardList, setTradeCardList] = useState([
-    {
-      id: '1',
-      cardName: '풍경 사진 1',
-      grade: 'rare' as const,
-      genre: 'landscape' as const,
-      nickname: '사용자1',
-      price: 1000,
-      image: '/images/sample-image-1.webp',
-      description: '아름다운 풍경 사진입니다.',
-    },
-    // ... other trade cards
-  ]);
 
   const [isPurchaseAlertVisible, setPurchaseAlertVisible] = useState(false);
   const [isPhotoCardExchangeModalVisible, setPhotoCardExchangeModalVisible] =
@@ -104,8 +94,8 @@ const BuyerView = ({ shopId, shopData }: BuyerViewProps) => {
       <TradeRequest
         handleTrade={() => setPhotoCardExchangeModalVisible(true)}
         tradeDescription={shopData.shop.exchangeInfo.description}
-        tradeGenre={shopData.shop.exchangeInfo.genre.toLowerCase()}
-        tradeGrade={shopData.shop.exchangeInfo.grade.toLowerCase()}
+        tradeGenre={convertGenreToLowerCase(shopData.shop.exchangeInfo.genre)}
+        tradeGrade={convertGradeToLowerCase(shopData.shop.exchangeInfo.grade)}
       />
       <div className='mb-[120px]'></div>
       {/* 내가 제시한 교환 목록 */}
@@ -124,12 +114,7 @@ const BuyerView = ({ shopId, shopData }: BuyerViewProps) => {
           content={`[LEGENDARY | 우리집 앞마당] 2장을 구매하시겠습니까?`}
           buttonText='구매하기'
           onClose={() => setPurchaseAlertVisible(false)}
-          onClick={
-            onPurchaseClick
-            // router.push(
-            //   `/purchase-success?grade=legendary&name=우리집 앞마당&quantity=2`,
-            // )
-          }
+          onClick={onPurchaseClick}
         />
       )}
       {isPhotoCardExchangeModalVisible && (
