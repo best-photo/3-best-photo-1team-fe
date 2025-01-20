@@ -56,7 +56,7 @@ export default function MyGalleryPage() {
         // query를 객체 형태로 변환
         const params = new URLSearchParams(query);
         const filters = {
-          search: params.get('search') || '',
+          search: params.get('search') || '', // search 값 가져오기
           grade: params.get('grade') || '',
           genre: params.get('genre') || '',
         };
@@ -89,13 +89,13 @@ export default function MyGalleryPage() {
       const genre = params.get('genre')
         ? convertGenreToUpperCase(params.get('genre') || '')
         : '';
-      const searchQuery = params.get('search') || '';
+      const searchKeyword = params.get('search') || ''; // search 값을 받기
 
       // 변환된 필터 값으로 새로운 query 생성
       const newQuery = [
-        searchQuery ? `search=${searchQuery}` : '',
-        grade ? `grade=${grade}` : '',
-        genre ? `genre=${genre}` : '',
+        searchKeyword ? `search=${searchKeyword}` : '', // search 값을 포함
+        grade ? `grade=${grade}` : '', // 템플릿 리터럴 유지
+        genre ? `genre=${genre}` : '', // 템플릿 리터럴 유지
       ]
         .filter(Boolean)
         .join('&');
