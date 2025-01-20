@@ -80,7 +80,7 @@ export default function PhotoCardDetail(props: PhotoCardDetailProps) {
               size='big'
               className='text-gray-300'
             >
-              <span>{price}P</span>
+              <span>{price.toLocaleString() ?? 0}P</span>
             </CustomLabel>
             <CustomLabel
               title={variant === 'myHoldingCard' ? '보유량' : '잔여'}

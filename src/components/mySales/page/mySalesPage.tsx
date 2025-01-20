@@ -41,7 +41,7 @@ export default function MySalesPage() {
       await queryClient.prefetchQuery({
         queryKey: ['cardsCount', category],
         queryFn: () => getMyCardsCount(category),
-        staleTime: 5 * 60 * 1000,
+        staleTime: 1 * 60 * 1000,
       });
     });
   }, []);
@@ -49,13 +49,13 @@ export default function MySalesPage() {
   const { data: cardsCount, isFetched } = useQuery({
     queryKey: ['cardsCount', selectedCategory.queryString],
     queryFn: () => getMyCardsCount(selectedCategory.queryString),
-    staleTime: 5 * 1000 * 60,
+    staleTime: 1 * 1000 * 60,
   });
 
   const { data: gradeCount } = useQuery({
     queryKey: ['cardsCount', 'grade'],
     queryFn: () => getMyCardsCount('grade'),
-    staleTime: 5 * 1000 * 60,
+    staleTime: 1 * 1000 * 60,
   });
 
   const formattedGradeCount = gradeCount
@@ -119,7 +119,7 @@ export default function MySalesPage() {
       />
       <CardContainer
         cards={allCards}
-        onClick={(id) => router.push(`marketplace/${id}`)}
+        onClick={(id) => router.push(`photo-card/${id}`)}
       />
 
       <div
