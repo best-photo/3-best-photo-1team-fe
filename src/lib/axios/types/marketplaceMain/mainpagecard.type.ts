@@ -11,13 +11,42 @@ interface ApiData {
   id?: string | null;
   quantity?: number;
   nickname: string;
+  initialQuantity: number;
 }
 
 export const mapApiDataToAmountListItem = (data: ApiData): AmountListItem => {
   const validGrades = Object.keys(CARD_GRADES);
 
-  const totalQuantity = data.totalQuantity || 0;
-  const remainingQuantity = data.remainingQuantity || 0;
+  return {
+    cardName: data.name || 'Default Card Name',
+    genre:
+      typeof data.genre === 'string' &&
+      Object.keys(CARD_GENRES).includes(data.genre.toLowerCase())
+        ? (data.genre.toLowerCase() as AmountListItem['genre'])
+        : 'portrait',
+    grade:
+      typeof data.grade === 'string' &&
+      validGrades.includes(data.grade.toLowerCase())
+        ? (data.grade.toLowerCase() as AmountListItem['grade'])
+        : 'superRare',
+    nickname: data.nickname,
+    price: data.price || 0,
+    image: '/images/sample-image-1.webp',
+    fontWeight: 'bold',
+    totalAmount: data.initialQuantity || 0,
+    remainingAmount: data.remainingQuantity || 0,
+    headerWeight: 'normal',
+    state: undefined,
+    variant: 'amount',
+    cardId: data.id ?? '0',
+    onClick: (id: string) => {
+      console.log(`Card ${id} clicked`);
+    },
+  };
+};
+
+export const mapApiDataToAmountListItem1 = (data: ApiData): AmountListItem => {
+  const validGrades = Object.keys(CARD_GRADES);
 
   return {
     cardName: data.name || 'Default Card Name',
@@ -36,7 +65,7 @@ export const mapApiDataToAmountListItem = (data: ApiData): AmountListItem => {
     image: '/images/sample-image-1.webp',
     fontWeight: 'bold',
     totalAmount: data.totalQuantity || 0,
-    remainingAmount: remainingQuantity,
+    remainingAmount: data.remainingQuantity || 0,
     headerWeight: 'normal',
     state: undefined,
     variant: 'amount',

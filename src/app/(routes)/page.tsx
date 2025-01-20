@@ -85,16 +85,16 @@ export default function Home() {
 
         const data = await axiosGetFilterCountsByCategory(category);
 
-        let sortedData = data;
-        if (category === 'grades') {
-          const gradeOrder = [0, 2, 3, 1];
-          sortedData = gradeOrder.map((index) => data[index]);
-        } else if (category === 'genres') {
-          const genreOrder = [3, 1, 2, 0];
-          sortedData = genreOrder.map((index) => data[index]);
-        }
+        // let sortedData = data;
+        // if (category === 'grades') {
+        //   const gradeOrder = [0, 2, 3, 1];
+        //   sortedData = gradeOrder.map((index) => data[index]);
+        // } else if (category === 'genres') {
+        //   const genreOrder = [3, 1, 2, 0];
+        //   sortedData = genreOrder.map((index) => data[index]);
+        // }
 
-        setOptionCounts(sortedData);
+        setOptionCounts(data);
 
         console.log(`Updated counts for ${category}:`, data);
       } catch (error) {
@@ -177,7 +177,7 @@ export default function Home() {
           onModalClose={handleModalClose}
         />
         <div className='border-b border-white w-[1480px] mx-auto mt-[20px]'></div>
-        <div className='w-[1480px] h-[50px] flex justify-between  mx-auto mt-[20px]'>
+        <div className='w-full max-w-[1480px] h-[50px] flex justify-between mx-auto mt-[20px] md:justify-between px-[30px] lg:justify-between'>
           <SearchSection
             key={renderKey}
             variant='marketplace'
@@ -189,12 +189,12 @@ export default function Home() {
             selectedValue={selectedPrice}
             placeholder='낮은 가격순'
             onValueChange={setSelectedPrice}
-            className='border border-[#dddddd] w-[180px]'
+            className='border border-[#dddddd] w-[180px] hidden md:block'
           />
         </div>
       </div>
 
-      <div className='flex gap-[80px] flex-wrap w-[1480px] mx-auto pt-[60px] mb-[100px]'>
+      <div className='w-full grid grid-cols-2 max-w-[1480px] mx-auto mt-[20px] md:grid-cols-2 lg:grid-cols-3 justify-items-center gap-[5px] md:gap-5 lg:gap-20 pb-[140px]'>
         {photoCards.length > 0 ? (
           photoCards.map((card) => (
             <PhotoCardListItem
