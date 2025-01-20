@@ -119,7 +119,7 @@ export default function MySalesPage() {
       />
       <CardContainer
         cards={allCards}
-        onClick={(id) => router.push(`marketplace/${id}`)}
+        onClick={(id) => router.push(`photo-card/${id}`)}
       />
 
       <div
