@@ -11,7 +11,7 @@ export function middleware(request: NextRequest) {
     console.log('리프레시 토큰이 없으므로 로그인 페이지로 리다이렉트 합니다.');
 
     // 3. 리다이렉트
-    // return NextResponse.redirect(new URL('/login', request.url));
+    return NextResponse.redirect(new URL('/login', request.url));
   }
 
   // 4. 토큰이 있는 경우 처리
