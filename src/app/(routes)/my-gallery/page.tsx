@@ -149,8 +149,7 @@ export default function MyGalleryPage() {
               variant='amount'
               cardId={card.id}
               cardName={card.name}
-              // image={card.imageUrl}
-              image={'/images/sample-image-1.webp'}
+              image={card.imageUrl}
               grade={convertGradeToLowerCase(card.grade)}
               genre={convertGenreToLowerCase(card.genre)}
               nickname={card.nickname}
