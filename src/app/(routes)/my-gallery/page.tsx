@@ -118,7 +118,7 @@ export default function MyGalleryPage() {
   };
 
   return (
-    <div className='w-[1480px] mx-[240px]'>
+    <div className='flex flex-col max-w-[744px] md:max-w-[1480px] mx-auto p-[15px] md:p-5 h-[1500px]'>
       {/* Header */}
       <div>
         <Title
