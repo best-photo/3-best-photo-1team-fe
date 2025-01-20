@@ -142,11 +142,11 @@ export default function PhotoCardDetailModal({
           height={18}
         />
         <div className='p-4'>
-          <div className='absolute top-[60px] left-[120px] h-[25px] text-[24px] font-[var(--font-baskin-robbins)] leading-[24.58px] tracking-[-0.03em] text-[#A4A4A4]'>
+          <div className='absolute top-[60px] left-[120px] h-[25px] text-[24px] font-baskin leading-[24.58px] tracking-[-0.03em] text-[#A4A4A4]'>
             나의 포토카드 판매하기
           </div>
           {/* 사진제목 */}
-          <div className='absolute top-[120px] left-[120px] text-[40px] font-[var(--font-noto-sans-kr)] font-[700] leading-[47.1px] tracking-[-0.03em] text-[#FFFFFF]'>
+          <div className='absolute top-[120px] left-[120px] text-[40px] font-noto font-[700] leading-[47.1px] tracking-[-0.03em] text-[#FFFFFF]'>
             {cardData.cardName}
           </div>
           <div className='border-b border-white w-[920px] mx-auto mt-[192px]'></div>
@@ -160,20 +160,20 @@ export default function PhotoCardDetailModal({
             />
             <div className='fixed flex flex-row justify-between w-[440px] gap-[10px] top-[243px] left-[600px]'>
               <div className='flex gap-[10px]'>
-                <div className='text-[24px] font-[var(--font-noto-sans-kr)] font-bold leading-[34.75px] text-left  decoration-skip-ink-none text-[#FF2A6A]'>
+                <div className='text-[24px] font-noto font-bold leading-[34.75px] text-left  decoration-skip-ink-none text-[#FF2A6A]'>
                   <Grade grade={cardData.grade} />
                 </div>
-                <div className='text-[24px] font-[var(--font-noto-sans-kr)] font-bold leading-[34.75px] text-left decoration-skip-ink-none text-[#A4A4A4]'>
+                <div className='text-[24px] font-noto font-bold leading-[34.75px] text-left decoration-skip-ink-none text-[#A4A4A4]'>
                   | <Genre genre={cardData.genre} />
                 </div>
               </div>
-              <div className='text-[24px] font-[var(--font-noto-sans-kr)] font-bold leading-[34.75px] underline text-left  decoration-skip-ink-none text-[#A4A4A4]'>
+              <div className='text-[24px] font-noto font-bold leading-[34.75px] underline text-left  decoration-skip-ink-none text-[#A4A4A4]'>
                 {cardData.nickname}
               </div>
             </div>
             <div className='fixed flex flex-col gap-[20px] top-[338px] left-[600px]'>
               <div className='flex justify-between items-center w-[440px]'>
-                <div className='text-[20px] font-[var(--font-noto-sans-kr)] font-normal leading-[28.96px] text-left '>
+                <div className='text-[20px] font-noto leading-[28.96px] text-left '>
                   총 판매 수량
                 </div>
 
@@ -201,10 +201,10 @@ export default function PhotoCardDetailModal({
                   </div>
 
                   <div className='w-[80px] h-[50px]'>
-                    <div className='text-[20px] font-[var(--font-noto-sans-kr)] leading-[28.96px] text-left'>
+                    <div className='text-[20px] font-noto leading-[28.96px] text-left'>
                       / {cardData.remainingAmount}
                     </div>
-                    <div className='text-[14px] leading-[28.96px] text-left font-[var(--font-noto-sans-kr)]'>
+                    <div className='text-[14px] leading-[28.96px] text-left font-noto'>
                       최대 {cardData.remainingAmount}장
                     </div>
                   </div>
@@ -213,7 +213,7 @@ export default function PhotoCardDetailModal({
 
               <div>
                 <div className='flex justify-between items-center w-[440px]'>
-                  <div className='text-[20px] font-[var(--font-noto-sans-kr)] leading-[28.96px] text-left '>
+                  <div className='text-[20px] font-noto leading-[28.96px] text-left '>
                     장당 가격
                   </div>
                   <div className='w-[246px] h-[50px] flex flex-row gap-[20px]'>
@@ -225,7 +225,7 @@ export default function PhotoCardDetailModal({
                         className='bg-[#161616] outline-none px-[20px] py-[23.5px] w-[180px] h-[23px]'
                         placeholder='숫자만 입력'
                       />
-                      <div className='flex justify-center items-center text-[20px] font-[var(--font-noto-sans-kr)] leading-[28.96px] text-right text-[#FFFFFF] '>
+                      <div className='flex justify-center items-center text-[20px] font-noto leading-[28.96px] text-right text-[#FFFFFF] '>
                         P
                       </div>
                     </div>
@@ -233,7 +233,7 @@ export default function PhotoCardDetailModal({
                 </div>
               </div>
             </div>
-            <div className='fixed top-[653px] left-[120px] text-[28px] font-[var(--font-noto-sans-kr)] leading-[28.96px] text-left'>
+            <div className='fixed top-[653px] left-[120px] text-[28px] font-noto leading-[28.96px] text-left'>
               교환 희망 정보
             </div>
             <div className='border-b border-white w-[920px] mx-auto mt-[500px]'></div>
