@@ -2,6 +2,7 @@ import { AmountListItem } from '@/src/components/common/photoCard/organisms/phot
 import { CARD_GENRES, CARD_GRADES } from '@/src/constants/photoCardInformation';
 
 interface ApiData {
+  shopId?: string | null;
   name?: string;
   genre?: string | null;
   grade?: string | null;
@@ -12,7 +13,20 @@ interface ApiData {
   quantity?: number;
   nickname: string;
   initialQuantity: number;
+  imageUrl: string;
 }
+
+const formatImageUrl = (imageUrl: string): string => {
+  if (!imageUrl) {
+    return '/default-image.png';
+  }
+
+  if (imageUrl.startsWith('http://') || imageUrl.startsWith('https://')) {
+    return imageUrl;
+  }
+
+  return `http://localhost:8080/${imageUrl.replace(/\\/g, '/')}`;
+};
 
 export const mapApiDataToAmountListItem = (data: ApiData): AmountListItem => {
   const validGrades = Object.keys(CARD_GRADES);
@@ -31,14 +45,14 @@ export const mapApiDataToAmountListItem = (data: ApiData): AmountListItem => {
         : 'superRare',
     nickname: data.nickname,
     price: data.price || 0,
-    image: '/images/sample-image-1.webp',
+    image: formatImageUrl(data.imageUrl),
     fontWeight: 'bold',
     totalAmount: data.initialQuantity || 0,
     remainingAmount: data.remainingQuantity || 0,
     headerWeight: 'normal',
     state: undefined,
     variant: 'amount',
-    cardId: data.id ?? '0',
+    cardId: data.shopId ?? '0',
     onClick: (id: string) => {
       console.log(`Card ${id} clicked`);
     },
@@ -62,7 +76,7 @@ export const mapApiDataToAmountListItem1 = (data: ApiData): AmountListItem => {
         : 'superRare',
     nickname: data.nickname,
     price: data.price || 0,
-    image: '/images/sample-image-1.webp',
+    image: formatImageUrl(data.imageUrl),
     fontWeight: 'bold',
     totalAmount: data.totalQuantity || 0,
     remainingAmount: data.remainingQuantity || 0,

@@ -12,6 +12,7 @@ import {
   axiosGetFilterCountsByCategory,
 } from '@/src/services/marketPlaceService';
 import { useFilterStore } from '@/src/store/useFilterStore';
+import { useRouter } from 'next/navigation';
 
 const convertGradeToLowerCase = (
   grade: string,
@@ -58,6 +59,7 @@ export default function Home() {
   const [isProductVisible, setProductVisible] = useState(false);
   const [triggerRefresh, setTriggerRefresh] = useState(false);
   const { renderKey } = useRerenderStore();
+  const router = useRouter();
 
   const [filters, setFilters] = useState({
     grade: '',
@@ -107,6 +109,10 @@ export default function Home() {
 
   const [query, setQuery] = useState<string>('');
   const [selectedPrice, setSelectedPrice] = useState<string>('');
+
+  const PhotoCardClick = (shopId: string) => {
+    router.push(`/photo-card/${shopId}`);
+  };
 
   const fetchFilteredCards = async (
     filters: {
@@ -167,7 +173,7 @@ export default function Home() {
 
   return (
     <>
-      <div className='pt-[60px]'>
+      <div className='pt-[65px] w-full md:pt-[40px] lg:pt-[60px] max-w-[1480px] px-5 mx-auto'>
         <MarketplaceHeader
           isAlertVisible={isAlertVisible}
           setAlertVisible={setAlertVisible}
@@ -177,30 +183,32 @@ export default function Home() {
           setProductVisible={setProductVisible}
           onModalClose={handleModalClose}
         />
-        <div className='border-b border-white w-[1480px] mx-auto mt-[20px]'></div>
-        <div className='w-full max-w-[1480px] h-[50px] flex justify-between mx-auto mt-[20px] md:justify-between px-[30px] lg:justify-between'>
+        <div className='border-b border-white w-full mx-auto mt-[20px]'></div>
+        <div className='h-[50px] w-full flex justify-between mx-auto mt-[20px] relative'>
           <SearchSection
             key={renderKey}
             variant='marketplace'
             optionCounts={optionCounts}
             onSubmitFilter={handleFilterChange}
+            mainPageInputclassName='max-md:absolute max-md:top-[-90px] w-[calc(100vw_-_40px)]'
           />
           <Dropdown
             options={['최신순', '오래된 순', '높은 가격순', '낮은 가격순']}
             selectedValue={selectedPrice}
             placeholder='낮은 가격순'
             onValueChange={setSelectedPrice}
-            className='border border-[#dddddd] w-[180px] hidden md:block'
+            className='border border-[#dddddd] w-[180px] max-md:absolute max-md:right-0'
           />
         </div>
       </div>
 
-      <div className='w-full grid grid-cols-2 max-w-[1480px] mx-auto mt-[20px] md:grid-cols-2 lg:grid-cols-3 justify-items-center gap-[5px] md:gap-5 lg:gap-20 pb-[140px]'>
+      <div className='w-full grid grid-cols-2 max-w-[1480px] px-5 lg:px-10  mx-auto mt-[20px] md:grid-cols-2 lg:grid-cols-3 justify-items-center gap-[5px] md:gap-5 lg:gap-20 pb-[140px]'>
         {photoCards.length > 0 ? (
           photoCards.map((card) => (
             <PhotoCardListItem
               key={card.cardId}
               {...card}
+              onClick={() => PhotoCardClick(card.cardId)}
             />
           ))
         ) : (

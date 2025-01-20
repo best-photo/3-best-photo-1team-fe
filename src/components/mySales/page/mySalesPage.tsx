@@ -46,16 +46,18 @@ export default function MySalesPage() {
     });
   }, []);
 
-  const { data: cardsCount, isFetched } = useQuery({
+  const { data: cardsCount } = useQuery({
     queryKey: ['cardsCount', selectedCategory.queryString],
     queryFn: () => getMyCardsCount(selectedCategory.queryString),
     staleTime: 1 * 1000 * 60,
+    enabled: !!user,
   });
 
   const { data: gradeCount } = useQuery({
     queryKey: ['cardsCount', 'grade'],
     queryFn: () => getMyCardsCount('grade'),
     staleTime: 1 * 1000 * 60,
+    enabled: !!user,
   });
 
   const formattedGradeCount = gradeCount
@@ -106,15 +108,15 @@ export default function MySalesPage() {
 
   return (
     <div className='flex flex-col max-w-[744px] md:max-w-[1480px] mx-auto p-[15px] md:p-5 h-[1500px]'>
-      <Header
-        nickname={user?.nickname || ''}
-        cards={gradeCount && formattedGradeCount}
-      />
+      {gradeCount && (
+        <Header
+          nickname={user?.nickname || ''}
+          cards={gradeCount && formattedGradeCount}
+        />
+      )}
       <SearchSection
         onSubmitFilter={(query) => router.push(`${pathname}?${query}`)}
-        optionCounts={
-          isFetched && cardsCount ? Object.values(cardsCount) : [0, 0, 0, 0]
-        }
+        optionCounts={cardsCount ? Object.values(cardsCount) : [0, 0, 0, 0]}
         variant='mySale'
       />
       <CardContainer

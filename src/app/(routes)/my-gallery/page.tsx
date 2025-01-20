@@ -33,22 +33,12 @@ export default function MyGalleryPage() {
   useEffect(() => {
     const fetchGalleryData = async () => {
       try {
-        // 서버 API를 통해 사용자 ID 가져오기
-        const response = await fetch('/api/auth/user');
-        const userData = await response.json();
-
-        if (!response.ok) {
-          console.log('사용자가 로그인되지 않았습니다.');
-          router.push('/login');
-          return;
-        }
-
+        // userId를 사용하지 않고 데이터를 가져옴
         const data = await fetchUserGalleryData();
         console.log('Fetched gallery data:', data);
         setGalleryData(data);
       } catch (error) {
         console.error('포토카드 데이터를 가져오는 데 실패했습니다:', error);
-        router.push('/login');
       }
     };
 
@@ -159,7 +149,7 @@ export default function MyGalleryPage() {
               variant='amount'
               cardId={card.id}
               cardName={card.name}
-              image={`http://localhost:8080/${card.imageUrl}`}
+              image={card.imageUrl}
               grade={convertGradeToLowerCase(card.grade)}
               genre={convertGenreToLowerCase(card.genre)}
               nickname={card.nickname}

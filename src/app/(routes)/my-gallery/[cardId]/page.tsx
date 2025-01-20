@@ -12,6 +12,7 @@ import {
   convertGenreToLowerCase,
 } from '@/src/utils/convertCase';
 import PhotoCardDetailModal from '@/src/components/marketplace/ProductModal';
+import MyGalleryModal from '@/src/components/myGallery/MyGalleryModal';
 
 export default function PhotoCardDetailPage({
   params,
@@ -65,12 +66,12 @@ export default function PhotoCardDetailPage({
   }
 
   return (
-    <div className='w-[1480px] mx-[240px]'>
+    <div className='max-w-[1480px] mx-auto pb-[180px]'>
       <PhotoCardDetail
         variant='myHoldingCard'
         cardName={photoCard.name}
         description={photoCard.description}
-        image={`http://localhost:8080/${photoCard.imageUrl}`}
+        image={photoCard.imageUrl}
         grade={convertGradeToLowerCase(photoCard.grade)}
         genre={convertGenreToLowerCase(photoCard.genre)}
         nickname={photoCard.nickname}
@@ -79,9 +80,10 @@ export default function PhotoCardDetailPage({
         price={photoCard.price}
         onSale={handleSaleClick} // 모달을 띄우는 함수로 변경
       />
-      <PhotoCardDetailModal
+      <MyGalleryModal
         isVisible={isModalVisible} // 모달 상태
         onClose={handleModalClose} // 모달 닫기 핸들러
+        cardId={photoCard.id}
       />
     </div>
   );
