@@ -5,12 +5,12 @@ import { useRouter } from 'next/navigation';
 import Grade from '../common/photoCard/atoms/grade/grade';
 import Genre from '../common/photoCard/atoms/genre/genre';
 import { createShopEntry } from '@/src/services/marketPlaceService';
-import { getCardById } from '@/src/services/mygalleryPhotocardService';
+import { getDetailCard } from '@/src/services/mygalleryPhotocardService';
 import {
   convertGradeToLowerCase,
   convertGenreToLowerCase,
 } from '@/src/utils/convertCase';
-import axiosInstance from '@/src/lib/axios/axiosInstance';
+import useAuthStore from '@/src/store/useAuthStore';
 
 interface MyGalleryModalProps {
   isVisible: boolean;
@@ -29,7 +29,7 @@ export default function MyGalleryModal({
   const [price, setPrice] = useState<number | ''>('');
   const [description, setDescription] = useState<string>('');
   const [cardData, setCardData] = useState<any>(null);
-  const [userId, setUserId] = useState<string | null>(null); // State to store userId
+  const userId = useAuthStore((state) => state.user?.id); // State to store userId
 
   const router = useRouter();
 
@@ -45,35 +45,27 @@ export default function MyGalleryModal({
   };
 
   const fetchData = async () => {
-    if (!isVisible || !cardId) return;
+    if (!isVisible || !cardId || !userId) return;
 
     try {
-      const data = await getCardById(cardId); // Fetch card data by cardId
+      const data = await getDetailCard(userId, cardId); // Fetch card data by cardId
       setCardData(data);
     } catch (err) {
       console.error('Error fetching card data:', err);
     }
   };
 
-  const fetchUserId = async () => {
-    try {
-      const response = await axiosInstance.get('/users/profile');
-      const { userId } = await response.data;
-      setUserId(userId); // Assuming the response contains the userId
-    } catch (err) {
-      console.error('Error fetching user ID:', err);
-    }
-  };
-
   useEffect(() => {
-    if (isVisible && cardId) {
+    if (isVisible && cardId && userId) {
       fetchData(); // Fetch card data
     }
-  }, [isVisible, cardId]);
+  }, [isVisible, cardId, userId]);
 
   useEffect(() => {
-    fetchUserId(); // Fetch user ID when the modal is first loaded
-  }, []);
+    if (cardData) {
+      console.log('Updated cardData:', cardData);
+    }
+  }, [cardData]);
 
   const decreaseQuantity = () => {
     setQuantity((prev) => {
@@ -115,12 +107,12 @@ export default function MyGalleryModal({
         exchangeDescription: description,
       });
       router.push(
-        `/sell-success?grade=${encodeURIComponent(cardData.grade)}&name=${encodeURIComponent(cardData.cardName)}&quantity=${quantity}`,
+        `/sell-success?grade=${encodeURIComponent(cardData.grade)}&name=${encodeURIComponent(cardData.name)}&quantity=${quantity}`,
       );
     } catch (error) {
       console.error('판매 등록 중 오류 발생:', error);
       router.push(
-        `/sell-failure?grade=${encodeURIComponent(cardData.grade)}&name=${encodeURIComponent(cardData.cardName)}&quantity=${quantity}`,
+        `/sell-failure?grade=${encodeURIComponent(cardData.grade)}&name=${encodeURIComponent(cardData.name)}&quantity=${quantity}`,
       );
     }
   };

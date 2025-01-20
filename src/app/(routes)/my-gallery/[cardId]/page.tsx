@@ -11,7 +11,6 @@ import {
   convertGradeToLowerCase,
   convertGenreToLowerCase,
 } from '@/src/utils/convertCase';
-import PhotoCardDetailModal from '@/src/components/marketplace/ProductModal';
 import MyGalleryModal from '@/src/components/myGallery/MyGalleryModal';
 
 export default function PhotoCardDetailPage({
@@ -71,8 +70,7 @@ export default function PhotoCardDetailPage({
         variant='myHoldingCard'
         cardName={photoCard.name}
         description={photoCard.description}
-        // image={photoCard.imageUrl}
-        image={'/images/sample-image-1.webp'}
+        image={photoCard.imageUrl}
         grade={convertGradeToLowerCase(photoCard.grade)}
         genre={convertGenreToLowerCase(photoCard.genre)}
         nickname={photoCard.nickname}
