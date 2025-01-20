@@ -131,6 +131,7 @@ export default function Home() {
       };
       const cards = await axiosFilteredCards(combinedFilters);
       setPhotoCards(cards);
+      console.log(cards);
     } catch (error) {
       console.error('데이터를 가져오는 중 오류가 발생했습니다:', error);
     }

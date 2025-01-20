@@ -8,6 +8,7 @@ import soldOut from '@/public/icons/sold-out.svg';
 import StateBadge from '../../atoms/stateBadge/stateBadge';
 import { CardAmountSection } from './cardAmountSection';
 import cn from '@/src/utils/cn';
+import Link from 'next/link';
 
 const CURSOR_STYLE = {
   amount: 'cursor-pointer',
@@ -30,6 +31,8 @@ export default function PhotoCardListItem(props: PhotoCardListItemProps) {
   }
 
   return (
+    // 수환님 여기 link로 적용해도 괜찮은지
+    // <Link href={`/photo-card/${props.shopId}`}>
     <article
       onClick={
         props.variant === 'amount' && props.onClick
@@ -100,5 +103,6 @@ export default function PhotoCardListItem(props: PhotoCardListItemProps) {
         />
       )}
     </article>
+    // </Link>
   );
 }

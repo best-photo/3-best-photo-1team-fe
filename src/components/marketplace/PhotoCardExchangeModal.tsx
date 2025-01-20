@@ -4,51 +4,103 @@ import { CommonBtn } from '@/src/components/common/CommonBtn/CommonBtn';
 import PhotoCardListItem from '../common/photoCard/organisms/photoCardListItem/photoCardListItem';
 import { useEffect, useState } from 'react';
 import CommonAlertModal from '../common/AlertModal/CommonAlertModal';
+import axiosInstance from '@/src/lib/axios/axiosInstance';
+import usePhotoCardStore from '@/src/store/photoCardId';
+import { useQuery } from '@tanstack/react-query';
+import { CardGenre, CardGrade } from '@/src/app/(routes)/photo-card/[id]/page';
 
 interface PhotoCardExchangeModalProps {
-  cardId: string | null;
+  shopId: string;
   onClose: () => void;
   onAllModalClose: () => void;
 }
 
+interface CardDetailresponse {
+  id: string;
+  ownerId: string;
+  name: string;
+  price: number;
+  imageUrl: string;
+  grade: CardGrade;
+  genre: CardGenre;
+  description: string;
+  totalQuantity: number;
+  remainingQuantity: number;
+  createdAt: string;
+  updatedAt: string;
+  owner: {
+    nickname: string;
+  };
+  nickname: string;
+}
+
+const proposePhotoCardExchange = async (
+  shopId: string,
+  offeredCardId: string,
+  exchangeDescription: string,
+) => {
+  const payload = {
+    shopId,
+    offeredCardId,
+    exchangeDescription,
+  };
+
+  const response = await axiosInstance.post(
+    `/cards/${shopId}/exchange`,
+    payload,
+  );
+  return response;
+};
+
+const getPhotoCard = async (cardId: string) => {
+  console.log('cardId', cardId);
+  const response = await axiosInstance.get(`/cards/public-cards/${cardId}`);
+  return response.data;
+};
+
 // 마켓플레이스 페이지 - 교환 제시 정보 입력 모달 (교환할 포토카드 선택 후) (구매자)
 const PhotoCardExchangeModal = ({
-  cardId,
+  shopId,
   onClose,
   onAllModalClose,
 }: PhotoCardExchangeModalProps) => {
-  const [card, setCard] = useState<{
-    cardId: string;
-    cardName: string;
-    grade: 'common' | 'rare' | 'superRare' | 'legendary';
-    genre: 'object' | 'landscape' | 'travel' | 'portrait';
-    nickname: string;
-    price: number;
-    totalAmount: number;
-    imageUrl: string;
-  }>({
-    cardId: '1',
-    cardName: '우리집 앞마당',
-    grade: 'legendary',
-    genre: 'landscape',
-    nickname: '최애',
-    price: 5,
-    totalAmount: 5,
-    imageUrl: '/images/sample-image-1.webp',
+  const selectedPhotoCardId = usePhotoCardStore(
+    (state) => state.selectedPhotoCardId,
+  );
+
+  console.log('selectedPhotoCardId', selectedPhotoCardId);
+
+  const {
+    data: card,
+    isLoading,
+    error,
+  } = useQuery<CardDetailresponse>({
+    queryKey: ['card', selectedPhotoCardId],
+    queryFn: () => getPhotoCard(selectedPhotoCardId as string),
+    // staleTime: 1000 * 60 * 5,
+    retry: 5,
   });
+  console.log(card);
 
-  // 카드 ID 값으로 API 호출해서 해당 카드값 알아오기
-  const getPhotoCard = () => {
-    try {
-      // 여기에 실제 API 호출 로직을 추가하세요.
-    } catch (error) {
-      console.error('Failed to fetch photo card data:', error);
-    }
-  };
-
-  useEffect(() => {
-    getPhotoCard();
-  }, [cardId]);
+  // const [card, setCard] = useState<{
+  //   cardId: string;
+  //   cardName: string;
+  //   grade: 'common' | 'rare' | 'superRare' | 'legendary';
+  //   genre: 'object' | 'landscape' | 'travel' | 'portrait';
+  //   nickname: string;
+  //   price: number;
+  //   totalAmount: number;
+  //   imageUrl: string;
+  // }>({
+  //   cardId: '1',
+  //   cardName: '우리집 앞마당',
+  //   grade: 'legendary',
+  //   genre: 'landscape',
+  //   nickname: '최애',
+  //   price: 5,
+  //   totalAmount: 5,
+  //   imageUrl: '/images/sample-image-1.webp',
+  // });
 
   // 교환 목록 취소 모달 보이기
   const [isExchangeListCancelModalVisible, setExchangeListCancelModalVisible] =
@@ -61,9 +113,27 @@ const PhotoCardExchangeModal = ({
 
   // 교환 버튼 클릭시 이벤트
   const onExchangeClick = () => {
-    console.log('교환하기 버튼 클릭');
+    if (shopId === undefined && !shopId) {
+      alert('shopId가 없습니다.');
+      return;
+    }
+
+    if (selectedPhotoCardId === undefined && !selectedPhotoCardId) {
+      alert('교환할 포토카드를 선택해주세요.');
+      return;
+    }
+
+    proposePhotoCardExchange(
+      shopId,
+      selectedPhotoCardId as string,
+      '교환 제시합니다.',
+    );
+    alert('교환 제시 완료');
     onAllModalClose();
   };
+
+  if (isLoading || !card) return <p>Loading...</p>;
+  if (error) return <p>Error</p>;
 
   return (
     <dialog className='fixed inset-0 flex items-center justify-center w-full h-full bg-[#000000CC] bg-opacity-[80] z-[50]'>
@@ -83,21 +153,22 @@ const PhotoCardExchangeModal = ({
           variant='secondary'
           font='noto'
         >
-          {card.cardName}
+          {card.name}
         </Title>
         <div className='flex'>
           {/* 공통 컴포넌트 카드 추가 해주세요 */}
           <div className='flex-1'>
             <PhotoCardListItem
-              cardId={card.cardId}
+              cardId={card.id}
               variant='amount'
-              cardName={card.cardName}
-              image={card.imageUrl}
-              grade={card.grade}
-              genre={card.genre}
+              cardName={card.name}
+              // image={card.imageUrl}  next 이미지 에러
+              image='/images/sample-image-1.webp'
+              grade={card.grade.toLocaleLowerCase()}
+              genre={card.genre.toLocaleLowerCase()}
               nickname={card.nickname}
               price={card.price}
-              totalAmount={card.totalAmount}
+              totalAmount={card.remainingQuantity}
               fontWeight='normal'
               onClick={() => console.log('Photo card clicked')}
             />

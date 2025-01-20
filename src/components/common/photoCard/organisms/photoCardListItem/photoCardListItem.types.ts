@@ -32,6 +32,7 @@ export type AmountListItem = BaseProps &
     variant: 'amount';
     cardId: string;
     onClick: (id: string) => void;
+    shopId?: string;
   };
 
 export type TradeListItem = BaseProps &
