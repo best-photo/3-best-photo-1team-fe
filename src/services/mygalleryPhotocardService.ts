@@ -79,9 +79,6 @@ export const getCardById = async (cardId: string): Promise<PhotoCard> => {
       },
     });
 
-    // 데이터 확인 (디버깅용)
-    console.log('Fetched card data:', response.data);
-
     // 서버에서 반환된 데이터가 PhotoCard 타입과 맞는지 확인하고 반환
     return response.data;
   } catch (error) {
