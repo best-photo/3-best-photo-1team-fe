@@ -7,6 +7,8 @@ import PhotoCardDetailModal from './ProductModal';
 import CommonAlertModal from '../common/AlertModal/CommonAlertModal';
 import axiosInstance from '@/src/lib/axios/axiosInstance';
 import { useRouter } from 'next/navigation';
+import { convertGenreToLowerCase } from '@/src/utils/convertCase';
+import { convertGradeToLowerCase } from './../../utils/convertCase';
 
 interface SellerViewProps {
   shopId: string;
@@ -65,18 +67,18 @@ const SellerView = ({ shopId, shopData }: SellerViewProps) => {
       <PhotoCardDetail
         variant='mySellingCard'
         cardName={shopData.card.name}
-        description={shopData.card.description}
+        description={shopData.card.description as string}
         // image={shopData.card.imageUrl}
         image='/images/sample-image-1.webp'
-        grade={shopData.card.grade.toLowerCase()}
-        genre={shopData.card.genre.toLowerCase()}
+        grade={convertGradeToLowerCase(shopData.card.grade)}
+        genre={convertGenreToLowerCase(shopData.card.genre)}
         nickname={shopData.card.owner}
         price={shopData.shop.price}
         totalAmount={shopData.shop.initialQuantity}
         remainingAmount={shopData.shop.remainingQuantity}
-        tradeGenre={shopData.shop.exchangeInfo.genre.toLowerCase()}
-        tradeGrade={shopData.shop.exchangeInfo.grade.toLowerCase()}
-        tradeDescription={shopData.shop.exchangeInfo.description}
+        tradeGenre={convertGenreToLowerCase(shopData.shop.exchangeInfo.genre)}
+        tradeGrade={convertGradeToLowerCase(shopData.shop.exchangeInfo.grade)}
+        tradeDescription={shopData.shop.exchangeInfo.description as string}
         onEdit={onEdit}
         onDelete={() => setDeleteModalVisible(true)}
       />
@@ -127,7 +129,7 @@ const SellerView = ({ shopId, shopData }: SellerViewProps) => {
       {isConfirmModalVisible && (
         <CommonAlertModal
           title='교환 제시 승인'
-          content={`[COMMON | 스페인 여행]
+          content={`[${shopData.card.grade} | ${shopData.card.name}]
 카드와의 교환을 승인하시겠습니까?`}
           buttonText='승인하기'
           onClose={() => setDeclineModalVisible(false)}

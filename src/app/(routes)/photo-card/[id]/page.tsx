@@ -33,7 +33,7 @@ interface ExchangeCardInfo {
   status: ExchangeStatus;
 }
 
-interface shopDataResponse {
+export interface shopDataResponse {
   card: {
     name: string;
     imageUrl: string;
