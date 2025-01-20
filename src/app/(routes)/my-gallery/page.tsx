@@ -159,7 +159,7 @@ export default function MyGalleryPage() {
               variant='amount'
               cardId={card.id}
               cardName={card.name}
-              image={`http://localhost:8080/${card.imageUrl}`}
+              image={card.imageUrl}
               grade={convertGradeToLowerCase(card.grade)}
               genre={convertGenreToLowerCase(card.genre)}
               nickname={card.nickname}
