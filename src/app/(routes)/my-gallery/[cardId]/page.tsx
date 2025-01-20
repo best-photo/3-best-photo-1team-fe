@@ -71,7 +71,8 @@ export default function PhotoCardDetailPage({
         variant='myHoldingCard'
         cardName={photoCard.name}
         description={photoCard.description}
-        image={photoCard.imageUrl}
+        // image={photoCard.imageUrl}
+        image={'/images/sample-image-1.webp'}
         grade={convertGradeToLowerCase(photoCard.grade)}
         genre={convertGenreToLowerCase(photoCard.genre)}
         nickname={photoCard.nickname}

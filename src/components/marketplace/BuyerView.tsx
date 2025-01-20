@@ -13,6 +13,7 @@ import {
   convertGenreToLowerCase,
   convertGradeToLowerCase,
 } from '@/src/utils/convertCase';
+import { usePurchaseAmountStore } from '@/src/store/purchaseAmountStore';
 
 interface BuyerViewProps {
   shopId: string;
@@ -33,6 +34,7 @@ const purchaseCard = async (shopId: string, quantity: number) => {
 
 const BuyerView = ({ shopId, shopData }: BuyerViewProps) => {
   const router = useRouter();
+  const amount = usePurchaseAmountStore((state) => state.amount);
 
   const [isPurchaseAlertVisible, setPurchaseAlertVisible] = useState(false);
   const [isPhotoCardExchangeModalVisible, setPhotoCardExchangeModalVisible] =
@@ -62,23 +64,32 @@ const BuyerView = ({ shopId, shopData }: BuyerViewProps) => {
   };
 
   // 포토카드 구매 이벤트
-  const onPurchaseClick = () => {
+  const onPurchaseClick = async () => {
     if (shopId === undefined && !shopId) {
       alert('shopId가 없습니다.');
       return;
     }
-    purchaseCard(shopId, 1);
-    alert('1장 구매 완료, 마이갤러리로 이동합니다.');
-    router.push(`/my-gallery`);
+
+    try {
+      await purchaseCard(shopId, amount);
+      router.push(
+        `/purchase-success?name=${shopData.card.name}&grade=${shopData.card.grade}&quantity=${amount}`,
+      );
+    } catch (error) {
+      console.error('Error purchasing card:', error);
+      router.push(
+        `/purchase-failure?name=${shopData.card.name}&grade=${shopData.card.grade}&quantity=${amount}`,
+      );
+    }
   };
 
   return (
     <>
       <PhotoCardDetail
         cardName={shopData.card.name}
-        description={shopData.card.description}
-        genre={shopData.card.genre.toLowerCase()}
-        grade={shopData.card.grade.toLowerCase()}
+        description={shopData.card.description as string}
+        genre={convertGenreToLowerCase(shopData.card.genre)}
+        grade={convertGradeToLowerCase(shopData.card.grade)}
         image={'/images/sample-image-1.webp'}
         // image={shopData.card.imageUrl}
         nickname={shopData.card.owner}
@@ -93,7 +104,7 @@ const BuyerView = ({ shopId, shopData }: BuyerViewProps) => {
       {/* 교환 희망 정보 */}
       <TradeRequest
         handleTrade={() => setPhotoCardExchangeModalVisible(true)}
-        tradeDescription={shopData.shop.exchangeInfo.description}
+        tradeDescription={shopData.shop.exchangeInfo.description as string}
         tradeGenre={convertGenreToLowerCase(shopData.shop.exchangeInfo.genre)}
         tradeGrade={convertGradeToLowerCase(shopData.shop.exchangeInfo.grade)}
       />
@@ -102,7 +113,18 @@ const BuyerView = ({ shopId, shopData }: BuyerViewProps) => {
       {shopData.exchanges.offeredExchanges.length > 0 && (
         <TradeList
           variant='outgoing'
-          trades={shopData.exchanges.offeredExchanges}
+          trades={shopData.exchanges.targetExchanges.map((exchange: any) => ({
+            id: exchange.id, // id 추가 -> 백엔드 수정 필요
+            card: {
+              name: exchange.card.name,
+              imageUrl: exchange.card.imageUrl,
+              grade: exchange.card.grade,
+              genre: exchange.card.genre,
+            },
+            requester: exchange.requester,
+            description: exchange.description,
+            status: exchange.status,
+          }))}
           onCancel={() => setModalVisible(true)}
         />
       )}
@@ -111,7 +133,7 @@ const BuyerView = ({ shopId, shopData }: BuyerViewProps) => {
       {isPurchaseAlertVisible && (
         <CommonAlertModal
           title='포토카트 구매'
-          content={`[LEGENDARY | 우리집 앞마당] 2장을 구매하시겠습니까?`}
+          content={`[${shopData.card.grade} | ${shopData.card.name}] ${amount}장을 구매하시겠습니까?`}
           buttonText='구매하기'
           onClose={() => setPurchaseAlertVisible(false)}
           onClick={onPurchaseClick}
@@ -134,7 +156,7 @@ const BuyerView = ({ shopId, shopData }: BuyerViewProps) => {
       {isModalVisible && (
         <CommonAlertModal
           title='교환 제시 취소'
-          content={`[LEGENDARY | 우리집 앞마당] 교환 제시를 취소하시겠습니까?`}
+          content={`[${shopData.card.grade} | ${shopData.card.name}] 교환 제시를 취소하시겠습니까?`}
           buttonText='취소하기'
           onClose={() => setModalVisible(false)}
           onClick={onExchangeListCancelClick}
