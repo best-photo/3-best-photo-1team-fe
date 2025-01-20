@@ -49,7 +49,7 @@ export default function SearchSection({
   onSubmitFilter,
   optionCounts,
   variant,
-  mainPageInputclassName,
+  mainPageInputclassName = '',
 }: SearchSectionProps) {
   const [keyword, setKeyword] = useState('');
   const modalOpen = useFilterStore((state) => state.modalOpen);
