@@ -76,16 +76,24 @@ export default function MyGalleryModal({
 
   const decreaseQuantity = () => {
     setQuantity((prev) => {
-      const newQuantity = prev > 0 ? prev - 1 : 0;
-      return newQuantity;
+      // 최소값은 0, 0보다 작아지지 않도록 설정
+      return prev > 0 ? prev - 1 : 0;
     });
   };
 
   const increaseQuantity = () => {
     setQuantity((prev) => {
-      const maxQuantity = cardData?.remainingAmount || 0;
-      const newQuantity = prev < maxQuantity ? prev + 1 : prev;
-      return newQuantity;
+      // cardData가 제대로 로드된 후에 remainingQuantity를 사용
+      if (cardData && cardData.remainingQuantity !== undefined) {
+        const maxQuantity = cardData.remainingQuantity || 0; // null이나 undefined일 경우 0 처리
+        if (prev < maxQuantity) {
+          return prev + 1; // maxQuantity를 초과하지 않도록 설정
+        }
+      } else {
+        // cardData가 없을 경우, quantity를 계속 증가시킬 수 있음
+        return prev + 1;
+      }
+      return prev; // 증가 조건을 만족하지 않으면 기존값 유지
     });
   };
 

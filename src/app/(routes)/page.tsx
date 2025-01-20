@@ -12,6 +12,7 @@ import {
   axiosGetFilterCountsByCategory,
 } from '@/src/services/marketPlaceService';
 import { useFilterStore } from '@/src/store/useFilterStore';
+import { useRouter } from 'next/navigation';
 
 const convertGradeToLowerCase = (
   grade: string,
@@ -58,6 +59,7 @@ export default function Home() {
   const [isProductVisible, setProductVisible] = useState(false);
   const [triggerRefresh, setTriggerRefresh] = useState(false);
   const { renderKey } = useRerenderStore();
+  const router = useRouter();
 
   const [filters, setFilters] = useState({
     grade: '',
@@ -107,6 +109,10 @@ export default function Home() {
 
   const [query, setQuery] = useState<string>('');
   const [selectedPrice, setSelectedPrice] = useState<string>('');
+
+  const PhotoCardClick = (shopId: string) => {
+    router.push(`/photo-card/${shopId}`);
+  };
 
   const fetchFilteredCards = async (
     filters: {
@@ -201,6 +207,7 @@ export default function Home() {
             <PhotoCardListItem
               key={card.cardId}
               {...card}
+              onClick={() => PhotoCardClick(card.cardId)}
             />
           ))
         ) : (

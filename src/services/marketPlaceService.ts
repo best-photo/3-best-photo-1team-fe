@@ -26,23 +26,20 @@ export const fetchAllShops = async (): Promise<any[]> => {
 };
 
 export const axiosFilteredCards = async (filters: {
-  query: string;
-  grade: string;
-  genre: string;
-  status: string;
-  placeOrder: string;
+  query?: string;
+  grade?: string;
+  genre?: string;
+  status?: string;
+  placeOrder?: string;
 }): Promise<AmountListItem[]> => {
-  const params = {
-    query: filters.query || '',
-    grade: filters.grade || '',
-    genre: filters.genre || '',
-    status: filters.status || '',
-    placeOrder: filters.placeOrder || '',
-  };
+  const params: Record<string, string> = {};
+  if (filters.query) params.query = filters.query;
+  if (filters.grade) params.grade = filters.grade;
+  if (filters.genre) params.genre = filters.genre;
+  if (filters.status) params.status = filters.status;
+  if (filters.placeOrder) params.placeOrder = filters.placeOrder;
 
-  const response = await axiosInstance.get<any[]>('/shop/cards', {
-    params,
-  });
+  const response = await axiosInstance.get<any[]>('/shop/cards', { params });
   return response.data.map((data) => {
     const mappedItem = mapApiDataToAmountListItem(data);
     const nickname = data.owner.nickname;
