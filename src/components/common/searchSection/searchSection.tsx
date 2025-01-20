@@ -15,6 +15,7 @@ import {
   STOCK_STATE_OPTION,
 } from '@/src/constants/filterOptions';
 import { SearchSectionProps } from './searchSection.types';
+import cn from '@/src/utils/cn';
 
 const CATEGORIES = {
   marketplace: FILTER_CATEGORIES.filter(
@@ -48,6 +49,7 @@ export default function SearchSection({
   onSubmitFilter,
   optionCounts,
   variant,
+  mainPageInputclassName,
 }: SearchSectionProps) {
   const [keyword, setKeyword] = useState('');
   const modalOpen = useFilterStore((state) => state.modalOpen);
@@ -84,9 +86,9 @@ export default function SearchSection({
 
   return (
     <>
-      <div className='flex gap-[10px] md:gap-[30px] lg:gap-[60px] mb-5 md:mb-10 lg:mb-[60px] justify-between md:justify-start'>
+      <div className='flex w-full gap-[10px] md:gap-[30px] lg:gap-[60px] mb-5 md:mb-10 lg:mb-[60px] justify-between md:justify-start'>
         <button
-          className='p-[12.5px] border border-white block md:hidden lg:hidden'
+          className='p-[12.5px] h-[50px] border border-white block md:hidden lg:hidden'
           onClick={() => setModalOpen(!modalOpen)}
         >
           <Image
@@ -101,7 +103,10 @@ export default function SearchSection({
           value={keyword}
           onChange={(e) => setKeyword(e.target.value)}
           placeholder='검색'
-          className='w-[290px] md:w-[200px] lg:w-[320px]'
+          className={cn(
+            'w-[290px] md:w-[200px] lg:w-[320px]',
+            mainPageInputclassName,
+          )}
           onSearchClick={handleInput}
         />
 
