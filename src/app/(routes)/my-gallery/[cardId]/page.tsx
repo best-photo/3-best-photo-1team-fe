@@ -66,7 +66,7 @@ export default function PhotoCardDetailPage({
   }
 
   return (
-    <div className='w-[1480px] mx-[240px]'>
+    <div className='max-w-[1480px] mx-auto pb-[180px]'>
       <PhotoCardDetail
         variant='myHoldingCard'
         cardName={photoCard.name}

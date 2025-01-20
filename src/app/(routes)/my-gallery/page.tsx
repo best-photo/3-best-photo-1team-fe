@@ -33,12 +33,12 @@ export default function MyGalleryPage() {
   useEffect(() => {
     const fetchGalleryData = async () => {
       try {
+        // userId를 사용하지 않고 데이터를 가져옴
         const data = await fetchUserGalleryData();
         console.log('Fetched gallery data:', data);
         setGalleryData(data);
       } catch (error) {
         console.error('포토카드 데이터를 가져오는 데 실패했습니다:', error);
-        router.push('/login');
       }
     };
 
