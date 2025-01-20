@@ -8,6 +8,10 @@ import axiosInstance from '@/src/lib/axios/axiosInstance';
 import usePhotoCardStore from '@/src/store/photoCardId';
 import { useQuery } from '@tanstack/react-query';
 import { CardGenre, CardGrade } from '@/src/app/(routes)/photo-card/[id]/page';
+import {
+  convertGenreToLowerCase,
+  convertGradeToLowerCase,
+} from './../../utils/convertCase';
 
 interface PhotoCardExchangeModalProps {
   shopId: string;
@@ -141,8 +145,8 @@ const PhotoCardExchangeModal = ({
               cardName={card.name}
               // image={card.imageUrl}  next 이미지 에러
               image='/images/sample-image-1.webp'
-              grade={card.grade.toLocaleLowerCase()}
-              genre={card.genre.toLocaleLowerCase()}
+              grade={convertGradeToLowerCase(card.grade)}
+              genre={convertGenreToLowerCase(card.genre)}
               nickname={card.nickname}
               price={card.price}
               totalAmount={card.remainingQuantity}
@@ -182,7 +186,7 @@ const PhotoCardExchangeModal = ({
       {isExchangeListCancelModalVisible && (
         <CommonAlertModal
           title='교환 제시 취소'
-          content={`[${card.grade} | ${card.cardName}] 교환 제시를 취소하시겠습니까?`}
+          content={`[${card.grade} | ${card.name}] 교환 제시를 취소하시겠습니까?`}
           buttonText='취소하기'
           onClose={() => setExchangeListCancelModalVisible(false)}
           onClick={onExchangeListCancelClick}
