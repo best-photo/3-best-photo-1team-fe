@@ -1,6 +1,9 @@
 import axiosInstance from '../lib/axios/axiosInstance';
 import { AmountListItem } from '@/src/components/common/photoCard/organisms/photoCardListItem/photoCardListItem.types';
-import { mapApiDataToAmountListItem } from '../lib/axios/types/marketplaceMain/mainpagecard.type';
+import {
+  mapApiDataToAmountListItem,
+  mapApiDataToAmountListItem1,
+} from '../lib/axios/types/marketplaceMain/mainpagecard.type';
 
 interface ShopEntryParams {
   sellerId: string;
@@ -65,7 +68,7 @@ export const axiosUserCards = async (
   const response = await axiosInstance.get(`/shop/cards/${userId}`, {
     params,
   });
-  const mapData = response.data.map(mapApiDataToAmountListItem);
+  const mapData = response.data.map(mapApiDataToAmountListItem1);
   console.log(mapData);
   return mapData;
 };
@@ -86,6 +89,7 @@ export const createShopEntry = async (
 export const fetchCardByUserAndId = async (userId: string, cardId: string) => {
   try {
     const response = await axiosInstance.get(`/shop/card/${userId}/${cardId}`);
+    console.log(response.data);
     const mappedData = mapApiDataToAmountListItem(response.data);
     console.log('Mapped Data:', mappedData);
     return mappedData;
@@ -111,8 +115,25 @@ export const axiosGetFilterCountsByCategory = async (
     if (Array.isArray(response.data)) {
       return response.data;
     }
+    return [];
+  } catch (error) {
+    console.error('Error fetching category data:', error);
+    return [];
+  }
+};
 
-    console.warn('Unexpected response format:', response.data);
+export const axiosGetFilterCountsByCategoryID = async (
+  category: 'grades' | 'genres' | 'stockState',
+  userId: string,
+): Promise<number[]> => {
+  try {
+    const response = await axiosInstance.get(
+      `/shop/filters/${userId}/${category}`,
+    );
+
+    if (Array.isArray(response.data)) {
+      return response.data;
+    }
     return [];
   } catch (error) {
     console.error('Error fetching category data:', error);

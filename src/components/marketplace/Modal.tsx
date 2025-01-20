@@ -6,7 +6,11 @@ import SearchSection from '../common/searchSection/searchSection';
 import usePhotoCardStore from '@/src/store/photoCardId';
 import useAuthStore from '@/src/store/useAuthStore';
 import { usePathname } from 'next/navigation';
-import { axiosUserCards } from '@/src/services/marketPlaceService';
+import {
+  axiosGetFilterCountsByCategoryID,
+  axiosUserCards,
+} from '@/src/services/marketPlaceService';
+import { useFilterStore } from '@/src/store/useFilterStore';
 
 export function Modal({
   onClose,
@@ -34,8 +38,42 @@ export function Modal({
   const [userCards, setUserCards] = useState<AmountListItem[]>([]);
   const [filters, setFilters] = useState({ grade: '', genre: '' });
   const [query, setQuery] = useState('');
-
+  const [optionCounts, setOptionCounts] = useState<number[]>([]); // optionCounts 상태 관리
+  const { selectedCategory } = useFilterStore();
   const userId = useAuthStore((state) => state.user?.id);
+
+  useEffect(() => {
+    const fetchCategoryData = async () => {
+      if (!selectedCategory || !selectedCategory.value) return;
+
+      try {
+        const categoryMap: Record<string, 'grades' | 'genres' | 'stockState'> =
+          {
+            등급: 'grades',
+            장르: 'genres',
+            '매진 여부': 'stockState',
+          };
+
+        const category = categoryMap[selectedCategory.value];
+
+        if (!userId) return;
+
+        if (!category) {
+          throw new Error(`Unsupported category: ${selectedCategory.value}`);
+        }
+
+        const data = await axiosGetFilterCountsByCategoryID(category, userId);
+
+        setOptionCounts(data);
+
+        console.log(`Updated counts for ${category}:`, data);
+      } catch (error) {
+        console.error('Error fetching category data:', error);
+      }
+    };
+
+    fetchCategoryData();
+  }, [selectedCategory]);
 
   const fetchUserCards = async (
     filters: { grade: string; genre: string },
@@ -112,8 +150,7 @@ export function Modal({
             <div className='flex flex-row gap-[10px] mt-[30px] ml-[120px]'>
               <SearchSection
                 variant='myGallery'
-                // 수정 필요
-                optionCounts={[10, 10]}
+                optionCounts={optionCounts}
                 onSubmitFilter={handleFilterChange}
               />
             </div>
