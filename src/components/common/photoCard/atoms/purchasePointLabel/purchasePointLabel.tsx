@@ -7,7 +7,10 @@ export default function PurchasePointLabel({
 }: PurchasePointLabelProps) {
   return (
     <span>
-      <span className={cn('text-white', className)}>{point}P</span> 에 구매
+      <span className={cn('text-white', className)}>
+        {point.toLocaleString()}P
+      </span>{' '}
+      에 구매
     </span>
   );
 }
