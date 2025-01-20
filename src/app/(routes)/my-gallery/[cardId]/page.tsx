@@ -12,6 +12,7 @@ import {
   convertGenreToLowerCase,
 } from '@/src/utils/convertCase';
 import PhotoCardDetailModal from '@/src/components/marketplace/ProductModal';
+import MyGalleryModal from '@/src/components/myGallery/MyGalleryModal';
 
 export default function PhotoCardDetailPage({
   params,
@@ -79,9 +80,10 @@ export default function PhotoCardDetailPage({
         price={photoCard.price}
         onSale={handleSaleClick} // 모달을 띄우는 함수로 변경
       />
-      <PhotoCardDetailModal
+      <MyGalleryModal
         isVisible={isModalVisible} // 모달 상태
         onClose={handleModalClose} // 모달 닫기 핸들러
+        cardId={photoCard.id}
       />
     </div>
   );
