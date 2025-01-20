@@ -43,10 +43,10 @@ export const axiosFilteredCards = async (filters: {
   return response.data.map((data) => {
     const mappedItem = mapApiDataToAmountListItem(data);
     const nickname = data.owner.nickname;
-    return { ...mappedItem, nickname };
+    const shopId = data.Shop.id;
+    return { ...mappedItem, nickname, shopId };
   });
 };
-
 export const axiosUserCards = async (
   userId: string,
   filters: {
