@@ -152,9 +152,9 @@ export default function PhotoCardDetailModal({
           <div className='border-b border-white w-[920px] mx-auto mt-[192px]'></div>
           <div>
             <Image
-              src='/images/sample-image-3.webp'
+              src={cardData.image}
               alt='Search Icon'
-              className='fixed top-[243px] left-[120px]'
+              className='fixed top-[243px] left-[120px] lg:w-[440px] lg:h-[330px] md:w-[342px] md:h-[260px] sm:w-[345px] sm:h-[258.75px]'
               width={440}
               height={330}
             />
