@@ -10,6 +10,7 @@ import {
   convertGradeToLowerCase,
   convertGenreToLowerCase,
 } from '@/src/utils/convertCase';
+import axiosInstance from '@/src/lib/axios/axiosInstance';
 
 interface MyGalleryModalProps {
   isVisible: boolean;
@@ -56,9 +57,9 @@ export default function MyGalleryModal({
 
   const fetchUserId = async () => {
     try {
-      const response = await fetch('/api/auth/user');
-      const data = await response.json();
-      setUserId(data.userId); // Assuming the response contains the userId
+      const response = await axiosInstance.get('/users/profile');
+      const { userId } = await response.data;
+      setUserId(userId); // Assuming the response contains the userId
     } catch (err) {
       console.error('Error fetching user ID:', err);
     }
