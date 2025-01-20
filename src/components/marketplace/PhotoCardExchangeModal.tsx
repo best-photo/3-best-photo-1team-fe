@@ -68,8 +68,6 @@ const PhotoCardExchangeModal = ({
     (state) => state.selectedPhotoCardId,
   );
 
-  console.log('selectedPhotoCardId', selectedPhotoCardId);
-
   const {
     data: card,
     isLoading,
@@ -80,27 +78,6 @@ const PhotoCardExchangeModal = ({
     // staleTime: 1000 * 60 * 5,
     retry: 5,
   });
-  console.log(card);
-
-  // const [card, setCard] = useState<{
-  //   cardId: string;
-  //   cardName: string;
-  //   grade: 'common' | 'rare' | 'superRare' | 'legendary';
-  //   genre: 'object' | 'landscape' | 'travel' | 'portrait';
-  //   nickname: string;
-  //   price: number;
-  //   totalAmount: number;
-  //   imageUrl: string;
-  // }>({
-  //   cardId: '1',
-  //   cardName: '우리집 앞마당',
-  //   grade: 'legendary',
-  //   genre: 'landscape',
-  //   nickname: '최애',
-  //   price: 5,
-  //   totalAmount: 5,
-  //   imageUrl: '/images/sample-image-1.webp',
-  // });
 
   // 교환 목록 취소 모달 보이기
   const [isExchangeListCancelModalVisible, setExchangeListCancelModalVisible] =
