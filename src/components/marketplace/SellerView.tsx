@@ -5,30 +5,22 @@ import PhotoCardDetail from '@/src/components/common/photoCard/organisms/photoCa
 import TradeList from '@/src/components/common/photoCard/organisms/tradeList/tradeList';
 import PhotoCardDetailModal from './ProductModal';
 import CommonAlertModal from '../common/AlertModal/CommonAlertModal';
+import axiosInstance from '@/src/lib/axios/axiosInstance';
+import { useRouter } from 'next/navigation';
 
 interface SellerViewProps {
-  cardId: string;
+  shopId: string;
+  shopData: any;
 }
 
-const SellerView = ({ cardId }: SellerViewProps) => {
-  const [tradeCardList, setTradeCardList] = useState([
-    {
-      id: '1',
-      cardName: '풍경 사진 1',
-      grade: 'rare' as const,
-      genre: 'landscape' as const,
-      nickname: '사용자1',
-      price: 1000,
-      image: {
-        src: '/images/sample-image-1.webp',
-        blurDataURL: '/images/sample-image-1-blur.webp',
-        height: 270,
-        width: 360,
-      },
-      description: '아름다운 풍경 사진입니다.',
-    },
-    // ... other trade cards
-  ]);
+const removeShop = async (shopId: string) => {
+  const response = await axiosInstance.delete(`/shop/${shopId}`);
+  return response.data;
+};
+
+const SellerView = ({ shopId, shopData }: SellerViewProps) => {
+  console.log(shopData);
+  const router = useRouter();
 
   const [isPhotoCardDetailModalVisible, setPhotoCardDetailModalVisible] =
     useState(false);
@@ -49,6 +41,7 @@ const SellerView = ({ cardId }: SellerViewProps) => {
   };
 
   const onConfirm = (id: string) => {
+    setConfirmModalVisible(true);
     console.log(id, '교환제시 승인하기');
     // 교환 제시 해당 카드 승인 API 호출
   };
@@ -59,32 +52,59 @@ const SellerView = ({ cardId }: SellerViewProps) => {
     setPhotoCardDetailModalVisible(true);
   };
 
+  const onDelete = () => {
+    console.log('판매 내리기');
+    removeShop(shopId);
+    alert('판매 내리기 성공');
+    setDeleteModalVisible(true);
+    router.push('/');
+  };
+
   return (
     <>
       <PhotoCardDetail
         variant='mySellingCard'
-        cardName='우리집 앞마당'
-        description='우리집 앞마당 사진이에요 멋지죠? 우리집 앞마당 사진이에요 멋지죠? 우리집 앞마당 사진이에요 '
+        cardName={shopData.card.name}
+        description={shopData.card.description}
+        // image={shopData.card.imageUrl}
         image='/images/sample-image-1.webp'
-        grade='legendary'
-        genre='landscape'
-        nickname='미쓰손'
-        price={4}
-        totalAmount={5}
-        remainingAmount={2}
-        tradeGenre='travel'
-        tradeGrade='legendary'
-        tradeDescription='여행 사진이 갖고 싶어요.'
+        grade={shopData.card.grade.toLowerCase()}
+        genre={shopData.card.genre.toLowerCase()}
+        nickname={shopData.card.owner}
+        price={shopData.shop.price}
+        totalAmount={shopData.shop.initialQuantity}
+        remainingAmount={shopData.shop.remainingQuantity}
+        tradeGenre={shopData.shop.exchangeInfo.genre.toLowerCase()}
+        tradeGrade={shopData.shop.exchangeInfo.grade.toLowerCase()}
+        tradeDescription={shopData.shop.exchangeInfo.description}
         onEdit={onEdit}
         onDelete={() => setDeleteModalVisible(true)}
       />
       <div className='mb-[120px]'></div>
+      {/* 교환 제시 목록 */}
       <TradeList
         variant='incoming'
-        trades={tradeCardList}
+        trades={shopData.exchanges.targetExchanges.map((exchange: any) => ({
+          id: exchange.id, // id 추가 -> 백엔드 수정 필요
+          card: {
+            name: exchange.card.name,
+            imageUrl: exchange.card.imageUrl,
+            grade: exchange.card.grade,
+            genre: exchange.card.genre,
+          },
+          requester: exchange.requester,
+          description: exchange.description,
+          status: exchange.status,
+        }))}
         onConfirm={onConfirm}
         onDecline={onDecline}
       />
+      {shopData.exchanges.targetExchanges.length === 0 && (
+        <p className='text-center text-gray-400 text-3xl'>
+          교환 제시가 없습니다.
+        </p>
+      )}
+
       {isPhotoCardDetailModalVisible && (
         <PhotoCardDetailModal
           isVisible={true}
@@ -123,11 +143,12 @@ const SellerView = ({ cardId }: SellerViewProps) => {
           title='포토카드 판매 내리기'
           content={`정말로 판매를 중단하시겠습니까?`}
           buttonText='판매 내리기'
-          onClose={() => setDeclineModalVisible(false)}
+          onClose={() => setDeleteModalVisible(false)}
           onClick={() => {
             // 교환 제시 거절 API 호출
-            console.log('판매 내리기 버튼 클릭됨');
-            setDeleteModalVisible(false);
+            // console.log('판매 내리기 버튼 클릭됨');
+            // setDeleteModalVisible(false);
+            onDelete();
           }}
         />
       )}

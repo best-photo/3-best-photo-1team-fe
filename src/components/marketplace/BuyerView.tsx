@@ -8,15 +8,27 @@ import TradeList from '@/src/components/common/photoCard/organisms/tradeList/tra
 import CommonAlertModal from '@/src/components/common/AlertModal/CommonAlertModal';
 import { Modal } from '@/src/components/marketplace/Modal';
 import PhotoCardExchangeModal from '@/src/components/marketplace/PhotoCardExchangeModal';
-import usePhotoCardStore from '@/src/store/photoCardId';
+import axiosInstance from '@/src/lib/axios/axiosInstance';
 
 interface BuyerViewProps {
-  cardId: string;
+  shopId: string;
+  shopData: any;
 }
 
-const BuyerView = ({ cardId }: BuyerViewProps) => {
+const purchaseCard = async (shopId: string, quantity: number) => {
+  const payload = {
+    shopId,
+    quantity,
+  };
+
+  const response = await axiosInstance.post('/shop/purchase', payload, {
+    withCredentials: true,
+  });
+  return response;
+};
+
+const BuyerView = ({ shopId, shopData }: BuyerViewProps) => {
   const router = useRouter();
-  const { selectedPhotoCardId } = usePhotoCardStore();
 
   const [tradeCardList, setTradeCardList] = useState([
     {
@@ -26,12 +38,7 @@ const BuyerView = ({ cardId }: BuyerViewProps) => {
       genre: 'landscape' as const,
       nickname: '사용자1',
       price: 1000,
-      image: {
-        src: '/images/sample-image-1.webp',
-        blurDataURL: '/images/sample-image-1-blur.webp',
-        height: 270,
-        width: 360,
-      },
+      image: '/images/sample-image-1.webp',
       description: '아름다운 풍경 사진입니다.',
     },
     // ... other trade cards
@@ -54,49 +61,61 @@ const BuyerView = ({ cardId }: BuyerViewProps) => {
   };
 
   const onAllModalClose = () => {
-    setModalVisible(false);
-    setExchangeModalVisible(false);
+    setPurchaseAlertVisible(false);
     setPhotoCardExchangeModalVisible(false);
+    setExchangeModalVisible(false);
+    setModalVisible(false);
   };
 
   const onExchangeListCancelClick = () => {
     setModalVisible(false);
   };
 
+  // 포토카드 구매 이벤트
+  const onPurchaseClick = () => {
+    if (shopId === undefined && !shopId) {
+      alert('shopId가 없습니다.');
+      return;
+    }
+    purchaseCard(shopId, 1);
+    alert('1장 구매 완료, 마이갤러리로 이동합니다.');
+    router.push(`/my-gallery`);
+  };
+
   return (
     <>
       <PhotoCardDetail
-        cardName='우리집 앞마당'
-        description='우리집 앞마당 사진이에요 멋지죠? 우리집 앞마당 사진이에요 멋지죠? 우리집 앞마당 사진이에요 '
-        genre='landscape'
-        grade='legendary'
-        image={{
-          blurDataURL: '/images/sample-image-1.webp',
-          height: 270,
-          src: '/images/sample-image-1.webp',
-          width: 360,
-        }}
-        nickname='미쓰손'
-        price={4}
-        remainingAmount={2}
-        totalAmount={5}
+        cardName={shopData.card.name}
+        description={shopData.card.description}
+        genre={shopData.card.genre.toLowerCase()}
+        grade={shopData.card.grade.toLowerCase()}
+        image={'/images/sample-image-1.webp'}
+        // image={shopData.card.imageUrl}
+        nickname={shopData.card.owner}
+        price={shopData.shop.price}
+        remainingAmount={shopData.shop.remainingQuantity}
+        totalAmount={shopData.shop.initialQuantity}
         variant='othersCard'
         onPurchase={() => setPurchaseAlertVisible(true)}
-        maxAmount={10}
+        maxAmount={shopData.shop.remainingQuantity}
       />
       <div className='mb-[120px]'></div>
+      {/* 교환 희망 정보 */}
       <TradeRequest
         handleTrade={() => setPhotoCardExchangeModalVisible(true)}
-        tradeDescription='풍경 사진으로 교환하고 싶어요.'
-        tradeGenre='landscape'
-        tradeGrade='legendary'
+        tradeDescription={shopData.shop.exchangeInfo.description}
+        tradeGenre={shopData.shop.exchangeInfo.genre.toLowerCase()}
+        tradeGrade={shopData.shop.exchangeInfo.grade.toLowerCase()}
       />
       <div className='mb-[120px]'></div>
-      <TradeList
-        variant='outgoing'
-        trades={tradeCardList}
-        onCancel={() => setModalVisible(true)}
-      />
+      {/* 내가 제시한 교환 목록 */}
+      {shopData.exchanges.offeredExchanges.length > 0 && (
+        <TradeList
+          variant='outgoing'
+          trades={shopData.exchanges.offeredExchanges}
+          onCancel={() => setModalVisible(true)}
+        />
+      )}
 
       {/* Modals */}
       {isPurchaseAlertVisible && (
@@ -105,10 +124,11 @@ const BuyerView = ({ cardId }: BuyerViewProps) => {
           content={`[LEGENDARY | 우리집 앞마당] 2장을 구매하시겠습니까?`}
           buttonText='구매하기'
           onClose={() => setPurchaseAlertVisible(false)}
-          onClick={() =>
-            router.push(
-              `/purchase-success?grade=legendary&name=우리집 앞마당&quantity=2`,
-            )
+          onClick={
+            onPurchaseClick
+            // router.push(
+            //   `/purchase-success?grade=legendary&name=우리집 앞마당&quantity=2`,
+            // )
           }
         />
       )}
@@ -121,8 +141,8 @@ const BuyerView = ({ cardId }: BuyerViewProps) => {
       )}
       {isExchangeModalVisible && (
         <PhotoCardExchangeModal
+          shopId={shopId}
           onClose={onExchangeModalVisibleClose}
-          cardId={selectedPhotoCardId}
           onAllModalClose={onAllModalClose}
         />
       )}
