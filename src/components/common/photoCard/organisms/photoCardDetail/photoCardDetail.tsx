@@ -58,7 +58,6 @@ export default function PhotoCardDetail(props: PhotoCardDetailProps) {
           loading='lazy'
           width={960}
           height={720}
-          priority={true}
           quality={90}
           className='w-[358px] md:w-[342px] lg:w-[960px] h-[258px] md:h-[256.5px] lg:h-[720px] object-cover'
         />
