@@ -110,6 +110,42 @@
 
 ### 함헌규
 
+#### 공통 컴포넌트 구현
+- variant와 입력된 props를 통해 하나의 컴포넌트를 다양한 형태로 사용할 수 있도록 구현
+- 개발한 공통 컴포넌트를 팀원들이 사용하기 편하도록 Storybook을 통해 문서화
+- 재사용성을 높이기 위해 Atomic Design Pattern을 통해 세부 컴포넌트들을 개별 컴포넌트로 구현.(세부 컴포넌트 중 다른 팀원이 개발한 것들도 다수 있습니다.)
+
+##### 카드 조회 상세페이지 컴포넌트
+<p align="center">
+  <img src="https://github.com/user-attachments/assets/0b150b96-b453-4e29-9e5b-03397627f700" width="900" />
+</p>
+
+##### 카드 목록 아이템
+<p align="center">
+  <img src="https://github.com/user-attachments/assets/30d07be6-c789-445f-bdbc-9eb88204c57f" width="900" />
+</p>
+
+##### 카드 수량 컴포넌트
+<p align="center">
+  <img src="https://github.com/user-attachments/assets/1c394d02-7389-4f95-9711-c14920665345" width="900" />
+</p>
+
+##### 타이틀 컴포넌트
+<p align="center">
+  <img src="https://github.com/user-attachments/assets/11a3bab4-86ca-4759-8a2b-e398220221a0" width="900" />
+</p>
+
+##### 필터 그룹
+<p align="center">
+  <img src="https://github.com/user-attachments/assets/b36dcc8b-0b59-4792-8a8e-6e9cc8040c35" width="900" />
+</p>
+
+#### 나의 판매 포토카드 페이지
+
+- 나의 판매 포토카드 수량 조회 API를 호출해서 판매중인 수량을 등급별로 표시
+- 검색 키워드,필터 옵션에 따라서 필터링할 쿼리 파라미터를 입력해서 API 호출하고 불러온 데이터를 카드 컴포넌트를 사용해 표시
+- 무한스크롤을 통해 최초 30개 이후 스크롤을 내리면 데이터를 더 불러오는 기능 구현
+
 
 ## 파일 구조
 
