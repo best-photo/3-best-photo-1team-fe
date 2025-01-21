@@ -113,17 +113,16 @@ const BuyerView = ({ shopId, shopData }: BuyerViewProps) => {
       {shopData.exchanges.offeredExchanges.length > 0 && (
         <TradeList
           variant='outgoing'
-          trades={shopData.exchanges.targetExchanges.map((exchange: any) => ({
+          trades={shopData.exchanges.offeredExchanges.map((exchange: any) => ({
             id: exchange.id, // id 추가 -> 백엔드 수정 필요
-            card: {
-              name: exchange.card.name,
-              imageUrl: exchange.card.imageUrl,
-              grade: exchange.card.grade,
-              genre: exchange.card.genre,
-            },
-            requester: exchange.requester,
+            name: exchange.card.name,
+            image: exchange.card.imageUrl,
+            grade: exchange.card.grade
+              .toLowerCase()
+              .replace('super_rare', 'superRare'),
+            genre: exchange.card.genre.toLowerCase(),
+            nickname: 'test2',
             description: exchange.description,
-            status: exchange.status,
           }))}
           onCancel={() => setModalVisible(true)}
         />
