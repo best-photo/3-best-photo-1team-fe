@@ -6,13 +6,14 @@
 - [배포 링크](https://www.ooyoo.dev/)
 
 ## 팀원 구성
-
-- [강대원](https://github.com/Daewony)
-- [박수환](https://github.com/soohwanpak)
-- [이현우](https://github.com/gealot)
-- [임예지](https://github.com/Bluemoon105)
-- [정유석](https://github.com/yousuk88)
-- [함헌규](https://github.com/heonq)
+| 이름 | 역할 | Github |
+|------|------|---------|
+| 🧭 강대원 | FullStack | [@Daewony](https://github.com/Daewony) |
+| 🌟 박수환 | FullStack | [@soohwanpak](https://github.com/soohwanpak) |
+| 🏗️ 이현우 | FullStack | [@gealot](https://github.com/gealot) |
+| 🎯 임예지 | FullStack | [@Bluemoon105](https://github.com/Bluemoon105) |
+| 💫 정유석 | FullStack | [@yousuk88](https://github.com/yousuk88) |
+| 🎨 함헌규 | FullStack | [@heonq](https://github.com/heonq) |
 
 
 ## 프로젝트 소개
@@ -41,6 +42,7 @@
   - 공통 버튼
   - GNB
 - 카드 판매 상세 페이지(구매자 및 판매자) 구현
+노션:
 
 ### 박수환
 
