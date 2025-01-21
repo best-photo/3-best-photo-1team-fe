@@ -1,3 +1,10 @@
+# 최애의 포토
+
+## 프로젝트 소개
+
+- 개인용 디지털 사진첩 생성 플랫폼, 최애의 포토
+- 🗓️ 프로젝트 기간: 2024.12.27 ~ 2025.1.21
+
 # 풀스택 3기 파트3 1팀
 
 - [팀 문서](https://www.notion.so/chobodev/16924202780c809a9cdee8926986f244?v=16924202780c811580b1000c2847f948)
@@ -14,13 +21,6 @@
 | 🎯 임예지 | FullStack | [@Bluemoon105](https://github.com/Bluemoon105) |
 | 💫 정유석 | FullStack | [@yousuk88](https://github.com/yousuk88) |
 | 🎨 함헌규 | FullStack | [@heonq](https://github.com/heonq) |
-
-
-## 프로젝트 소개
-
-- 개인용 디지털 사진첩 생성 플랫폼, 최애의 포토
-- 프로젝트 기간: 2024.12.27 ~ 2025.1.21
-
 
 ## 기술 스택(프론트엔드)
 
