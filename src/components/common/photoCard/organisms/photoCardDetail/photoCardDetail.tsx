@@ -55,6 +55,7 @@ export default function PhotoCardDetail(props: PhotoCardDetailProps) {
         <Image
           src={image}
           alt={cardName}
+          loading='lazy'
           width={960}
           height={720}
           priority={true}
