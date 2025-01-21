@@ -68,8 +68,8 @@ const SellerView = ({ shopId, shopData }: SellerViewProps) => {
         variant='mySellingCard'
         cardName={shopData.card.name}
         description={shopData.card.description as string}
-        // image={shopData.card.imageUrl}
-        image='/images/sample-image-1.webp'
+        image={shopData.card.imageUrl}
+        // image='/images/sample-image-1.webp'
         grade={convertGradeToLowerCase(shopData.card.grade)}
         genre={convertGenreToLowerCase(shopData.card.genre)}
         nickname={shopData.card.owner}

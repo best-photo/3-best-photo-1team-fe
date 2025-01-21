@@ -90,8 +90,8 @@ const BuyerView = ({ shopId, shopData }: BuyerViewProps) => {
         description={shopData.card.description as string}
         genre={convertGenreToLowerCase(shopData.card.genre)}
         grade={convertGradeToLowerCase(shopData.card.grade)}
-        image={'/images/sample-image-1.webp'}
-        // image={shopData.card.imageUrl}
+        // image={'/images/sample-image-1.webp'}
+        image={shopData.card.imageUrl}
         nickname={shopData.card.owner}
         price={shopData.shop.price}
         remainingAmount={shopData.shop.remainingQuantity}
