@@ -10,8 +10,8 @@ function PurchaseSuccessContent() {
   const router = useRouter();
   const searchParams = useSearchParams();
   const grade = searchParams.get('grade');
-  const name = searchParams.get('name');
-  const quantity = searchParams.get('quantity');
+  const name = decodeURIComponent(searchParams.get('name') || '-');
+  const quantity = searchParams.get('quantity') || '1';
 
   const handleNavigation = () => {
     router.push('/my-gallery');
