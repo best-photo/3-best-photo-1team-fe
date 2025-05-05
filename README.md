@@ -4,6 +4,7 @@
 
 - 개인용 디지털 사진첩 생성 플랫폼, 최애의 포토
 - 🗓️ 프로젝트 기간: 2024.12.27 ~ 2025.1.21
+- 시연영상 및 발표자료(Google Drive) : https://drive.google.com/drive/folders/18qtKHCPeYLBP6-7kKVRYCRrBeVxNxTTM
 
 # 풀스택 3기 파트3 1팀
 
